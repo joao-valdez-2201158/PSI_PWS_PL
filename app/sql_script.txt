@@ -1,0 +1,145 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema Travel_Flight_Air
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema Travel_Flight_Air
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `Travel_Flight_Air` DEFAULT CHARACTER SET utf8 ;
+USE `Travel_Flight_Air` ;
+
+-- -----------------------------------------------------
+-- Table `Travel_Flight_Air`.`airports`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Travel_Flight_Air`.`airports` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `localization` VARCHAR(255) NOT NULL,
+  `telefone` INT(50) NOT NULL,
+  `email` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+
+-- -----------------------------------------------------
+-- Table `Travel_Flight_Air`.`airplanes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Travel_Flight_Air`.`airplanes` (
+  `id_airplane` INT NOT NULL AUTO_INCREMENT,
+  `reference` VARCHAR(45) NULL,
+  `lotation` FLOAT NOT NULL,
+  `airplane_type` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id_airplane`));
+
+
+-- -----------------------------------------------------
+-- Table `Travel_Flight_Air`.`flights`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Travel_Flight_Air`.`flights` (
+  `id_number` INT NOT NULL,
+  `id_airplane` VARCHAR(45) NULL,
+  `price` FLOAT NOT NULL,
+  PRIMARY KEY (`id_number`),
+  INDEX `id_airplane_fk_idx` (`id_airplane` ASC),
+  CONSTRAINT `id_airplane_fk`
+    FOREIGN KEY (`id_airplane`)
+    REFERENCES `Travel_Flight_Air`.`airplanes` (`id_airplane`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `Travel_Flight_Air`.`stopovers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Travel_Flight_Air`.`stopovers` (
+  `id_stopover` VARCHAR(45) NOT NULL,
+  `hour_of_departure` DATE NOT NULL,
+  `hour_of_arrival` DATE NOT NULL,
+  `id_destination` INT NOT NULL,
+  `id_departure` INT NOT NULL,
+  `Stopovercol` VARCHAR(255) NULL,
+  PRIMARY KEY (`id_stopover`),
+  INDEX `fk_Stopover_AirPort3_idx` (`id_destination` ASC) ,
+  INDEX `fk_Stopover_AirPort4_idx` (`id_departure` ASC) ,
+  CONSTRAINT `fk_Stopover_AirPort3`
+    FOREIGN KEY (`id_destination`)
+    REFERENCES `Travel_Flight_Air`.`airports` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Stopover_AirPort4`
+    FOREIGN KEY (`id_departure`)
+    REFERENCES `Travel_Flight_Air`.`airports` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `Travel_Flight_Air`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Travel_Flight_Air`.`users` (
+  `id_user` INT NOT NULL AUTO_INCREMENT,
+  `role` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `address` VARCHAR(45) NOT NULL,
+  `nif` VARCHAR(45) NOT NULL,
+  `username` VARCHAR(16) NOT NULL,
+  `password` VARCHAR(32) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `telephone` VARCHAR(45) NOT NULL,
+  `birthday_date` DATE NOT NULL,
+  PRIMARY KEY (`id_user`));
+
+
+-- -----------------------------------------------------
+-- Table `Travel_Flight_Air`.`tickets`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Travel_Flight_Air`.`tickets` (
+  `id_user` INT NOT NULL,
+  `flight_id_number` INT NOT NULL,
+  `id_departure_flight` INT NOT NULL,
+  `id_return_flight` INT NOT NULL,
+  `price` FLOAT NOT NULL,
+  `date` DATE NOT NULL,
+  `check-in` DATE NOT NULL,
+  INDEX `fk_tickets_Flight1_idx` (`flight_id_number` ASC) ,
+  INDEX `fk_tickets_User1_idx` (`id_user` ASC) ,
+  CONSTRAINT `fk_tickets_Flight1`
+    FOREIGN KEY (`flight_id_number`)
+    REFERENCES `Travel_Flight_Air`.`flights` (`id_number`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tickets_User1`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `Travel_Flight_Air`.`users` (`id_user`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `Travel_Flight_Air`.`airplanes-stopovers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `Travel_Flight_Air`.`airplanesstopovers` (
+  `id_airplane` VARCHAR(45) NOT NULL,
+  `id_stopover` VARCHAR(45) NOT NULL,
+  `passengers_quantity` INT NOT NULL,
+  INDEX `id_airplane_fk_idx` (`id_airplane` ASC),
+  INDEX `id_stopover_fk_idx` (`id_stopover` ASC),
+  CONSTRAINT `id_airplane_fk`
+    FOREIGN KEY (`id_airplane`)
+    REFERENCES `Travel_Flight_Air`.`airplanes` (`id_airplane`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `id_stopover_fk`
+    FOREIGN KEY (`id_stopover`)
+    REFERENCES `Travel_Flight_Air`.`stopovers` (`id_stopover`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
