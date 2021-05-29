@@ -1,0 +1,6 @@
+/*
+!/weblogicmvc
+!/.gitignore
+!/docs
+/weblogicmvc/vendor
+/weblogicmvc/.idea
