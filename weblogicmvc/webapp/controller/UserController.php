@@ -5,6 +5,7 @@ use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
+use User;
 
 class UserController extends BaseController implements ResourceControllerInterface
 {
@@ -12,7 +13,8 @@ class UserController extends BaseController implements ResourceControllerInterfa
     public function index()
     {
         $users = User::all();
-        return View::make('user.index', ['users' => $users]);    }
+        return View::make('user.index', ['users' => $users]);
+    }
 
     public function create()
     {
@@ -21,7 +23,9 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function store()
     {
+
         $user = new User(Post::getAll());
+        $user->password = md5($user->password, false);
 
         if($user->is_valid()){
             $user->save();
@@ -35,10 +39,13 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         $user = User::find([$id]);
 
+
         if (is_null($user)) {
+
         } else {
             return View::make('user.show', ['user' => $user]);
-        }    }
+        }
+    }
 
     public function edit($id)
     {
@@ -74,8 +81,10 @@ class UserController extends BaseController implements ResourceControllerInterfa
         return View::make('user.login');
 
     }
-    public function autenticacao()
+
+    public function makelogin()
     {
+
        $username = Post::get('username');
        $password = Post::get('password');
        $password = md5($password, false);
@@ -85,7 +94,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
 
         if(is_null($user)){
-
+            Redirect::toRoute('home/start');
        }else{
            \ArmoredCore\WebObjects\Session::set('user',$user);
            Redirect::toRoute('home/start');

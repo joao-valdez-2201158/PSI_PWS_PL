@@ -17,14 +17,13 @@ Layout::includeLayout('header') ?>
     <h2 class="top-space"></h2>
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-striped"><thead><th><h3>Name</h3></th><th><h3>Nif</h3></th><th><h3>Username</h3></th><th><h3>Password</h3></th><th><h3>Address</h3></th><th><h3>Telephone</h3></th><th><h3>Email</h3></th><th><h3>Role</h3></th></thead>
+            <table class="table table-striped"><thead><th><h3>Name</h3></th><th><h3>Nif</h3></th><th><h3>Username</h3></th><th><h3>Address</h3></th><th><h3>Telephone</h3></th><th><h3>Email</h3></th><th><h3>Role</h3></th></thead>
                 <tbody>
                 <?php foreach ($users as $user) { ?>
                 <tr>
                     <td><?=$user->name?></td>
                     <td><?=$user->nif?></td>
                     <td><?=$user->username?></td>
-                    <td><?=$user->password?></td>
                     <td><?=$user->address?></td>
                     <td><?=$user->telephone?></td>
                     <td><?=$user->email?></td>

@@ -23,7 +23,7 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-                        <form method="post" action="<?=Url::toRoute('user/login')?>">
+                        <form method="post" action="<?=Url::toRoute('user/makelogin')?>">
                             <div class="top-margin">
                                 <label>Username <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$user->username?>" name="username" class="form-control" placeholder="Enter Username">
@@ -32,7 +32,7 @@ Layout::includeLayout('header') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Password <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$user->password?>" name="password" class="form-control" placeholder="Enter Password">
+                                <input type="password" value="<?=$user->password?>" name="password" class="form-control" placeholder="Enter Password">
                                 <?= ErrMgr::bind('password') ?>
                             </div>
 
@@ -41,7 +41,7 @@ Layout::includeLayout('header') ?>
                                 <button class="btn btn-action" type="submit">Login</button>
                             </div>
                             <div class="col-lg-6 text-left">
-                                <button class="btn btn-action" type="submit">Register</button>
+                                <a href="<?=Url::toRoute('user/create')?>" class="btn btn-action">Register</a>
                             </div>
                     </div>
 
