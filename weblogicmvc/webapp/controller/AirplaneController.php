@@ -3,41 +3,74 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\View;
+use Airplane;
 class AirplaneController extends BaseController implements ResourceControllerInterface
 {
 
     public function index()
     {
-        // TODO: Implement index() method.
+        $airplanes = Airplane::all();
+        return View::make('airplane.index', ['airplanes' => $airplanes]);
     }
 
     public function create()
     {
-        // TODO: Implement create() method.
+        return View::make('airplane.create');
     }
 
     public function store()
     {
-        // TODO: Implement store() method.
+
+        $airplane = new Airplane(Post::getAll());
+
+        if($airplane->is_valid()){
+            $airplane->save();
+            Redirect::toRoute('airplane/index');
+        } else {
+            Redirect::flashToRoute('airplane/create', ['airplane' => $airplane]);
+        }
     }
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        $airplane = Airplane::find([$id]);
+
+
+        if (is_null($airplane)) {
+
+        } else {
+            return View::make('airplane.show', ['airplane' => $airplane]);
+        }
     }
 
     public function edit($id)
     {
-        // TODO: Implement edit() method.
-    }
+        $airplane = Airplane::find([$id]);
+
+        if (is_null($airplane)) {
+        } else {
+            return View::make('airplane.edit', ['airplane' => $airplane]);
+        }    }
 
     public function update($id)
     {
-        // TODO: Implement update() method.
-    }
+        $airplane = Airplane::find([$id]);
+        $airplane->update_attributes(Post::getAll());
+
+        if($airplane->is_valid()){
+            $airplane->save();
+            Redirect::toRoute('airplane/index');
+        } else {
+            //redirect to form with data and errors
+            Redirect::flashToRoute('airplane/edit', ['airplane' => $airplane]);
+        }    }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        $airplane = Airplane::find([$id]);
+        $airplane->delete();
+        Redirect::toRoute('airplane/index');
     }
+
+
 }

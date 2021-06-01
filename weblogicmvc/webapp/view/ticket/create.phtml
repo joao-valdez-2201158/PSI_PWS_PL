@@ -1,0 +1,79 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('header') ?>
+<?php $ticket = Data::get('ticket')?>
+<?php ErrMgr::attach($ticket) ?>
+
+
+<!-- container -->
+<div class="container">
+
+    <div class="row">
+
+        <!-- Article main content -->
+        <article class="col-xs-12 maincontent">
+            <header class="page-header">
+                <h1 class="page-title">New Ticket</h1>
+            </header>
+
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+                        <form method="post" action="<?=Url::toRoute('ticket/store')?>">
+                            <div class="top-margin">
+                                <label>User ID <span class="text-danger">*</span></label>
+                                <input type="text" value="<?=$ticket->id_user?>" name="id_user" class="form-control" placeholder="Enter User ID">
+                                <?= ErrMgr::bind('id_flight_number') ?>
+                            </div>
+                            <div class="top-margin">
+                                <label>Flight Number ID <span class="text-danger">*</span></label>
+                                <input type="text" value="<?=$ticket->id_flight_number?>" name="id_flight_number" class="form-control" placeholder="Enter Flight Number ID">
+                                <?= ErrMgr::bind('id_flight_number') ?>
+                            </div>
+                            <div class="top-margin">
+                                <label>Departure Flight ID <span class="text-danger">*</span></label>
+                                <input type="text" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control" placeholder="Enter Departure Flight ID">
+                                <?= ErrMgr::bind('id_departure_flight') ?>
+                            </div>
+                            <div class="top-margin">
+                                <label>Return Flight ID <span class="text-danger">*</span></label>
+                                <input type="text" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control" placeholder="Enter Return Flight ID">
+                                <?= ErrMgr::bind('id_return_flight') ?>
+                            </div>
+                            <div class="top-margin">
+                                <label>Price <span class="text-danger">*</span></label>
+                                <input type="text" value="<?=$ticket->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
+                                <?= ErrMgr::bind('price') ?>
+                            </div>
+                            <div class="top-margin">
+                                <label>Date <span class="text-danger">*</span></label>
+                                <input type="date" value="<?=$ticket->date?>" name="date" class="form-control" placeholder="Enter Date">
+                                <?= ErrMgr::bind('date') ?>
+                            </div>
+                            <div class="top-margin">
+                                <label>Check-In <span class="text-danger">*</span></label>
+                                <input type="text" value="<?=$ticket->check_in?>" name="check_in" class="form-control" placeholder="Enter Check-In Number">
+                                <?= ErrMgr::bind('check_in') ?>
+                            </div>
+                            <hr>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-action" type="submit">Register Ticket Info</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+    </div>
+
+    </article>
+    <!-- /Article -->
+
+</div>
+</div>	<!-- /container -->
+
+<?php Layout::includeLayout('footer') ?>

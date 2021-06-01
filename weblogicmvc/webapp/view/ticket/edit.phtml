@@ -1,0 +1,99 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('header') ?>
+<?php $ticket = Data::get('ticket') ?>
+<?php ErrMgr::attach($ticket) ?>
+
+    <!-- container -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Edit Ticket</h1>
+                </header>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+
+
+                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('ticket/update', $ticket->id)?>">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">User ID:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$ticket->id_user?>" class="form-control" required name="id_user" placeholder="Enter User ID">
+                                    <?= ErrMgr::bind('name') ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Flight Number ID:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$ticket->id_flight_number?>" class="form-control" name="id_flight_number" placeholder="Enter Nif">
+                                    <?= ErrMgr::bind('id_flight_number') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Departure Fligth ID:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$ticket->id_departure_flight?>" class="form-control" name="id_departure_flight" placeholder="Enter Departure Flight ID">
+                                    <?= ErrMgr::bind('id_departure_flight') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Return Flight ID:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$ticket->id_return_flight?>" class="form-control" name="id_return_flight" placeholder="Enter Return Flight ID">
+                                    <?= ErrMgr::bind('id_return_flight') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$ticket->price?>" class="form-control" name="address" placeholder="Enter Address">
+                                    <?= ErrMgr::bind('price') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Date:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="date" required value="<?=$ticket->date?>" class="form-control" name="telephone" placeholder="Enter Telephone">
+                                    <?= ErrMgr::bind('date') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Check-In:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$ticket->check_in?>" class="form-control" name="email" placeholder="Enter Email">
+                                    <?= ErrMgr::bind('check_in') ?>
+                                </div>
+                            </div>
+
+
+
+                            <hr>
+
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-default" type="submit">Save</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+        </div>
+
+
+
+        </article>
+        <!-- /Article -->
+
+    </div>
+    </div>	<!-- /container -->
+
+<?php Layout::includeLayout('footer') ?>

@@ -3,42 +3,74 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\View;
+use Stopover;
 class StopoverController extends BaseController implements ResourceControllerInterface
 
 {
 
     public function index()
     {
-        // TODO: Implement index() method.
+        $stopovers = Stopover::all();
+        return View::make('stopover.index', ['stopovers' => $stopovers]);
     }
 
     public function create()
     {
-        // TODO: Implement create() method.
+        return View::make('stopover.create');
     }
 
     public function store()
     {
-        // TODO: Implement store() method.
+
+        $stopover = new Stopover(Post::getAll());
+
+        if($stopover->is_valid()){
+            $stopover->save();
+            Redirect::toRoute('stopover/index');
+        } else {
+            Redirect::flashToRoute('stopover/create', ['stopover' => $stopover]);
+        }
     }
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        $stopover = Stopover::find([$id]);
+
+
+        if (is_null($stopover)) {
+
+        } else {
+            return View::make('stopover.show', ['stopover' => $stopover]);
+        }
     }
 
     public function edit($id)
     {
-        // TODO: Implement edit() method.
-    }
+        $stopover = Stopover::find([$id]);
+
+        if (is_null($stopover)) {
+        } else {
+            return View::make('stopover.edit', ['stopover' => $stopover]);
+        }    }
 
     public function update($id)
     {
-        // TODO: Implement update() method.
-    }
+        $stopover = Stopover::find([$id]);
+        $stopover->update_attributes(Post::getAll());
+
+        if($stopover->is_valid()){
+            $stopover->save();
+            Redirect::toRoute('stopover/index');
+        } else {
+            //redirect to form with data and errors
+            Redirect::flashToRoute('stopover/edit', ['stopover' => $stopover]);
+        }    }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        $stopover = Stopover::find([$id]);
+        $stopover->delete();
+        Redirect::toRoute('stopover/index');
     }
+
 }

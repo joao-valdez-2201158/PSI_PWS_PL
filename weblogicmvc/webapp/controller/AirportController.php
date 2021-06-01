@@ -3,42 +3,74 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\View;
+use Airport;
 class AirportController extends BaseController implements ResourceControllerInterface
 
 {
 
     public function index()
     {
-        // TODO: Implement index() method.
+        $airports = Airpor::all();
+        return View::make('airport.index', ['airports' => $airports]);
     }
 
     public function create()
     {
-        // TODO: Implement create() method.
+        return View::make('airport.create');
     }
 
     public function store()
     {
-        // TODO: Implement store() method.
+
+        $airport = new Airport(Post::getAll());
+
+        if($airport->is_valid()){
+            $airport->save();
+            Redirect::toRoute('airport/index');
+        } else {
+            Redirect::flashToRoute('airport/create', ['airport' => $airport]);
+        }
     }
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        $airport = Airport::find([$id]);
+
+
+        if (is_null($airport)) {
+
+        } else {
+            return View::make('airport.show', ['airport' => $airport]);
+        }
     }
 
     public function edit($id)
     {
-        // TODO: Implement edit() method.
-    }
+        $airport = Airport::find([$id]);
+
+        if (is_null($airport)) {
+        } else {
+            return View::make('airport.edit', ['airport' => $airport]);
+        }    }
 
     public function update($id)
     {
-        // TODO: Implement update() method.
-    }
+        $airport = Airport::find([$id]);
+        $airport->update_attributes(Post::getAll());
+
+        if($airport->is_valid()){
+            $airport->save();
+            Redirect::toRoute('airport/index');
+        } else {
+            //redirect to form with data and errors
+            Redirect::flashToRoute('airport/edit', ['airport' => $airport]);
+        }    }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        $airport = Airport::find([$id]);
+        $airport->delete();
+        Redirect::toRoute('airport/index');
     }
+
 }

@@ -2,6 +2,7 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\View;
+use Flight;
 
 class FlightController extends BaseController implements ResourceControllerInterface
 
@@ -9,36 +10,67 @@ class FlightController extends BaseController implements ResourceControllerInter
 
     public function index()
     {
-        // TODO: Implement index() method.
+        $flights = Flight::all();
+        return View::make('flight.index', ['flights' => $flights]);
     }
 
     public function create()
     {
-        // TODO: Implement create() method.
+        return View::make('flight.create');
     }
 
     public function store()
     {
-        // TODO: Implement store() method.
+
+        $flight = new Flight(Post::getAll());
+
+        if($flight->is_valid()){
+            $flight->save();
+            Redirect::toRoute('flight/index');
+        } else {
+            Redirect::flashToRoute('flight/create', ['fligh' => $flight]);
+        }
     }
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        $flight = Flight::find([$id]);
+
+
+        if (is_null($flight)) {
+
+        } else {
+            return View::make('flight.show', ['flight' => $flight]);
+        }
     }
 
     public function edit($id)
     {
-        // TODO: Implement edit() method.
-    }
+        $flight = Flight::find([$id]);
+
+        if (is_null($flight)) {
+        } else {
+            return View::make('fligh.edit', ['flight' => $flight]);
+        }    }
 
     public function update($id)
     {
-        // TODO: Implement update() method.
-    }
+        $flight = Flight::find([$id]);
+        $flight->update_attributes(Post::getAll());
+
+        if($flight->is_valid()){
+            $flight->save();
+            Redirect::toRoute('flight/index');
+        } else {
+            //redirect to form with data and errors
+            Redirect::flashToRoute('flight/edit', ['flight' => $flight]);
+        }    }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        $flight = Flight::find([$id]);
+        $flight->delete();
+        Redirect::toRoute('flight/index');
     }
+
 }

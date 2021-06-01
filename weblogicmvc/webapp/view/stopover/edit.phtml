@@ -1,0 +1,105 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+
+Layout::includeLayout('header') ?>
+<?php $user = Data::get('user') ?>
+<?php ErrMgr::attach($user) ?>
+
+    <!-- container -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Edit User</h1>
+                </header>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+
+
+                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('user/update', $user->id)?>">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Name:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" value="<?=$user->name?>" class="form-control" required name="name" placeholder="Enter Username">
+                                    <?= ErrMgr::bind('name') ?>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Nif:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$user->nif?>" class="form-control" name="isbn" placeholder="Enter Nif">
+                                    <?= ErrMgr::bind('isbn') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Username:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$user->username?>" class="form-control" name="username" placeholder="Enter Username">
+                                    <?= ErrMgr::bind('username') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Password:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$user->password?>" class="form-control" name="password" placeholder="Enter Password">
+                                    <?= ErrMgr::bind('password') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Address:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$user->address?>" class="form-control" name="address" placeholder="Enter Address">
+                                    <?= ErrMgr::bind('address') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Telephone:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$user->telephone?>" class="form-control" name="telephone" placeholder="Enter Telephone">
+                                    <?= ErrMgr::bind('telephone') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Email:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$user->email?>" class="form-control" name="email" placeholder="Enter Email">
+                                    <?= ErrMgr::bind('email') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Role:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?=$user->role?>" class="form-control" name="role" placeholder="Enter Role">
+                                    <?= ErrMgr::bind('role') ?>
+                                </div>
+                            </div>
+
+
+                            <hr>
+
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-default" type="submit">Save</button>
+                            </div>
+                    </div>
+                    </form>
+                </div>
+        </div>
+
+
+
+        </article>
+        <!-- /Article -->
+
+    </div>
+    </div>	<!-- /container -->
+
+<?php Layout::includeLayout('footer') ?>

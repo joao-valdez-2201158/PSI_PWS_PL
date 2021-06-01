@@ -2,43 +2,73 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\View;
-
+use Ticket;
 class TicketController extends BaseController implements ResourceControllerInterface
 
 {
 
     public function index()
     {
-        // TODO: Implement index() method.
+        $tickets = Ticket::all();
+        return View::make('ticket.index', ['tickets' => $tickets]);
     }
 
     public function create()
     {
-        // TODO: Implement create() method.
+        return View::make('ticket.create');
     }
 
     public function store()
     {
-        // TODO: Implement store() method.
+
+        $ticket = new Ticket(Post::getAll());
+
+        if($ticket->is_valid()){
+            $ticket->save();
+            Redirect::toRoute('ticket/index');
+        } else {
+            Redirect::flashToRoute('ticket/create', ['ticket' => $ticket]);
+        }
     }
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        $ticket = User::find([$id]);
+
+        if (is_null($ticket)) {
+
+        } else {
+            return View::make('ticket.show', ['ticket' => $ticket]);
+        }
     }
 
     public function edit($id)
     {
-        // TODO: Implement edit() method.
-    }
+        $ticket = Ticket::find([$id]);
+
+        if (is_null($ticket)) {
+        } else {
+            return View::make('ticket.edit', ['ticket' => $ticket]);
+        }    }
 
     public function update($id)
     {
-        // TODO: Implement update() method.
-    }
+        $ticket = Ticket::find([$id]);
+        $ticket->update_attributes(Post::getAll());
+
+        if($ticket->is_valid()){
+            $ticket->save();
+            Redirect::toRoute('ticket/index');
+        } else {
+            //redirect to form with data and errors
+            Redirect::flashToRoute('ticket/edit', ['ticket' => $ticket]);
+        }    }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        $ticket = Ticket::find([$id]);
+        $ticket->delete();
+        Redirect::toRoute('ticket/index');
     }
+
 }

@@ -20,13 +20,12 @@ Router::get('home/start',	'HomeController/start');
 
 Router::get('test/index',  'TestController/index');
 
-Router::post('test/index',  'TestController/gravar');
-
 Router::resource('user', 'UserController');
-
-
-
-
+Router::resource('ticket', 'TicketController');
+Router::resource('stopover', 'StopoverController');
+Router::resource('flight', 'FlightController');
+Router::resource('airport', 'AirportController');
+Router::resource('airplane', 'AirplaneController');
 
 
 
