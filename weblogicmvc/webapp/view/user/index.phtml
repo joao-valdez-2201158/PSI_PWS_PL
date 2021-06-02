@@ -29,7 +29,6 @@ Layout::includeLayout('header') ?>
                     <td><?=$user->email?></td>
                     <td><?=$user->role?></td>
 
-
                     <td>
                         <a href="<?=Url::toRoute('user/show', $user->id)?>" class="btn btn-info" role="button">Show</a>
                         <a href="<?=Url::toRoute('user/edit', $user->id)?>" class="btn btn-info" role="button">Edit</a>

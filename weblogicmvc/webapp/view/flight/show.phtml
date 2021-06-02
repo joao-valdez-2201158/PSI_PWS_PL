@@ -3,7 +3,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
-<?php $user = Data::get('user') ?>
+<?php $flight = Data::get('flight') ?>
 
     <!-- container -->
     <div class="container">
@@ -13,7 +13,7 @@ Layout::includeLayout('header') ?>
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
                 <header class="page-header">
-                    <h1 class="page-title">View User</h1>
+                    <h1 class="page-title">View Flight</h1>
                 </header>
 
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -21,38 +21,18 @@ Layout::includeLayout('header') ?>
                         <div class="panel-body">
                             <hr>
 
-                            <form method="post" action="<?=Url::toRoute('user/index')?>">
+                            <form method="post" action="<?=Url::toRoute('flight/index')?>">
                                 <div class="top-margin">
-                                    <label>Name <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->name?>" name="name" class="form-control">
+                                    <label>Flight ID <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?=$flight->id_flight?>" name="id_flight" class="form-control">
                                 </div>
                                 <div class="top-margin">
-                                    <label>Nif <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->nif?>" name="nif" class="form-control">
+                                    <label>Airplane ID <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control">
                                 </div>
                                 <div class="top-margin">
-                                    <label>Username <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->username?>" name="username" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Password <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->password?>" name="password" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Address <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->address?>" name="address" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Telephone <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->telephone?>" name="telephone" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Email <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->email?>" name="email" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Role <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->role?>" name="role" class="form-control">
+                                    <label>Ticket Price <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?=$flight->price?>" name="price" class="form-control">
                                 </div>
 
 

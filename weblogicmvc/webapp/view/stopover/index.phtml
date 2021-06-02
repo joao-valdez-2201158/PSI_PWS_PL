@@ -3,37 +3,34 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
-<?php $users = Data::get('users') ?>
+<?php $stopovers = Data::get('stopovers') ?>
 
 <!-- container -->
 <div class="container">
 
     <ol class="breadcrumb">
         <li><a href="index.html">Home</a></li>
-        <li class="active">User Index</li>
+        <li class="active">Stopover Index</li>
     </ol>
 
-    <h2 class="text-left top-space">User Index</h2>
+    <h2 class="text-left top-space">Stopover Index</h2>
     <h2 class="top-space"></h2>
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-striped"><thead><th><h3>Name</h3></th><th><h3>Nif</h3></th><th><h3>Username</h3></th><th><h3>Address</h3></th><th><h3>Telephone</h3></th><th><h3>Email</h3></th><th><h3>Role</h3></th></thead>
+            <table class="table table-striped"><thead><th><h3>Stopover ID</h3></th><th><h3>Departure ID</h3></th><th><h3>Destination ID</h3></th><th><h3>Departure Hour</h3></th><th><h3>Arrival Hour</h3></th></thead>
                 <tbody>
-                <?php foreach ($users as $user) { ?>
+                <?php foreach ($stopovers as $stopover) { ?>
                 <tr>
-                    <td><?=$user->name?></td>
-                    <td><?=$user->nif?></td>
-                    <td><?=$user->username?></td>
-                    <td><?=$user->address?></td>
-                    <td><?=$user->telephone?></td>
-                    <td><?=$user->email?></td>
-                    <td><?=$user->role?></td>
-
+                    <td><?=$stopover->id_stopover?></td>
+                    <td><?=$stopover->id_departure?></td>
+                    <td><?=$stopover->id_destination?></td>
+                    <td><?=$stopover->hour_of_departure?></td>
+                    <td><?=$stopover->hour_of_arrival?></td>
 
                     <td>
-                        <a href="<?=Url::toRoute('user/show', $user->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('user/edit', $user->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('user/destroy', $user->id)?>" class="btn btn-warning" role="button">Delete</a>
+                        <a href="<?=Url::toRoute('stopover/show', $stopover->id)?>" class="btn btn-info" role="button">Show</a>
+                        <a href="<?=Url::toRoute('stopover/edit', $stopover->id)?>" class="btn btn-info" role="button">Edit</a>
+                        <a href="<?=Url::toRoute('stopover/destroy', $stopover->id)?>" class="btn btn-warning" role="button">Delete</a>
                     </td>
                 </tr>
                 <?php } ?>
@@ -44,9 +41,10 @@ Layout::includeLayout('header') ?>
 
         </div>
         <div class="col-sm-6">
-            <h3>Create a new User</h3>
+            <h3>Create a new Stopover</h3>
+            <br>
             <p>
-                <a href="<?=Url::toRoute('user/create')?>" class="btn btn-info" role="button">New</a>
+                <a href="<?=Url::toRoute('stopover/create')?>" class="btn btn-info" role="button">New</a>
             </p>
         </div>
     </div> <!-- /row -->

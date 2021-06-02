@@ -3,37 +3,35 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
-<?php $users = Data::get('users') ?>
+<?php $airplanes = Data::get('airplanes') ?>
 
 <!-- container -->
 <div class="container">
 
     <ol class="breadcrumb">
         <li><a href="index.html">Home</a></li>
-        <li class="active">User Index</li>
+        <li class="active">Airplane Index</li>
     </ol>
 
-    <h2 class="text-left top-space">User Index</h2>
+    <h2 class="text-left top-space">Airplane Index</h2>
     <h2 class="top-space"></h2>
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-striped"><thead><th><h3>Name</h3></th><th><h3>Nif</h3></th><th><h3>Username</h3></th><th><h3>Address</h3></th><th><h3>Telephone</h3></th><th><h3>Email</h3></th><th><h3>Role</h3></th></thead>
+            <table class="table table-striped"><thead><th><h3>ID</h3></th><th><h3>Reference</h3></th><th><h3>Type</h3></th><th><h3>Lotation</h3></th></thead>
                 <tbody>
-                <?php foreach ($users as $user) { ?>
+                <?php foreach ($airplanes as $airplane) { ?>
                 <tr>
-                    <td><?=$user->name?></td>
-                    <td><?=$user->nif?></td>
-                    <td><?=$user->username?></td>
-                    <td><?=$user->address?></td>
-                    <td><?=$user->telephone?></td>
-                    <td><?=$user->email?></td>
-                    <td><?=$user->role?></td>
+                    <td><?=$airplane->id_airplane?></td>
+                    <td><?=$airplane->reference?></td>
+                    <td><?=$airplane->airplanetype?></td>
+                    <td><?=$airplane->lotation?></td>
+
 
 
                     <td>
-                        <a href="<?=Url::toRoute('user/show', $user->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('user/edit', $user->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('user/destroy', $user->id)?>" class="btn btn-warning" role="button">Delete</a>
+                        <a href="<?=Url::toRoute('airplane/show', $airplane->id)?>" class="btn btn-info" role="button">Show</a>
+                        <a href="<?=Url::toRoute('airplane/edit', $airplane->id)?>" class="btn btn-info" role="button">Edit</a>
+                        <a href="<?=Url::toRoute('airplane/destroy', $airplane->id)?>" class="btn btn-warning" role="button">Delete</a>
                     </td>
                 </tr>
                 <?php } ?>
@@ -44,9 +42,9 @@ Layout::includeLayout('header') ?>
 
         </div>
         <div class="col-sm-6">
-            <h3>Create a new User</h3>
+            <h3>Create a new Airplane</h3>
             <p>
-                <a href="<?=Url::toRoute('user/create')?>" class="btn btn-info" role="button">New</a>
+                <a href="<?=Url::toRoute('airplane/create')?>" class="btn btn-info" role="button">New</a>
             </p>
         </div>
     </div> <!-- /row -->

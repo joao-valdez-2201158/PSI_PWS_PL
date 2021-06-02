@@ -6,13 +6,11 @@ use ActiveRecord\Model;
 class Airport extends Model
 {
     static $validates_presence_of = array(
-        array('id_user'),
-        array('id_flight_number'),
-        array('id_departure_flight'),
-        array('id_return_flight'),
-        array('price'),
-        array('date'),
-        array('check_in')
+        array('id_airport'),
+        array('name'),
+        array('localization'),
+        array('telephone'),
+        array('email')
 
     );
 }
