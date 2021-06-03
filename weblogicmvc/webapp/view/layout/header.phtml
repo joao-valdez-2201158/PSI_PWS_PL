@@ -41,16 +41,7 @@ use ArmoredCore\WebObjects\URL;
             <ul class="nav navbar-nav pull-right">
                 <li class="active"><a href="<?= URL::toRoute('home/index')?>">Home</a></li>
                 <li><a href="<?= URL::toRoute('home/start')?>">Start</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">MVC Tools<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="active"><a href="<?=Url::toRoute('home/worksheet')?>">Worksheet</a></li>
-                        <li><a href="<?= Url::toRoute('devtools/restcontrollerform')?>">REST Style Resource controller generator</a></li>
-                        <li><a href="<?= Url::toRoute('devtools/accomponents')?>">Armored Core Components</a></li>
-                    </ul>
-                </li>
-                <li><a href="<?=URL::toRoute('plano/index')?>">Plano</a></li>
-                <li><a class="btn" href="<?= URL::toRoute('home/login')?>">SIGN IN / SIGN UP</a></li>
+                <li><a class="btn" href="<?= URL::toRoute('user/login')?>">SIGN IN / SIGN UP</a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

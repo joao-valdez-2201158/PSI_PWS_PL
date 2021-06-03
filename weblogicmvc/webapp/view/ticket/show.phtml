@@ -20,23 +20,23 @@ Layout::includeLayout('header') ?>
                             <form method="post" action="<?=Url::toRoute('ticket/index')?>">
                                 <div class="top-margin">
                                     <label>User ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$ticket->id_user?>" name="user" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$ticket->id_user?>" name="user" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Flight Number ID<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$ticket->id_flight_number?>" name="id_flight_number" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$ticket->id_flight_number?>" name="id_flight_number" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Departure Flight ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Return Flight ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Ticket Price <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$ticket->price?>" name="price" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$ticket->price?>" name="price" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Date <span class="text-danger">*</span></label>
@@ -44,7 +44,7 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Check-In Number <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$ticket->check_in?>" name="check_in" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$ticket->check_in?>" name="check_in" class="form-control">
                                 </div>
                                 <hr>
                                 <div class="col-lg-4 text-right">

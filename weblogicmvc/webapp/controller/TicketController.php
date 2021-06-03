@@ -1,10 +1,14 @@
 <?php
+
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
+use ArmoredCore\WebObjects\Post;
+use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
+use User;
 use Ticket;
-class TicketController extends BaseController implements ResourceControllerInterface
 
+class TicketController extends BaseController implements ResourceControllerInterface
 {
 
     public function index()
@@ -20,7 +24,6 @@ class TicketController extends BaseController implements ResourceControllerInter
 
     public function store()
     {
-
         $ticket = new Ticket(Post::getAll());
 
         if($ticket->is_valid()){
@@ -33,7 +36,7 @@ class TicketController extends BaseController implements ResourceControllerInter
 
     public function show($id)
     {
-        $ticket = User::find([$id]);
+        $ticket= Ticket::find($id);
 
         if (is_null($ticket)) {
 
@@ -70,5 +73,13 @@ class TicketController extends BaseController implements ResourceControllerInter
         $ticket->delete();
         Redirect::toRoute('ticket/index');
     }
+
+    public function login()
+    {
+        return View::make('ticket.login');
+
+    }
+
+
 
 }

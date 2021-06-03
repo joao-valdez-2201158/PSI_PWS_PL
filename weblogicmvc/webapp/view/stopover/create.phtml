@@ -26,18 +26,18 @@ Layout::includeLayout('header') ?>
                         <form method="post" action="<?=Url::toRoute('stopover/store')?>">
                             <div class="top-margin">
                                 <label>Stopover ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$stopover->id_stopover?>" name="id_stopover" class="form-control" placeholder="Enter Stopover ID">
+                                <input type="number" value="<?=$stopover->id_stopover?>" name="id_stopover" class="form-control" placeholder="Enter Stopover ID">
                                 <?= ErrMgr::bind('id_stopover') ?>
 
                             </div>
                             <div class="top-margin">
                                 <label>Departure ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$stopover->id_departure?>" name="id_departure" class="form-control" placeholder="Enter Departure ID">
+                                <input type="number" value="<?=$stopover->id_departure?>" name="id_departure" class="form-control" placeholder="Enter Departure ID">
                                 <?= ErrMgr::bind('id_departure') ?>
                             </div>
                             <div class="top-margin">
                                     <label>Destination ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$stopover->id_destination?>" name="id_destination" class="form-control" placeholder="Enter Destination ID">
+                                <input type="number" value="<?=$stopover->id_destination?>" name="id_destination" class="form-control" placeholder="Enter Destination ID">
                                 <?= ErrMgr::bind('id_destination') ?>
                             </div>
                             <div class="top-margin">
@@ -50,12 +50,13 @@ Layout::includeLayout('header') ?>
                                 <input type="datetime-local" value="<?=$stopover->hour_of_arrival?>" name="hour_of_arrival" class="form-control" placeholder="Enter Hour of Arrival">
                                 <?= ErrMgr::bind('hour_of_arrival') ?>
                             </div>
-
                             <hr>
-
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Register</button>
                             </div>
+                            <div class="col-lg-4 text-left">
+                                <a button class="btn btn-action" href="<?=Url::toRoute('stopover/index')?>">Return</a></button>                            </div>
+                    </div>
                     </div>
                     </form>
                 </div>

@@ -24,15 +24,15 @@ Layout::includeLayout('header') ?>
                             <form method="post" action="<?=Url::toRoute('flight/index')?>">
                                 <div class="top-margin">
                                     <label>Flight ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$flight->id_flight?>" name="id_flight" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$flight->id_flight?>" name="id_flight" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Airplane ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Ticket Price <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$flight->price?>" name="price" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$flight->price?>" name="price" class="form-control">
                                 </div>
 
 

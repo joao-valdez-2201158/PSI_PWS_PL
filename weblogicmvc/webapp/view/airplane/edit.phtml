@@ -28,7 +28,7 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$airplane->id_airplane?>" class="form-control" required name="id_airplane" placeholder="Enter Airplane ID">
+                                    <input type="number" value="<?=$airplane->id_airplane?>" class="form-control" required name="id_airplane" placeholder="Enter Airplane ID">
                                     <?= ErrMgr::bind('id_airplane') ?>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Lotation:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$airplane->lotation?>" class="form-control" name="lotation" placeholder="Enter Airplane Price">
+                                    <input type="number" required value="<?=$airplane->lotation?>" class="form-control" name="lotation" placeholder="Enter Airplane Price">
                                     <?= ErrMgr::bind('lotation') ?>
                                 </div>
                             </div>

@@ -28,7 +28,7 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">User ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$ticket->id_user?>" class="form-control" required name="id_user" placeholder="Enter User ID">
+                                    <input type="number" value="<?=$ticket->id_user?>" class="form-control" required name="id_user" placeholder="Enter User ID">
                                     <?= ErrMgr::bind('name') ?>
                                 </div>
                             </div>
@@ -36,28 +36,28 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Flight Number ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$ticket->id_flight_number?>" class="form-control" name="id_flight_number" placeholder="Enter Flight Number ID">
+                                    <input type="number" required value="<?=$ticket->id_flight_number?>" class="form-control" name="id_flight_number" placeholder="Enter Flight Number ID">
                                     <?= ErrMgr::bind('id_flight_number') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Departure Flight ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$ticket->id_departure_flight?>" class="form-control" name="id_departure_flight" placeholder="Enter Departure Flight ID">
+                                    <input type="number" required value="<?=$ticket->id_departure_flight?>" class="form-control" name="id_departure_flight" placeholder="Enter Departure Flight ID">
                                     <?= ErrMgr::bind('id_departure_flight') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Return Flight ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$ticket->id_return_flight?>" class="form-control" name="id_return_flight" placeholder="Enter Return Flight ID">
+                                    <input type="number" required value="<?=$ticket->id_return_flight?>" class="form-control" name="id_return_flight" placeholder="Enter Return Flight ID">
                                     <?= ErrMgr::bind('id_return_flight') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$ticket->price?>" class="form-control" name="address" placeholder="Enter Ticket Price">
+                                    <input type="number" required value="<?=$ticket->price?>" class="form-control" name="address" placeholder="Enter Ticket Price">
                                     <?= ErrMgr::bind('price') ?>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Check-In:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$ticket->check_in?>" class="form-control" name="email" placeholder="Enter Check-In Number">
+                                    <input type="number" required value="<?=$ticket->check_in?>" class="form-control" name="email" placeholder="Enter Check-In Number">
                                     <?= ErrMgr::bind('check_in') ?>
                                 </div>
                             </div>

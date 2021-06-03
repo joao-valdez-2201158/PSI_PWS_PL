@@ -24,15 +24,15 @@ Layout::includeLayout('header') ?>
                             <form method="post" action="<?=Url::toRoute('stopover/index')?>">
                                 <div class="top-margin">
                                     <label>Stopover ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$stopover->id_stopover?>" name="id_stopover" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$stopover->id_stopover?>" name="id_stopover" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Departure ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$stopover->id_departure?>" name="id_departure" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$stopover->id_departure?>" name="id_departure" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Destination ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$stopover->id_destination?>" name="id_destination" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$stopover->id_destination?>" name="id_destination" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Departure Hour <span class="text-danger">*</span></label>

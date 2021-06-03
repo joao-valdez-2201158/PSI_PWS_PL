@@ -26,28 +26,28 @@ Layout::includeLayout('header') ?>
                         <form method="post" action="<?=Url::toRoute('flight/store')?>">
                             <div class="top-margin">
                                 <label>Flight ID<span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$flight->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
+                                <input type="number" value="<?=$flight->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
                                 <?= ErrMgr::bind('id_flight') ?>
 
                             </div>
                             <div class="top-margin">
                                 <label>Airplane ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control" placeholder="Enter Airplane ID">
+                                <input type="number" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control" placeholder="Enter Airplane ID">
                                 <?= ErrMgr::bind('id_airplane') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Ticket Price <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$flight->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
+                                <input type="number" value="<?=$flight->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
                                 <?= ErrMgr::bind('price') ?>
                             </div>
 
-
                             <hr>
-
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Register</button>
                             </div>
-                    </div>
+                            <div class="col-lg-4 text-left">
+                                <a button class="btn btn-action" href="<?=Url::toRoute('flight/index')?>">Return</a></button>                            </div>
+                            </div>
                     </form>
                 </div>
             </div>

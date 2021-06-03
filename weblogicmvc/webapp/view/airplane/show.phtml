@@ -24,7 +24,7 @@ Layout::includeLayout('header') ?>
                             <form method="post" action="<?=Url::toRoute('airplane/index')?>">
                                 <div class="top-margin">
                                     <label>ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airplane->id_airplane?>" name="id_airplane" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$airplane->id_airplane?>" name="id_airplane" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Reference <span class="text-danger">*</span></label>
@@ -36,7 +36,7 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Lotation <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airplane->lotation?>" name="lotation" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$airplane->lotation?>" name="lotation" class="form-control">
                                 </div>
 
                                 <hr>

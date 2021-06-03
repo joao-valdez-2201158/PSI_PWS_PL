@@ -71,11 +71,12 @@ Layout::includeLayout('header') ?>
                                 <input type="text" value="<?=$user->role?>" name="role" class="form-control" placeholder="Enter Role">
                                 <?= ErrMgr::bind('role') ?>
                             </div>
-
                             <hr>
-
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Register</button>
+                            </div>
+                            <div class="col-lg-4 text-left">
+                                <a button class="btn btn-action" href="<?=Url::toRoute('user/index')?>">Return</a></button>                            </div>
                             </div>
                     </div>
                     </form>

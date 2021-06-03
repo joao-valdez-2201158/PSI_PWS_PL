@@ -24,7 +24,7 @@ Layout::includeLayout('header') ?>
                             <form method="post" action="<?=Url::toRoute('airport/index')?>">
                                 <div class="top-margin">
                                     <label>ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airport->id_airport?>" name="id_airport" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$airport->id_airport?>" name="id_airport" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Name <span class="text-danger">*</span></label>
@@ -36,7 +36,7 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Telephone <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airport->telephone?>" name="telephone" class="form-control">
+                                    <input readonly="true" type="number" value="<?=$airport->telephone?>" name="telephone" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Email <span class="text-danger">*</span></label>

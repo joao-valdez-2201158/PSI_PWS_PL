@@ -26,27 +26,27 @@ Layout::includeLayout('header') ?>
                         <form method="post" action="<?=Url::toRoute('ticket/store')?>">
                             <div class="top-margin">
                                 <label>User ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$ticket->id_user?>" name="id_user" class="form-control" placeholder="Enter User ID">
+                                <input type="number" value="<?=$ticket->id_user?>" name="id_user" class="form-control" placeholder="Enter User ID">
                                 <?= ErrMgr::bind('id_flight_number') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Flight Number ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$ticket->id_flight_number?>" name="id_flight_number" class="form-control" placeholder="Enter Flight Number ID">
+                                <input type="number" value="<?=$ticket->id_flight_number?>" name="id_flight_number" class="form-control" placeholder="Enter Flight Number ID">
                                 <?= ErrMgr::bind('id_flight_number') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Departure Flight ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control" placeholder="Enter Departure Flight ID">
+                                <input type="number" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control" placeholder="Enter Departure Flight ID">
                                 <?= ErrMgr::bind('id_departure_flight') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Return Flight ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control" placeholder="Enter Return Flight ID">
+                                <input type="number" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control" placeholder="Enter Return Flight ID">
                                 <?= ErrMgr::bind('id_return_flight') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Price <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$ticket->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
+                                <input type="number" value="<?=$ticket->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
                                 <?= ErrMgr::bind('price') ?>
                             </div>
                             <div class="top-margin">
@@ -56,13 +56,17 @@ Layout::includeLayout('header') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Check-In <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$ticket->check_in?>" name="check_in" class="form-control" placeholder="Enter Check-In Number">
+                                <input type="number" value="<?=$ticket->check_in?>" name="check_in" class="form-control" placeholder="Enter Check-In Number">
                                 <?= ErrMgr::bind('check_in') ?>
                             </div>
                             <hr>
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Register</button>
                             </div>
+                            <div class="col-lg-4 text-left">
+                                <a button class="btn btn-action" href="<?=Url::toRoute('ticket/index')?>">Return</a></button>                            </div>
+                    </div>
+
                     </div>
                     </form>
                 </div>

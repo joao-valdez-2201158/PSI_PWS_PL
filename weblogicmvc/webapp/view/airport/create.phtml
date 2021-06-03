@@ -26,7 +26,7 @@ Layout::includeLayout('header') ?>
                         <form method="post" action="<?=Url::toRoute('airport/store')?>">
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airport->id_airport?>" name="name" class="form-control" placeholder="Enter Airport ID">
+                                <input type="number" value="<?=$airport->id_airport?>" name="name" class="form-control" placeholder="Enter Airport ID">
                                 <?= ErrMgr::bind('name') ?>
 
                             </div>
@@ -42,7 +42,7 @@ Layout::includeLayout('header') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Telephone <span class="text-danger">*</span></label>
-                                <input type="password" value="<?=$airport->telephone?>" name="password" class="form-control" placeholder="Enter Airport Telephone">
+                                <input type="number" value="<?=$airport->telephone?>" name="password" class="form-control" placeholder="Enter Airport Telephone">
                                 <?= ErrMgr::bind('password') ?>
                             </div>
                             <div class="top-margin">
@@ -56,6 +56,9 @@ Layout::includeLayout('header') ?>
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Register</button>
                             </div>
+                            <div class="col-lg-4 text-left">
+                                <a button class="btn btn-action" href="<?=Url::toRoute('airport/index')?>">Return</a></button>                            </div>
+                    </div>
                     </div>
                     </form>
                 </div>

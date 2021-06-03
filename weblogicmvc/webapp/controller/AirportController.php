@@ -3,14 +3,13 @@
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\View;
-use Airport;
 class AirportController extends BaseController implements ResourceControllerInterface
 
 {
 
     public function index()
     {
-        $airports = Airpor::all();
+        $airports = Airport::all();
         return View::make('airport.index', ['airports' => $airports]);
     }
 

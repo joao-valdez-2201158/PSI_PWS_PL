@@ -28,7 +28,7 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Flight ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$flight->id_flight?>" class="form-control" required name="id_flight" placeholder="Enter Flight ID">
+                                    <input type="number" value="<?=$flight->id_flight?>" class="form-control" required name="id_flight" placeholder="Enter Flight ID">
                                     <?= ErrMgr::bind('id_flight') ?>
                                 </div>
                             </div>
@@ -36,14 +36,14 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Airplane ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$flight->id_airplane?>" class="form-control" name="id_airplane" placeholder="Enter Airplane ID">
+                                    <input type="number" required value="<?=$flight->id_airplane?>" class="form-control" name="id_airplane" placeholder="Enter Airplane ID">
                                     <?= ErrMgr::bind('id_airplane') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$flight->price?>" class="form-control" name="price" placeholder="Enter Ticket Price">
+                                    <input type="number" required value="<?=$flight->price?>" class="form-control" name="price" placeholder="Enter Ticket Price">
                                     <?= ErrMgr::bind('price') ?>
                                 </div>
                             </div>
