@@ -2,8 +2,9 @@
 
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
+use ArmoredCore\WebObjects\Post;
+use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
-use Stopover;
 class StopoverController extends BaseController implements ResourceControllerInterface
 
 {

@@ -5,7 +5,6 @@ use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
-use User;
 
 class UserController extends BaseController implements ResourceControllerInterface
 {

@@ -29,7 +29,7 @@ Layout::includeLayout('header') ?>
                                 <label class="control-label col-sm-2" for="name">User ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
                                     <input type="number" value="<?=$ticket->id_user?>" class="form-control" required name="id_user" placeholder="Enter User ID">
-                                    <?= ErrMgr::bind('name') ?>
+                                    <?= ErrMgr::bind('id_user') ?>
                                 </div>
                             </div>
 
@@ -57,21 +57,21 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$ticket->price?>" class="form-control" name="address" placeholder="Enter Ticket Price">
+                                    <input type="number" required value="<?=$ticket->price?>" class="form-control" name="price" placeholder="Enter Ticket Price">
                                     <?= ErrMgr::bind('price') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Date:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="date" required value="<?=$ticket->date?>" class="form-control" name="telephone" placeholder="Enter Date">
+                                    <input type="datetime-local" required value="<?=$ticket->date?>" class="form-control" name="date" placeholder="Enter Date">
                                     <?= ErrMgr::bind('date') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Check-In:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$ticket->check_in?>" class="form-control" name="email" placeholder="Enter Check-In Number">
+                                    <input type="number" required value="<?=$ticket->check_in?>" class="form-control" name="check_in" placeholder="Enter Check-In Number">
                                     <?= ErrMgr::bind('check_in') ?>
                                 </div>
                             </div>

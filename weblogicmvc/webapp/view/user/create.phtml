@@ -28,11 +28,10 @@ Layout::includeLayout('header') ?>
                                 <label>Name <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$user->name?>" name="name" class="form-control" placeholder="Enter name">
                                 <?= ErrMgr::bind('name') ?>
-
                             </div>
                             <div class="top-margin">
                                 <label>Nif <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$user->nif?>" name="nif" class="form-control" placeholder="Enter Nif">
+                                <input type="number" value="<?=$user->nif?>" name="nif" class="form-control" placeholder="Enter Nif">
                                 <?= ErrMgr::bind('nif') ?>
                             </div>
                             <div class="top-margin">
@@ -52,7 +51,7 @@ Layout::includeLayout('header') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Telephone <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$user->telephone?>" name="telephone" class="form-control" placeholder="Enter Telephone Nr">
+                                <input type="number" value="<?=$user->telephone?>" name="telephone" class="form-control" placeholder="Enter Telephone Nr">
                                 <?= ErrMgr::bind('telephone') ?>
                             </div>
                             <div class="top-margin">

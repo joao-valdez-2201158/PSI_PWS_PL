@@ -26,29 +26,29 @@ Layout::includeLayout('header') ?>
                         <form method="post" action="<?=Url::toRoute('airport/store')?>">
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$airport->id_airport?>" name="name" class="form-control" placeholder="Enter Airport ID">
-                                <?= ErrMgr::bind('name') ?>
+                                <input type="number" value="<?=$airport->id_airport?>" name="id_airport" class="form-control" placeholder="Enter Airport ID">
+                                <?= ErrMgr::bind('id_airport') ?>
 
                             </div>
                             <div class="top-margin">
                                 <label>Name <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airport->name?>" name="nif" class="form-control" placeholder="Enter Airport Name">
-                                <?= ErrMgr::bind('nif') ?>
+                                <input type="text" value="<?=$airport->name?>" name="name" class="form-control" placeholder="Enter Airport Name">
+                                <?= ErrMgr::bind('name') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Localization <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airport->localization?>" name="username" class="form-control" placeholder="Enter Airport Localization">
-                                <?= ErrMgr::bind('username') ?>
+                                <input type="text" value="<?=$airport->localization?>" name="localization" class="form-control" placeholder="Enter Airport Localization">
+                                <?= ErrMgr::bind('localization') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Telephone <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$airport->telephone?>" name="password" class="form-control" placeholder="Enter Airport Telephone">
-                                <?= ErrMgr::bind('password') ?>
+                                <input type="number" value="<?=$airport->telephone?>" name="telephone" class="form-control" placeholder="Enter Airport Telephone">
+                                <?= ErrMgr::bind('telephone') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airport->email?>" name="address" class="form-control" placeholder="Enter Airport Email">
-                                <?= ErrMgr::bind('address') ?>
+                                <input type="text" value="<?=$airport->email?>" name="email" class="form-control" placeholder="Enter Airport Email">
+                                <?= ErrMgr::bind('email') ?>
                             </div>
 
                             <hr>

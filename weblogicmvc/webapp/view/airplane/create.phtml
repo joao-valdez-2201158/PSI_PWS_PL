@@ -26,7 +26,7 @@ Layout::includeLayout('header') ?>
                         <form method="post" action="<?=Url::toRoute('airplane/store')?>">
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$airplane->id_airplane?>" name="name" class="form-control" placeholder="Enter Airplane ID">
+                                <input type="number" value="<?=$airplane->id_airplane?>" name="id_airplane" class="form-control" placeholder="Enter Airplane ID">
                                 <?= ErrMgr::bind('id_airplane') ?>
 
                             </div>

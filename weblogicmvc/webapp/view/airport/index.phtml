@@ -30,9 +30,9 @@ Layout::includeLayout('header') ?>
 
 
                     <td>
-                        <a href="<?=Url::toRoute('user/show', $airport->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('user/edit', $airport->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('user/destroy', $airport->id)?>" class="btn btn-warning" role="button">Delete</a>
+                        <a href="<?=Url::toRoute('airport/show', $airport->id)?>" class="btn btn-info" role="button">Show</a>
+                        <a href="<?=Url::toRoute('airport/edit', $airport->id)?>" class="btn btn-info" role="button">Edit</a>
+                        <a href="<?=Url::toRoute('airport/destroy', $airport->id)?>" class="btn btn-warning" role="button">Delete</a>
                     </td>
                 </tr>
                 <?php } ?>

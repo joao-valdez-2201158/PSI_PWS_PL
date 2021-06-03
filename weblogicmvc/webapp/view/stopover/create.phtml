@@ -50,6 +50,11 @@ Layout::includeLayout('header') ?>
                                 <input type="datetime-local" value="<?=$stopover->hour_of_arrival?>" name="hour_of_arrival" class="form-control" placeholder="Enter Hour of Arrival">
                                 <?= ErrMgr::bind('hour_of_arrival') ?>
                             </div>
+                            <div class="top-margin">
+                                <label>Distance<span class="text-danger">*</span></label>
+                                <input type="number" value="<?=$stopover->distance?>" name="distance" class="form-control" placeholder="Enter Distance">
+                                <?= ErrMgr::bind('distance') ?>
+                            </div>
                             <hr>
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Register</button>

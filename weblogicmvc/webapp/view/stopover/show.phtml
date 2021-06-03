@@ -42,7 +42,10 @@ Layout::includeLayout('header') ?>
                                     <label>Arrival Hour <span class="text-danger">*</span></label>
                                     <input readonly="true" type="datetime-local" value="<?=$stopover->hour_of_arrival?>" name="hour_of_arrival" class="form-control">
                                 </div>
-
+                                <div class="top-margin">
+                                    <label>Distance <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?=$stopover->distance?>" name="distance" class="form-control">
+                                </div>
 
 
                                 <hr>
