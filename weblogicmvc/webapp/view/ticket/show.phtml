@@ -3,6 +3,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $ticket = Data::get('ticket') ?>
 
     <!-- container -->
@@ -19,12 +20,12 @@ Layout::includeLayout('header') ?>
                             <hr>
                             <form method="post" action="<?=Url::toRoute('ticket/index')?>">
                                 <div class="top-margin">
-                                    <label>User ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->id_user?>" name="user" class="form-control">
+                                    <label>Ticket ID <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?=$ticket->id_ticket?>" name="id_ticket" class="form-control">
                                 </div>
                                 <div class="top-margin">
-                                    <label>Flight Number ID<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->id_flight_number?>" name="id_flight_number" class="form-control">
+                                    <label>User ID <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?=$ticket->id_user?>" name="user" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Departure Flight ID <span class="text-danger">*</span></label>

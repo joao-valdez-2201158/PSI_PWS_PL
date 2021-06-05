@@ -30,6 +30,11 @@ Layout::includeLayout('header') ?>
                                 <?= ErrMgr::bind('name') ?>
                             </div>
                             <div class="top-margin">
+                                <label>Birthday Date <span class="text-danger">*</span></label>
+                                <input type="date" value="<?=$user->birthday_date?>" name="birthday_date" class="form-control" placeholder="Enter Birthday Date">
+                                <?= ErrMgr::bind('birthday_date') ?>
+                            </div>
+                            <div class="top-margin">
                                 <label>Nif <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$user->nif?>" name="nif" class="form-control" placeholder="Enter Nif">
                                 <?= ErrMgr::bind('nif') ?>
@@ -55,16 +60,10 @@ Layout::includeLayout('header') ?>
                                 <?= ErrMgr::bind('telephone') ?>
                             </div>
                             <div class="top-margin">
-                                <label>Birthday Date <span class="text-danger">*</span></label>
-                                <input type="date" value="<?=$user->birthday_date?>" name="birthday_date" class="form-control" placeholder="Enter Birthday Date">
-                                <?= ErrMgr::bind('birthday_date') ?>
-                            </div>
-                            <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$user->email?>" name="email" class="form-control" placeholder="Enter Email">
                                 <?= ErrMgr::bind('email') ?>
                             </div>
-
                             <div class="top-margin">
                                 <label>Role <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$user->role?>" name="role" class="form-control" placeholder="Enter Role">

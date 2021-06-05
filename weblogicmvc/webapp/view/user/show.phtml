@@ -27,6 +27,10 @@ Layout::includeLayout('header') ?>
                                     <input readonly="true" type="text" value="<?=$user->name?>" name="name" class="form-control">
                                 </div>
                                 <div class="top-margin">
+                                    <label>Birthday Date <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="date" value="<?=$user->birthday_date?>" name="birthday_date" class="form-control">
+                                </div>
+                                <div class="top-margin">
                                     <label>Nif <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?=$user->nif?>" name="nif" class="form-control">
                                 </div>

@@ -1,18 +1,18 @@
 <?php
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 
 Layout::includeLayout('header');
-
+$user = Data::get('user')
 ?>
 
 
 
+    <h2>Flight Travel Air</h2>
+    <h5><?= !is_null($user) ? $user->name.' com role '.$user->role : '' ?></h5>
 
 
-
-            <h2>Flight Travel Air</h2>
-
-
+ad
 
 <?php Layout::includeLayout('footer') ?>

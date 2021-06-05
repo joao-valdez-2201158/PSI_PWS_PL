@@ -27,6 +27,10 @@ Layout::includeLayout('header') ?>
                                     <input readonly="true" type="number" value="<?=$stopover->id_stopover?>" name="id_stopover" class="form-control">
                                 </div>
                                 <div class="top-margin">
+                                    <label>Flight ID <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?=$stopover->id_flight?>" name="id_flight" class="form-control">
+                                </div>
+                                <div class="top-margin">
                                     <label>Departure ID <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?=$stopover->id_departure?>" name="id_departure" class="form-control">
                                 </div>
@@ -44,7 +48,7 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Distance <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$stopover->distance?>" name="distance" class="form-control">
+                                    <input readonly="number" type="text" value="<?=$stopover->distance?>" name="distance" class="form-control">
                                 </div>
 
 

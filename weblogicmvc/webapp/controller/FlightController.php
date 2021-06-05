@@ -28,7 +28,7 @@ class FlightController extends BaseController implements ResourceControllerInter
             $flight->save();
             Redirect::toRoute('flight/index');
         } else {
-            Redirect::flashToRoute('flight/create', ['fligh' => $flight]);
+            Redirect::flashToRoute('flight/create', ['flight' => $flight]);
         }
     }
 
@@ -50,7 +50,7 @@ class FlightController extends BaseController implements ResourceControllerInter
 
         if (is_null($flight)) {
         } else {
-            return View::make('fligh.edit', ['flight' => $flight]);
+            return View::make('flight.edit', ['flight' => $flight]);
         }    }
 
     public function update($id)

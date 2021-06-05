@@ -5,13 +5,21 @@ use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
+use ArmoredCore\WebObjects\Session;
 class TicketController extends BaseController implements ResourceControllerInterface
 {
 
     public function index()
     {
         $tickets = Ticket::all();
-        return View::make('ticket.index', ['tickets' => $tickets]);
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
+        return View::make('ticket.index', ['tickets' => $tickets, 'user' => $user_logado]);
     }
 
     public function create()
@@ -22,23 +30,35 @@ class TicketController extends BaseController implements ResourceControllerInter
     public function store()
     {
         $ticket = new Ticket(Post::getAll());
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
 
         if($ticket->is_valid()){
             $ticket->save();
             Redirect::toRoute('ticket/index');
         } else {
-            Redirect::flashToRoute('ticket/create', ['ticket' => $ticket]);
+            Redirect::flashToRoute('ticket/create', ['ticket' => $ticket, 'user' => $user_logado]);
         }
     }
 
     public function show($id)
     {
         $ticket= Ticket::find($id);
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
 
         if (is_null($ticket)) {
 
         } else {
-            return View::make('ticket.show', ['ticket' => $ticket]);
+            return View::make('ticket.show', ['ticket' => $ticket, 'user' => $user_logado]);
         }
     }
 
@@ -46,23 +66,40 @@ class TicketController extends BaseController implements ResourceControllerInter
     {
         $ticket = Ticket::find([$id]);
 
-        if (is_null($ticket)) {
-        } else {
-            return View::make('ticket.edit', ['ticket' => $ticket]);
-        }    }
+        $user_logado = null;
 
-    public function update($id)
+        if (Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
+        if (is_null($ticket))
+        {
+        } else
+        {
+            return View::make('ticket.edit', ['ticket' => $ticket, 'user' => $user_logado]);
+        }
+    }
+        public function update($id)
     {
         $ticket = Ticket::find([$id]);
         $ticket->update_attributes(Post::getAll());
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
 
         if($ticket->is_valid()){
             $ticket->save();
             Redirect::toRoute('ticket/index');
         } else {
             //redirect to form with data and errors
-            Redirect::flashToRoute('ticket/edit', ['ticket' => $ticket]);
-        }    }
+            Redirect::flashToRoute('ticket/edit', ['ticket' => $ticket, 'user' => $user_logado]);
+        }
+
+    }
 
     public function destroy($id)
     {
@@ -70,13 +107,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         $ticket->delete();
         Redirect::toRoute('ticket/index');
     }
-
-    public function login()
-    {
-        return View::make('ticket.login');
-
-    }
-
 
 
 }

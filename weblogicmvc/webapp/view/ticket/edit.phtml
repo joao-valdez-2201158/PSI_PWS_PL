@@ -2,13 +2,16 @@
 use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
 <?php $ticket = Data::get('ticket') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php ErrMgr::attach($ticket) ?>
 
     <!-- container -->
     <div class="container">
+        <?php if (!is_null($user_logado)){ ?>
 
         <div class="row">
 
@@ -17,14 +20,20 @@ Layout::includeLayout('header') ?>
                 <header class="page-header">
                     <h1 class="page-title">Edit Ticket</h1>
                 </header>
-
-
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-
-
+                        <?php if ($user_logado->role == 'admin' ){ ?>
                         <form class="form-horizontal" method="post" action="<?=Url::toRoute('ticket/update', $ticket->id)?>">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Ticket ID:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="number" value="<?=$ticket->id_ticket?>" class="form-control" required name="id_ticket" placeholder="Enter Ticket ID">
+                                    <?= ErrMgr::bind('id_ticket') ?>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">User ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -32,14 +41,8 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_user') ?>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Flight Number ID:<span class="text-danger">*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="number" required value="<?=$ticket->id_flight_number?>" class="form-control" name="id_flight_number" placeholder="Enter Flight Number ID">
-                                    <?= ErrMgr::bind('id_flight_number') ?>
-                                </div>
-                            </div>
+                        <?php } ?>
+                        <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Departure Flight ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -47,6 +50,8 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_departure_flight') ?>
                                 </div>
                             </div>
+                            <?php } ?>
+                            <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Return Flight ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -54,6 +59,7 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_return_flight') ?>
                                 </div>
                             </div>
+                            <?php } ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -92,7 +98,7 @@ Layout::includeLayout('header') ?>
 
         </article>
         <!-- /Article -->
-
+        <?php } ?>
     </div>
     </div>	<!-- /container -->
 

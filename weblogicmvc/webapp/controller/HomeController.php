@@ -22,8 +22,11 @@ class HomeController extends BaseController
 
     public function start(){
 
-        //View::attachSubView('titlecontainer', 'layout.pagetitle', ['title' => 'Quick Start']);
-        return View::make('home.start');
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+        return View::make('home.start',['user' => $user_logado]);
     }
 
     public function login(){

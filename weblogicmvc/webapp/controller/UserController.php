@@ -4,8 +4,8 @@ use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
+use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\View;
-
 class UserController extends BaseController implements ResourceControllerInterface
 {
 
@@ -92,12 +92,19 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $user = User::find_by_username_and_password($username, $password);
 
 
+
         if(is_null($user)){
             Redirect::toRoute('home/start');
        }else{
-           \ArmoredCore\WebObjects\Session::set('user',$user);
+           Session::set('user',$user);
            Redirect::toRoute('home/start');
        }
 
+    }
+
+    public function logout()
+    {
+        Session::destroy();
+        Redirect::toRoute('home/start');
     }
 }

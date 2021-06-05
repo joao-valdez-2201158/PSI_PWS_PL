@@ -4,6 +4,7 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $stopover= Data::get('stopover')?>
 <?php ErrMgr::attach($stopover) ?>
 
@@ -28,7 +29,11 @@ Layout::includeLayout('header') ?>
                                 <label>Stopover ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$stopover->id_stopover?>" name="id_stopover" class="form-control" placeholder="Enter Stopover ID">
                                 <?= ErrMgr::bind('id_stopover') ?>
-
+                            </div>
+                            <div class="top-margin">
+                                    <label>Flight ID <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?=$stopover->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
+                                    <?= ErrMgr::bind('id_flight') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Departure ID <span class="text-danger">*</span></label>

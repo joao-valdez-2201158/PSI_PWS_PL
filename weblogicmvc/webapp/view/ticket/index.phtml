@@ -3,13 +3,14 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $tickets = Data::get('tickets') ?>
 
 <!-- container -->
 <div class="container">
 
     <ol class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="../home/index">Home</a></li>
         <li class="active">Ticket Index</li>
     </ol>
 
@@ -17,12 +18,13 @@ Layout::includeLayout('header') ?>
     <h2 class="top-space"></h2>
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-striped"><thead><th><h3>User ID</h3></th><th><h3>Flight Number ID</h3></th><th><h3>Departure Flight ID</h3></th><th><h3>Return Flight ID</h3></th><th><h3>Price</h3></th><th><h3>Date</h3></th><th><h3>Check-In Number</h3></th></thead>
+            <table class="table table-striped"><thead><th><h3>Ticket ID</h3></th><th><h3>User ID</h3></th><th><h3>Departure Flight ID</h3></th><th><h3>Return Flight ID</h3></th><th><h3>Price</h3></th><th><h3>Date</h3></th><th><h3>Check-In Number</h3></th></thead>
                 <tbody>
                 <?php foreach ($tickets as $ticket) { ?>
                 <tr>
+
+                    <td><?=$ticket->id_ticket?></td>
                     <td><?=$ticket->id_user?></td>
-                    <td><?=$ticket->id_flight_number?></td>
                     <td><?=$ticket->id_departure_flight?></td>
                     <td><?=$ticket->id_return_flight?></td>
                     <td><?=$ticket->price?></td>

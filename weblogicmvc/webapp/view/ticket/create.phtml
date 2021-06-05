@@ -2,8 +2,10 @@
 use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $ticket = Data::get('ticket')?>
 <?php ErrMgr::attach($ticket) ?>
 
@@ -25,14 +27,14 @@ Layout::includeLayout('header') ?>
                         <hr>
                         <form method="post" action="<?=Url::toRoute('ticket/store')?>">
                             <div class="top-margin">
+                                <label>Ticket ID <span class="text-danger">*</span></label>
+                                <input type="number" value="<?=$ticket->id_ticket?>" name="id_ticket" class="form-control" placeholder="Enter Ticket ID">
+                                <?= ErrMgr::bind('id_ticket') ?>
+                            </div>
+                            <div class="top-margin">
                                 <label>User ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$ticket->id_user?>" name="id_user" class="form-control" placeholder="Enter User ID">
                                 <?= ErrMgr::bind('id_user') ?>
-                            </div>
-                            <div class="top-margin">
-                                <label>Flight Number ID <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$ticket->id_flight_number?>" name="id_flight_number" class="form-control" placeholder="Enter Flight Number ID">
-                                <?= ErrMgr::bind('id_flight_number') ?>
                             </div>
                             <div class="top-margin">
                                 <label>Departure Flight ID <span class="text-danger">*</span></label>
