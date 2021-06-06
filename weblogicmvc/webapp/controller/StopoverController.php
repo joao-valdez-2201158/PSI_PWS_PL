@@ -13,7 +13,6 @@ class StopoverController extends BaseController implements ResourceControllerInt
     public function index()
     {
         $stopovers = Stopover::all();
-
         $user_logado = null;
 
         if(Session::has('user'))
@@ -23,13 +22,19 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
         if (is_null($stopovers)) {
         } else {
-            return View::make('stopover.edit', ['stopovers' => $stopovers, 'user' => $user_logado ]);
+            return View::make('stopover.index', ['stopovers' => $stopovers, 'user' => $user_logado ]);
         }
     }
 
     public function create()
     {
-        return View::make('stopover.create');
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+        return View::make('stopover.create',  ['user' => $user_logado]);
     }
 
     public function store()
@@ -102,7 +107,8 @@ class StopoverController extends BaseController implements ResourceControllerInt
         } else {
             //redirect to form with data and errors
             Redirect::flashToRoute('stopover/edit', ['stopover' => $stopover, 'user' => $user_logado]);
-        }    }
+        }
+    }
 
     public function destroy($id)
     {

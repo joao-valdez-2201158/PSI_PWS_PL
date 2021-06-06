@@ -1,6 +1,7 @@
 <?php use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
@@ -8,7 +9,9 @@ Layout::includeLayout('header') ?>
 
     <!-- container -->
     <div class="container">
-        <div class="row">
+<?php if (!is_null($user_logado)){ ?>
+
+    <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
                 <header class="page-header">
@@ -59,6 +62,7 @@ Layout::includeLayout('header') ?>
         </article>
         <!-- /Article -->
     </div>
+<?php } ?>
     </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

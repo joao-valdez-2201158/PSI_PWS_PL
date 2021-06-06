@@ -12,7 +12,7 @@ Layout::includeLayout('header') ?>
 
 <!-- container -->
 <div class="container">
-
+    <?php if (!is_null($user_logado)){ ?>
     <div class="row">
 
         <!-- Article main content -->
@@ -26,26 +26,35 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('ticket/store')?>">
+
+                         <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>Ticket ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$ticket->id_ticket?>" name="id_ticket" class="form-control" placeholder="Enter Ticket ID">
                                 <?= ErrMgr::bind('id_ticket') ?>
                             </div>
+                         <?php } ?>
+                         <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>User ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$ticket->id_user?>" name="id_user" class="form-control" placeholder="Enter User ID">
                                 <?= ErrMgr::bind('id_user') ?>
                             </div>
+                         <?php } ?>
+                         <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>Departure Flight ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control" placeholder="Enter Departure Flight ID">
                                 <?= ErrMgr::bind('id_departure_flight') ?>
                             </div>
+                         <?php } ?>
+                         <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>Return Flight ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control" placeholder="Enter Return Flight ID">
                                 <?= ErrMgr::bind('id_return_flight') ?>
                             </div>
+                         <?php } ?>
                             <div class="top-margin">
                                 <label>Price <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$ticket->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
@@ -66,7 +75,9 @@ Layout::includeLayout('header') ?>
                                 <button class="btn btn-action" type="submit">Register</button>
                             </div>
                             <div class="col-lg-4 text-left">
-                                <a button class="btn btn-action" href="<?=Url::toRoute('ticket/index')?>">Return</a></button>                            </div>
+                                <a button class="btn btn-action" href="<?=Url::toRoute('ticket/index')?>">Return</a></button>
+                            </div>
+
                     </div>
 
                     </div>
@@ -80,6 +91,7 @@ Layout::includeLayout('header') ?>
     <!-- /Article -->
 
 </div>
+<?php } ?>
 </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

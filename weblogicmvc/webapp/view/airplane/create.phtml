@@ -4,12 +4,14 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $airplane = Data::get('airplane')?>
 <?php ErrMgr::attach($airplane) ?>
 
 
 <!-- container -->
 <div class="container">
+<?php if (!is_null($user_logado)){ ?>
 
     <div class="row">
 
@@ -24,22 +26,27 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('airplane/store')?>">
+
+                        <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$airplane->id_airplane?>" name="id_airplane" class="form-control" placeholder="Enter Airplane ID">
                                 <?= ErrMgr::bind('id_airplane') ?>
-
                             </div>
+                        <?php } ?>
+
                             <div class="top-margin">
                                 <label>Reference <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$airplane->reference?>" name="reference" class="form-control" placeholder="Enter Airplane Reference">
                                 <?= ErrMgr::bind('reference') ?>
                             </div>
+
                             <div class="top-margin">
                                 <label>Type <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$airplane->airplanetype?>" name="airplanetype" class="form-control" placeholder="Enter Airplane Type">
                                 <?= ErrMgr::bind('airplanetype') ?>
                             </div>
+
                             <div class="top-margin">
                                 <label>Lotation <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$airplane->lotation?>" name="lotation" class="form-control" placeholder="Enter Airplane Lotation">
@@ -65,6 +72,8 @@ Layout::includeLayout('header') ?>
     <!-- /Article -->
 
 </div>
+<?php } ?>
+
 </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

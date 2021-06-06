@@ -1,6 +1,7 @@
 <?php use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
@@ -8,7 +9,7 @@ Layout::includeLayout('header') ?>
 
 <!-- container -->
 <div class="container">
-
+<?php if (!is_null($user_logado)){ ?>
     <ol class="breadcrumb">
         <li><a href="../home/index">Home</a></li>
         <li class="active">Ticket Index</li>
@@ -22,7 +23,6 @@ Layout::includeLayout('header') ?>
                 <tbody>
                 <?php foreach ($tickets as $ticket) { ?>
                 <tr>
-
                     <td><?=$ticket->id_ticket?></td>
                     <td><?=$ticket->id_user?></td>
                     <td><?=$ticket->id_departure_flight?></td>
@@ -55,6 +55,7 @@ Layout::includeLayout('header') ?>
             </p>
         </div>
     </div> <!-- /row -->
-
+<?php } ?>
 </div>	<!-- /container -->
+
 <?php Layout::includeLayout('footer')?>

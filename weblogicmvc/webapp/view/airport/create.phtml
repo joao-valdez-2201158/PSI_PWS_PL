@@ -4,12 +4,14 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $airport = Data::get('airport')?>
 <?php ErrMgr::attach($airport) ?>
 
 
 <!-- container -->
 <div class="container">
+<?php if (!is_null($user_logado)){ ?>
 
     <div class="row">
 
@@ -24,27 +26,33 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('airport/store')?>">
+
+                        <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$airport->id_airport?>" name="id_airport" class="form-control" placeholder="Enter Airport ID">
                                 <?= ErrMgr::bind('id_airport') ?>
-
                             </div>
+                        <?php } ?>
+
                             <div class="top-margin">
                                 <label>Name <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$airport->name?>" name="name" class="form-control" placeholder="Enter Airport Name">
                                 <?= ErrMgr::bind('name') ?>
                             </div>
+
                             <div class="top-margin">
                                 <label>Localization <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$airport->localization?>" name="localization" class="form-control" placeholder="Enter Airport Localization">
                                 <?= ErrMgr::bind('localization') ?>
                             </div>
+
                             <div class="top-margin">
                                 <label>Telephone <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$airport->telephone?>" name="telephone" class="form-control" placeholder="Enter Airport Telephone">
                                 <?= ErrMgr::bind('telephone') ?>
                             </div>
+
                             <div class="top-margin">
                                 <label>Email <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$airport->email?>" name="email" class="form-control" placeholder="Enter Airport Email">
@@ -70,6 +78,8 @@ Layout::includeLayout('header') ?>
     <!-- /Article -->
 
 </div>
+<?php } ?>
+
 </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

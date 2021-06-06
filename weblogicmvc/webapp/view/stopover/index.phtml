@@ -3,11 +3,12 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $stopovers = Data::get('stopovers') ?>
 
 <!-- container -->
 <div class="container">
-
+    <?php if (!is_null($user_logado)){ ?>
     <ol class="breadcrumb">
         <li><a href="../home/index">Home</a></li>
         <li class="active">Stopover Index</li>
@@ -28,7 +29,6 @@ Layout::includeLayout('header') ?>
                     <td><?=$stopover->hour_of_departure?></td>
                     <td><?=$stopover->hour_of_arrival?></td>
                     <td><?=$stopover->distance?></td>
-
 
                     <td>
                         <a href="<?=Url::toRoute('stopover/show', $stopover->id)?>" class="btn btn-info" role="button">Show</a>
@@ -51,6 +51,6 @@ Layout::includeLayout('header') ?>
             </p>
         </div>
     </div> <!-- /row -->
-
+    <?php } ?>
 </div>	<!-- /container -->
 <?php Layout::includeLayout('footer')?>

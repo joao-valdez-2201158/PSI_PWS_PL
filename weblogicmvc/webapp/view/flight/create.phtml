@@ -4,12 +4,14 @@ use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $flight = Data::get('flight')?>
 <?php ErrMgr::attach($flight) ?>
 
 
 <!-- container -->
 <div class="container">
+<?php if (!is_null($user_logado)){ ?>
 
     <div class="row">
 
@@ -24,17 +26,23 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('flight/store')?>">
+
+                        <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>Flight ID<span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$flight->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
                                 <?= ErrMgr::bind('id_flight') ?>
-
                             </div>
+                        <?php } ?>
+
+                        <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>Airplane ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control" placeholder="Enter Airplane ID">
                                 <?= ErrMgr::bind('id_airplane') ?>
                             </div>
+                        <?php } ?>
+
                             <div class="top-margin">
                                 <label>Ticket Price <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$flight->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
@@ -58,6 +66,7 @@ Layout::includeLayout('header') ?>
     <!-- /Article -->
 
 </div>
+<?php } ?>
 </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

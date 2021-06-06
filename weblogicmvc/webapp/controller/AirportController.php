@@ -4,19 +4,34 @@ use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
+use ArmoredCore\WebObjects\Session;
 class AirportController extends BaseController implements ResourceControllerInterface
 
 {
 
     public function index()
     {
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
         $airports = Airport::all();
-        return View::make('airport.index', ['airports' => $airports]);
+        return View::make('airport.index', ['airports' => $airports, 'user' => $user_logado]);
     }
 
     public function create()
     {
-        return View::make('airport.create');
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
+        return View::make('airport.create', ['user' => $user_logado]);
     }
 
     public function store()
@@ -24,11 +39,18 @@ class AirportController extends BaseController implements ResourceControllerInte
 
         $airport = new Airport(Post::getAll());
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
         if($airport->is_valid()){
             $airport->save();
             Redirect::toRoute('airport/index');
         } else {
-            Redirect::flashToRoute('airport/create', ['airport' => $airport]);
+            Redirect::flashToRoute('airport/create', ['airport' => $airport, 'user' => $user_logado]);
         }
     }
 
@@ -36,11 +58,17 @@ class AirportController extends BaseController implements ResourceControllerInte
     {
         $airport = Airport::find([$id]);
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
 
         if (is_null($airport)) {
 
         } else {
-            return View::make('airport.show', ['airport' => $airport]);
+            return View::make('airport.show', ['airport' => $airport, 'user' => $user_logado]);
         }
     }
 
@@ -48,9 +76,16 @@ class AirportController extends BaseController implements ResourceControllerInte
     {
         $airport = Airport::find([$id]);
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
         if (is_null($airport)) {
         } else {
-            return View::make('airport.edit', ['airport' => $airport]);
+            return View::make('airport.edit', ['airport' => $airport, 'user' => $user_logado]);
         }    }
 
     public function update($id)
@@ -58,12 +93,19 @@ class AirportController extends BaseController implements ResourceControllerInte
         $airport = Airport::find([$id]);
         $airport->update_attributes(Post::getAll());
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
         if($airport->is_valid()){
             $airport->save();
             Redirect::toRoute('airport/index');
         } else {
             //redirect to form with data and errors
-            Redirect::flashToRoute('airport/edit', ['airport' => $airport]);
+            Redirect::flashToRoute('airport/edit', ['airport' => $airport, 'user' => $user_logado]);
         }    }
 
     public function destroy($id)

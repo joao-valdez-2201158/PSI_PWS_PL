@@ -4,6 +4,7 @@ use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
 use ArmoredCore\WebObjects\Redirect;
 use ArmoredCore\WebObjects\View;
+use ArmoredCore\WebObjects\Session;
 class FlightController extends BaseController implements ResourceControllerInterface
 
 {
@@ -11,12 +12,26 @@ class FlightController extends BaseController implements ResourceControllerInter
     public function index()
     {
         $flights = Flight::all();
-        return View::make('flight.index', ['flights' => $flights]);
+
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+        return View::make('flight.index', ['flights' => $flights, 'user' => $user_logado]);
     }
 
     public function create()
     {
-        return View::make('flight.create');
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
+        return View::make('flight.create', ['user' => $user_logado]);
     }
 
     public function store()
@@ -24,11 +39,18 @@ class FlightController extends BaseController implements ResourceControllerInter
 
         $flight = new Flight(Post::getAll());
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
         if($flight->is_valid()){
             $flight->save();
             Redirect::toRoute('flight/index');
         } else {
-            Redirect::flashToRoute('flight/create', ['flight' => $flight]);
+            Redirect::flashToRoute('flight/create', ['flight' => $flight, 'user' => $user_logado]);
         }
     }
 
@@ -36,11 +58,17 @@ class FlightController extends BaseController implements ResourceControllerInter
     {
         $flight = Flight::find([$id]);
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
 
         if (is_null($flight)) {
 
         } else {
-            return View::make('flight.show', ['flight' => $flight]);
+            return View::make('flight.show', ['flight' => $flight, 'user' => $user_logado]);
         }
     }
 
@@ -48,9 +76,16 @@ class FlightController extends BaseController implements ResourceControllerInter
     {
         $flight = Flight::find([$id]);
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
         if (is_null($flight)) {
         } else {
-            return View::make('flight.edit', ['flight' => $flight]);
+            return View::make('flight.edit', ['flight' => $flight, 'user' => $user_logado]);
         }    }
 
     public function update($id)
@@ -58,13 +93,20 @@ class FlightController extends BaseController implements ResourceControllerInter
         $flight = Flight::find([$id]);
         $flight->update_attributes(Post::getAll());
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
         if($flight->is_valid()){
             $flight->save();
             Redirect::toRoute('flight/index');
         } else {
             //redirect to form with data and errors
-            Redirect::flashToRoute('flight/edit', ['flight' => $flight]);
-        }    }
+            Redirect::flashToRoute('flight/edit', ['flight' => $flight, 'user' => $user_logado]);
+        }
+    }
 
     public function destroy($id)
     {

@@ -24,7 +24,14 @@ class TicketController extends BaseController implements ResourceControllerInter
 
     public function create()
     {
-        return View::make('ticket.create');
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        $user_logado;
+
+        return View::make('ticket.create', ['user' => $user_logado]);
     }
 
     public function store()
@@ -80,10 +87,13 @@ class TicketController extends BaseController implements ResourceControllerInter
             return View::make('ticket.edit', ['ticket' => $ticket, 'user' => $user_logado]);
         }
     }
-        public function update($id)
+
+
+    public function update($id)
     {
         $ticket = Ticket::find([$id]);
         $ticket->update_attributes(Post::getAll());
+
         $user_logado = null;
 
         if(Session::has('user'))

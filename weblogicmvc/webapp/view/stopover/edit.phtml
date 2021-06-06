@@ -24,13 +24,16 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form class="form-horizontal" method="post" action="<?=Url::toRoute('stopover/update', $stopover->id)?>">
-                            <div class="form-group">
+
+                            <?php if ($user_logado->role == 'admin' ){ ?>
+                                <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Stopover ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
                                     <input type="number" value="<?=$stopover->id_stopover?>" class="form-control" required name="id_stopover" placeholder="Enter Stopover ID">
                                     <?= ErrMgr::bind('id_stopover') ?>
                                 </div>
                             </div>
+                            <?php } ?>
 
                             <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="form-group">
@@ -39,9 +42,10 @@ Layout::includeLayout('header') ?>
                                     <input type="number" required value="<?=$stopover->id_flight?>" class="form-control" name="id_flight" placeholder="Enter Flight ID">
                                     <?= ErrMgr::bind('id_flight') ?>
                                 </div>
-
                             </div>
                             <?php } ?>
+
+                            <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Departure ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -49,6 +53,9 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_departure') ?>
                                 </div>
                             </div>
+                            <?php } ?>
+
+                            <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Destination ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -56,6 +63,8 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_destinnation') ?>
                                 </div>
                             </div>
+                            <?php } ?>
+
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Departure Hour:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -63,6 +72,7 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('hour_of_departure') ?>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Arrival Hour:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -70,6 +80,7 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('hour_of_arrival') ?>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Distance:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -77,6 +88,7 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('distance') ?>
                                 </div>
                             </div>
+
                             <hr>
 
                             <div class="col-lg-4 text-right">
@@ -91,8 +103,9 @@ Layout::includeLayout('header') ?>
 
         </article>
         <!-- /Article -->
-    <?php } ?>
     </div>
+    <?php } ?>
+
     </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

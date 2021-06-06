@@ -2,6 +2,7 @@
 use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
@@ -11,6 +12,7 @@ Layout::includeLayout('header') ?>
 
 <!-- container -->
 <div class="container">
+<?php if (!is_null($user_logado)){ ?>
 
     <div class="row">
 
@@ -25,47 +27,66 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('stopover/store')?>">
+
+                            <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>Stopover ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$stopover->id_stopover?>" name="id_stopover" class="form-control" placeholder="Enter Stopover ID">
                                 <?= ErrMgr::bind('id_stopover') ?>
                             </div>
+                            <?php } ?>
+
+                            <?php if ($user_logado->role == 'admin' ){ ?>«
                             <div class="top-margin">
-                                    <label>Flight ID <span class="text-danger">*</span></label>
-                                    <input type="number" value="<?=$stopover->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
-                                    <?= ErrMgr::bind('id_flight') ?>
+                                <label>Flight ID <span class="text-danger">*</span></label>
+                                <input type="number" value="<?=$stopover->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
+                                <?= ErrMgr::bind('id_flight') ?>
                             </div>
+                            <?php } ?>
+
+                            <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>Departure ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$stopover->id_departure?>" name="id_departure" class="form-control" placeholder="Enter Departure ID">
                                 <?= ErrMgr::bind('id_departure') ?>
                             </div>
+                             <?php } ?>
+
+                            <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
-                                    <label>Destination ID <span class="text-danger">*</span></label>
+                                <label>Destination ID <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$stopover->id_destination?>" name="id_destination" class="form-control" placeholder="Enter Destination ID">
                                 <?= ErrMgr::bind('id_destination') ?>
                             </div>
+                             <?php } ?>
+
                             <div class="top-margin">
                                 <label>Departure Hour <span class="text-danger">*</span></label>
                                 <input type="datetime-local" value="<?=$stopover->hour_of_departure?>" name="hour_of_departure" class="form-control" placeholder="Enter Hour of Departure">
                                 <?= ErrMgr::bind('hour_of_departure') ?>
                             </div>
+
                             <div class="top-margin">
                                 <label>Arrival Hour<span class="text-danger">*</span></label>
                                 <input type="datetime-local" value="<?=$stopover->hour_of_arrival?>" name="hour_of_arrival" class="form-control" placeholder="Enter Hour of Arrival">
                                 <?= ErrMgr::bind('hour_of_arrival') ?>
                             </div>
+
                             <div class="top-margin">
                                 <label>Distance<span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$stopover->distance?>" name="distance" class="form-control" placeholder="Enter Distance">
                                 <?= ErrMgr::bind('distance') ?>
                             </div>
+
                             <hr>
+
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Register</button>
                             </div>
+
                             <div class="col-lg-4 text-left">
-                                <a button class="btn btn-action" href="<?=Url::toRoute('stopover/index')?>">Return</a></button>                            </div>
+                                <a button class="btn btn-action" href="<?=Url::toRoute('stopover/index')?>">Return</a></button>
+                            </div>
                     </div>
                     </div>
                     </form>
@@ -78,6 +99,7 @@ Layout::includeLayout('header') ?>
     <!-- /Article -->
 
 </div>
-</div>	<!-- /container -->
+<?php } ?>
+    </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>
