@@ -3,7 +3,7 @@ use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('header') ?>
+Layout::includeLayout('loginheader') ?>
 <?php $user = Data::get('user')?>
 <?php ErrMgr::attach($user) ?>
 

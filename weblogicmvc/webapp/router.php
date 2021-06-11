@@ -16,6 +16,11 @@ Router::get('/',			'HomeController/index');
 Router::get('home/',		'HomeController/index');
 Router::get('home/index',	'HomeController/index');
 Router::get('home/start',	'HomeController/start');
+
+Router::get('home/searchflight',	'HomeController/searchflight');
+Router::post('home/searchflight',	'HomeController/searchflight');
+
+
 //Router::get('home/start',	'UserController/start');
 
 Router::get('test/index',  'TestController/index');

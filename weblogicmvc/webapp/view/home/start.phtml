@@ -8,11 +8,18 @@ $user = Data::get('user')
 ?>
 
 
+    <header id="head">
+        <link rel="stylesheet" type="text/css" href="../layout/style/mystyle.css"/>
+        <div class="container">
+            <div class="row">
+                <h2>Flight Travel Air<br></h2>
+                <br>
+                    <h1>User Details</h1><br>
 
-    <h2>Flight Travel Air</h2>
-    <h5><?= !is_null($user) ? $user->name.' com role '.$user->role : '' ?></h5>
-
-
-ad
+                    <h5><?= !is_null($user) ? 'NAME: ' .$user->name.' <br><br> ROLE:  '. $user->role : '' ?></h5>
+                <br>
+            </div>
+        </div>
+    </header>
 
 <?php Layout::includeLayout('footer') ?>

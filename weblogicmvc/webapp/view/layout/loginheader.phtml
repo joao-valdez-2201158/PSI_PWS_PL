@@ -14,7 +14,7 @@ $user = Data::get('user')
     <meta charset="utf-8">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author"      content="PSI">
+    <meta name="author"      content="Silvio Priem Mendes, PhD">
 
     <title>Flight Travel Air - Welcome Aboard</title>
 
@@ -40,7 +40,7 @@ $user = Data::get('user')
         <div class="navbar-header">
             <!-- Button for smallest screens -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a class="navbar-brand" href="<?= URL::toRoute('home/index')?>"><img src="<?= Asset::image('logo.png')?>" alt="Flight Travel Air"></a>
+            <a class="navbar-brand" href="<?= URL::toRoute('home/index')?>"><img src="<?= Asset::image('logo.png')?>" alt="WEBlogic MVC"></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
@@ -50,7 +50,6 @@ $user = Data::get('user')
                 <?php if(is_null($user)){
                     echo('<li><a class="btn" href="'.URL::toRoute('user/login').'">SIGN IN / SIGN UP</a></li>');
                 } else {
-                    echo('<li><button class="btn">'.$user->name.'</button></li>');
                     echo('<li><a class="btn" href="'.URL::toRoute('user/logout').'">LOGOUT</a></li>');
                 }
 
@@ -58,8 +57,8 @@ $user = Data::get('user')
             </ul>
         </div><!--/.nav-collapse -->
 
-        </div><!--/.nav-collapse -->
-    </div>
+    </div><!--/.nav-collapse -->
+</div>
 </div>
 <!-- /.navbar -->
 <header id="head" class="secondary"></header>

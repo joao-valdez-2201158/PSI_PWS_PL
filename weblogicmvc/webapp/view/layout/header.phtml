@@ -1,6 +1,7 @@
 <?php
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\Facades\AssetBundler;
+use ArmoredCore\Facades\DebugRenderer;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Data;
 $user = Data::get('user')
@@ -9,10 +10,11 @@ $user = Data::get('user')
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author"      content="Flight Travel Air">
+    <meta name="author"      content="PSI">
 
     <title>Flight Travel Air - Welcome Aboard</title>
 
@@ -22,6 +24,7 @@ $user = Data::get('user')
     <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
     <!-- Custom styles for our site template -->
     <link rel="stylesheet" href="<?= Asset::css('/bootstrap-theme.css')?>" media="screen" >
+    <link rel="stylesheet" type="text/css" href="style/mystyle.css"/>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -37,7 +40,7 @@ $user = Data::get('user')
         <div class="navbar-header">
             <!-- Button for smallest screens -->
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a class="navbar-brand" href="<?= URL::toRoute('home/index')?>"><img src="<?= Asset::image('logo.png')?>" alt="WEBlogic MVC"></a>
+            <a class="navbar-brand" href="<?= URL::toRoute('home/index')?>"><img src="<?= Asset::image('logo.png')?>" alt="Flight Travel Air"></a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav pull-right">
@@ -47,13 +50,17 @@ $user = Data::get('user')
                 <?php if(is_null($user)){
                     echo('<li><a class="btn" href="'.URL::toRoute('user/login').'">SIGN IN / SIGN UP</a></li>');
                 } else {
-                   echo('<li><button class="btn">'.$user->name.'</button></li>');
+                    echo('<li><button class="btn">'.$user->name.'</button></li>');
                     echo('<li><a class="btn" href="'.URL::toRoute('user/logout').'">LOGOUT</a></li>');
                 }
-                    ?>
+                ?>
             </ul>
         </div><!--/.nav-collapse -->
-    </div>
+
+    </div><!--/.nav-collapse -->
+</div>
 </div>
 <!-- /.navbar -->
 <header id="head" class="secondary"></header>
+
+</body>

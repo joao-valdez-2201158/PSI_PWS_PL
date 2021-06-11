@@ -2,20 +2,30 @@
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
-Layout::includeLayout('indexheader'); ?>
+use ArmoredCore\WebObjects\Data;
+
+Layout::includeLayout('indexheader');
+$user = Data::get('user')
+?>
+
 
     <!-- Header -->
     <header id="head">
+        <link rel="stylesheet" type="text/css" href="../layout/style/mystyle.css"/>
+
         <div class="container">
             <div class="row">
                 <h2>Flight Travel Air<br></h2>
                 <br>
-                <p><a class="btn btn-action btn-lg" role="button" href="<?= Url::toRoute('user/create')?>">Register Now</a></p>
+                <form method="post" action="<?=Url::toRoute('home/searchflight')?>">
+                    <h1>SEARCH FOR FLIGHTS</h1>
+                    <input type="text" name="flight" required/>
+                    <input type="submit" value="Search"/>
+                </form>
+                <br>
             </div>
         </div>
     </header>
     <!-- /Header -->
-
-
 
 <?php Layout::includeLayout('footer')?>
