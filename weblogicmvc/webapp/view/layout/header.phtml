@@ -4,6 +4,7 @@ use ArmoredCore\Facades\AssetBundler;
 use ArmoredCore\Facades\DebugRenderer;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Session;
 $user = Data::get('user')
 ?>
 
@@ -53,6 +54,7 @@ $user = Data::get('user')
                     echo('<li><button class="btn">'.$user->name.'</button></li>');
                     echo('<li><a class="btn" href="'.URL::toRoute('user/logout').'">LOGOUT</a></li>');
                 }
+
                 ?>
             </ul>
         </div><!--/.nav-collapse -->

@@ -1,12 +1,15 @@
 <?php use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
 <?php $users = Data::get('users') ?>
 
 <!-- container -->
 <div class="container">
+<?php if (!is_null($user_logado)){ ?>
 
     <ol class="breadcrumb">
         <li><a href="../home/index">Home</a></li>
@@ -53,4 +56,5 @@ Layout::includeLayout('header') ?>
     </div> <!-- /row -->
 
 </div>	<!-- /container -->
+   <?php } ?>
 <?php Layout::includeLayout('footer')?>

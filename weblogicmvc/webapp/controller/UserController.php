@@ -1,5 +1,4 @@
 <?php
-
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
@@ -10,9 +9,17 @@ class UserController extends BaseController implements ResourceControllerInterfa
 {
 
     public function index()
-    {
-        $users = User::all();
-        return View::make('user.index', ['users' => $users]);
+    {   $users = User::all();
+
+        $user_logado = null;
+
+        if(Session::has('user')){
+            $user_logado = Session::get('user');
+        }
+
+        $user_logado;
+
+        return View::make('user.index', ['users' => $users, 'user_logado'=> $user_logado]);
     }
 
     public function create()

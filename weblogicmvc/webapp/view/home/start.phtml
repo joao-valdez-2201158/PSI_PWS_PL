@@ -2,9 +2,11 @@
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
-
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
+use ArmoredCore\WebObjects\ErrMgr;
 Layout::includeLayout('header');
-$user = Data::get('user')
+$user_logado = Data::get('user')
 ?>
 
 
@@ -16,7 +18,26 @@ $user = Data::get('user')
                 <br>
                     <h1>User Details</h1><br>
 
-                    <h5><?= !is_null($user) ? 'NAME: ' .$user->name.' <br><br> ROLE:  '. $user->role : '' ?></h5>
+                    <h5><?= !is_null($user_logado) ? 'NAME: ' .$user_logado->name.' <br><br> ROLE:  '. $user_logado->role : '' ?></h5>
+
+                <?php if (!$user_logado == null){?>
+        <?php if ($user_logado->role == 'admin' ){ ?>
+            <a href="../user/index">User Index</a><br>
+            <a href="../ticket/index">Ticket Index</a><br>
+            <a href="../stopover/index">Stopover Index</a><br>
+            <a href="../flight/index">Flight Index</a><br>
+            <a href="../airport/index">Airport Index</a><br>
+            <a href="../airplane/index">Airplane Index</a><br>
+        <?php } ?>
+                <?php if ($user_logado->role != 'admin') { ?>
+            <a href="../user/show">User Show </a><br>
+            <a href="../ticket/show">Ticket Show </a><br>
+            <a href="../stopover/show">Stopover Show </a><br>
+            <a href="../flight/show">Flight Show</a><br>
+            <a href="../airport/show">Airport Show </a><br>
+            <a href="../airplane/show">Airplane Show</a><br>
+        <?php }?>
+                <?php } ?>
                 <br>
             </div>
         </div>
