@@ -8,35 +8,20 @@ Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $airplane = Data::get('airplane') ?>
 <?php ErrMgr::attach($airplane) ?>
-
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)){ ?>
-
         <div class="row">
-
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
                 <header class="page-header">
                     <h1 class="page-title">Edit Airplane</h1>
                 </header>
-
-
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-
                         <?php if ($user_logado->role == 'admin' ){ ?>
                         <form class="form-horizontal" method="post" action="<?=Url::toRoute('airplane/update', $airplane->id)?>">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">ID:<span class="text-danger">*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="number" value="<?=$airplane->id_airplane?>" class="form-control" required name="id_airplane" placeholder="Enter Airplane ID">
-                                    <?= ErrMgr::bind('id_airplane') ?>
-                                </div>
-                            </div>
-                            <?php } ?>
-
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Reference:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -58,25 +43,19 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('lotation') ?>
                                 </div>
                             </div>
-
                             <hr>
-
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-default" type="submit">Save</button>
                             </div>
                     </div>
                     </form>
+                    <?php } ?>
                 </div>
         </div>
-
-
-
         </article>
         <!-- /Article -->
-
     </div>
 <?php } ?>
-
     </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

@@ -17,9 +17,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $user_logado = Session::get('user');
         }
 
-        $user_logado;
-
-        return View::make('user.index', ['users' => $users, 'user_logado'=> $user_logado]);
+        return View::make('user.index', ['users' => $users, 'user'=> $user_logado]);
     }
 
     public function create()
@@ -35,7 +33,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         if($user->is_valid()){
             $user->save();
-            Redirect::toRoute('user/index');
+            Redirect::toRoute('home/index');
         } else {
             Redirect::flashToRoute('user/create', ['user' => $user]);
         }

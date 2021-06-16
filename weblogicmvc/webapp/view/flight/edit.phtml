@@ -8,38 +8,19 @@ Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $flight = Data::get('flight') ?>
 <?php ErrMgr::attach($flight) ?>
-
     <!-- container -->
     <div class="container">
-
 <?php if (!is_null($user_logado)){ ?>
-
-        <div class="row">
-
-            <!-- Article main content -->
-            <article class="col-xs-12 maincontent">
-                <header class="page-header">
-                    <h1 class="page-title">Edit Flight</h1>
-                </header>
-
-
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <hr>
-
-
-                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('flight/update', $flight->id)?>">
-
-                        <?php if ($user_logado->role == 'admin' ){ ?>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Flight ID:<span class="text-danger">*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="number" value="<?=$flight->id_flight?>" class="form-control" required name="id_flight" placeholder="Enter Flight ID">
-                                    <?= ErrMgr::bind('id_flight') ?>
-                                </div>
-                            </div>
-                        <?php } ?>
-
+    <div class="row">
+        <!-- Article main content -->
+        <article class="col-xs-12 maincontent">
+            <header class="page-header">
+                <h1 class="page-title">Edit Flight</h1>
+            </header>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <hr>
+                    <form class="form-horizontal" method="post" action="<?=Url::toRoute('flight/update', $flight->id)?>">
                         <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Airplane ID:<span class="text-danger">*</span></label>
@@ -48,34 +29,25 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_airplane') ?>
                                 </div>
                             </div>
-                        <?php } ?>
-
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="number" required value="<?=$flight->price?>" class="form-control" name="price" placeholder="Enter Ticket Price">
-                                    <?= ErrMgr::bind('price') ?>
-                                </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
+                            <div class="col-sm-6">
+                                <input type="number" required value="<?=$flight->price?>" class="form-control" name="price" placeholder="Enter Ticket Price">
+                                <?= ErrMgr::bind('price') ?>
                             </div>
-
-                            <hr>
-
-                            <div class="col-lg-4 text-right">
-                                <button class="btn btn-default" type="submit">Save</button>
-                            </div>
-                    </div>
-                    </form>
+                        </div>
+                        <hr>
+                        <div class="col-lg-4 text-right">
+                            <button class="btn btn-default" type="submit">Save</button>
+                        </div>
                 </div>
-        </div>
-
-
-
-        </article>
-        <!-- /Article -->
-
+                </form>
+                <?php } ?>
+            </div>
+    </div>
+    </article>
+    <!-- /Article -->
     </div>
 <?php } ?>
-
     </div>	<!-- /container -->
-
 <?php Layout::includeLayout('footer') ?>

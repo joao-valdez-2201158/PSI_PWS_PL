@@ -23,6 +23,10 @@ Layout::includeLayout('header') ?>
 
                             <form method="post" action="<?=Url::toRoute('user/index')?>">
                                 <div class="top-margin">
+                                    <label>User ID <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?=$user->id_user?>" name="id_user" class="form-control">
+                                </div>
+                                <div class="top-margin">
                                     <label>Name <span class="text-danger">*</span></label>
                                     <input readonly="true" type="text" value="<?=$user->name?>" name="name" class="form-control">
                                 </div>

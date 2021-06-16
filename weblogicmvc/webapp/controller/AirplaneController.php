@@ -16,8 +16,6 @@ class AirplaneController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
         $user_logado = Session::get('user');
 
-        $user_logado;
-
         $airplanes = Airplane::all();
         return View::make('airplane.index', ['airplanes' => $airplanes, 'user' => $user_logado]);
     }
@@ -28,8 +26,6 @@ class AirplaneController extends BaseController implements ResourceControllerInt
 
         if(Session::has('user'))
         $user_logado = Session::get('user');
-
-        $user_logado;
 
         return View::make('airplane.create', ['user' => $user_logado]);
     }
@@ -43,8 +39,6 @@ class AirplaneController extends BaseController implements ResourceControllerInt
 
         if(Session::has('user'))
         $user_logado = Session::get('user');
-
-        $user_logado;
 
         if($airplane->is_valid()){
             $airplane->save();
@@ -63,8 +57,6 @@ class AirplaneController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($airplane)) {
 
         } else {
@@ -81,8 +73,6 @@ class AirplaneController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($airplane)) {
         } else {
             return View::make('airplane.edit', ['airplane' => $airplane, 'user' => $user_logado]);
@@ -98,8 +88,6 @@ class AirplaneController extends BaseController implements ResourceControllerInt
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
-
-        $user_logado;
 
         if($airplane->is_valid()){
             $airplane->save();

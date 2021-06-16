@@ -17,8 +17,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         return View::make('ticket.index', ['tickets' => $tickets, 'user' => $user_logado]);
     }
 
@@ -29,7 +27,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
 
         return View::make('ticket.create', ['user' => $user_logado]);
     }
@@ -42,7 +39,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
 
         if($ticket->is_valid()){
             $ticket->save();
@@ -60,8 +56,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($ticket)) {
 
         } else {
@@ -78,7 +72,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         if (Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
 
         if (is_null($ticket))
         {
@@ -99,8 +92,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if($ticket->is_valid()){
             $ticket->save();
             Redirect::toRoute('ticket/index');
@@ -118,5 +109,12 @@ class TicketController extends BaseController implements ResourceControllerInter
         Redirect::toRoute('ticket/index');
     }
 
+    public function buy()
+    {
+        $user_logado = null;
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+        return View::make('ticket.buy', ['user' => $user_logado]);
+    }
 
 }

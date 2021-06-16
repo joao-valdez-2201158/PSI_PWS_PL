@@ -20,23 +20,11 @@ Layout::includeLayout('header') ?>
                 <header class="page-header">
                     <h1 class="page-title">Edit Airport</h1>
                 </header>
-
-
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-
                         <?php if ($user_logado->role == 'admin' ){ ?>
                         <form class="form-horizontal" method="post" action="<?=Url::toRoute('airport/update', $airport->id)?>">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">ID:<span class="text-danger">*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="number" value="<?=$airport->id_airport?>" class="form-control" required name="id_airport" placeholder="Enter Airport ID">
-                                    <?= ErrMgr::bind('id_airport') ?>
-                                </div>
-                            </div>
-                            <?php } ?>
-
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Name:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -65,26 +53,18 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('email') ?>
                                 </div>
                             </div>
-
-
                             <hr>
-
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-default" type="submit">Save</button>
                             </div>
                     </div>
                     </form>
+                    <?php } ?>
                 </div>
         </div>
-
-
-
         </article>
         <!-- /Article -->
-
     </div>
 <?php } ?>
-
     </div>	<!-- /container -->
-
 <?php Layout::includeLayout('footer') ?>

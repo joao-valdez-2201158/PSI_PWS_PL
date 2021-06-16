@@ -28,15 +28,7 @@ $user_logado = Data::get('user')
             <a href="../flight/index">Flight Index</a><br>
             <a href="../airport/index">Airport Index</a><br>
             <a href="../airplane/index">Airplane Index</a><br>
-        <?php } ?>
-                <?php if ($user_logado->role != 'admin') { ?>
-            <a href="../user/show">User Show </a><br>
-            <a href="../ticket/show">Ticket Show </a><br>
-            <a href="../stopover/show">Stopover Show </a><br>
-            <a href="../flight/show">Flight Show</a><br>
-            <a href="../airport/show">Airport Show </a><br>
-            <a href="../airplane/show">Airplane Show</a><br>
-        <?php }?>
+            <?php } ?>
                 <?php } ?>
                 <br>
             </div>

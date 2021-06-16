@@ -8,53 +8,36 @@ Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $ticket = Data::get('ticket')?>
 <?php ErrMgr::attach($ticket) ?>
-
-
-<!-- container -->
-<div class="container">
-    <?php if (!is_null($user_logado)){ ?>
+    <!-- container -->
+    <div class="container">
+<?php if (!is_null($user_logado)){ ?>
     <div class="row">
-
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">
             <header class="page-header">
                 <h1 class="page-title">New Ticket</h1>
             </header>
-
             <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('ticket/store')?>">
-
-                         <?php if ($user_logado->role == 'admin' ){ ?>
-                            <div class="top-margin">
-                                <label>Ticket ID <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$ticket->id_ticket?>" name="id_ticket" class="form-control" placeholder="Enter Ticket ID">
-                                <?= ErrMgr::bind('id_ticket') ?>
-                            </div>
-                         <?php } ?>
-                         <?php if ($user_logado->role == 'admin' ){ ?>
-                            <div class="top-margin">
-                                <label>User ID <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$ticket->id_user?>" name="id_user" class="form-control" placeholder="Enter User ID">
-                                <?= ErrMgr::bind('id_user') ?>
-                            </div>
-                         <?php } ?>
-                         <?php if ($user_logado->role == 'admin' ){ ?>
-                            <div class="top-margin">
-                                <label>Departure Flight ID <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control" placeholder="Enter Departure Flight ID">
-                                <?= ErrMgr::bind('id_departure_flight') ?>
-                            </div>
-                         <?php } ?>
-                         <?php if ($user_logado->role == 'admin' ){ ?>
-                            <div class="top-margin">
-                                <label>Return Flight ID <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control" placeholder="Enter Return Flight ID">
-                                <?= ErrMgr::bind('id_return_flight') ?>
-                            </div>
-                         <?php } ?>
+                            <?php if ($user_logado->role == 'admin' ){ ?>
+                                <div class="top-margin">
+                                    <label>User ID <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?=$ticket->id_user?>" name="id_user" class="form-control" placeholder="Enter User ID">
+                                    <?= ErrMgr::bind('id_user') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Departure Flight ID <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control" placeholder="Enter Departure Flight ID">
+                                    <?= ErrMgr::bind('id_departure_flight') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Return Flight ID <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control" placeholder="Enter Return Flight ID">
+                                    <?= ErrMgr::bind('id_return_flight') ?>
+                                </div>
                             <div class="top-margin">
                                 <label>Price <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$ticket->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
@@ -77,21 +60,16 @@ Layout::includeLayout('header') ?>
                             <div class="col-lg-4 text-left">
                                 <a button class="btn btn-action" href="<?=Url::toRoute('ticket/index')?>">Return</a></button>
                             </div>
-
                     </div>
-
-                    </div>
-                    </form>
                 </div>
+                </form>
+                <?php } ?>
             </div>
-
     </div>
-
+    </div>
     </article>
     <!-- /Article -->
-
-</div>
+    </div>
 <?php } ?>
-</div>	<!-- /container -->
-
+    </div>	<!-- /container -->
 <?php Layout::includeLayout('footer') ?>

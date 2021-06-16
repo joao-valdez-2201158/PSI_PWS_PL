@@ -31,7 +31,6 @@ class HomeController extends BaseController
             $user_logado = Session::get('user');
         return View::make('home.start', ['user' => $user_logado]);
 
-
     }
 
     public function login(){
@@ -72,16 +71,19 @@ public function searchflight()
     if(Session::has('user'))
         $user_logado = Session::get('user');
 
-    $user_logado;
-
     if(is_null($flight))
     {
-    Redirect::toRoute('home/start');
+        Redirect::toRoute('home/start');
     }
     else
     {
+        //pesquisar na BD
+        $result = [];
+
+        //aceder à BD com lefts
+
         Session::set('flight', $flight);
-        return View::make('home.searchflight',['flight' => $flight, 'user' => $user_logado]);
+        return View::make('home.searchflight',['flight' => $flight, 'user' => $user_logado, 'result' => $result]);
     }
 }
 

@@ -9,8 +9,8 @@ Layout::includeLayout('header') ?>
 <?php ErrMgr::attach($flight) ?>
 
 
-<!-- container -->
-<div class="container">
+    <!-- container -->
+    <div class="container">
 <?php if (!is_null($user_logado)){ ?>
 
     <div class="row">
@@ -26,47 +26,31 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('flight/store')?>">
-
-                        <?php if ($user_logado->role == 'admin' ){ ?>
-                            <div class="top-margin">
-                                <label>Flight ID<span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$flight->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
-                                <?= ErrMgr::bind('id_flight') ?>
-                            </div>
-                        <?php } ?>
-
-                        <?php if ($user_logado->role == 'admin' ){ ?>
-                            <div class="top-margin">
-                                <label>Airplane ID <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control" placeholder="Enter Airplane ID">
-                                <?= ErrMgr::bind('id_airplane') ?>
-                            </div>
-                        <?php } ?>
-
+                            <?php if ($user_logado->role == 'admin' ){ ?>
+                                <div class="top-margin">
+                                    <label>Airplane ID <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control" placeholder="Enter Airplane ID">
+                                    <?= ErrMgr::bind('id_airplane') ?>
+                                </div>
                             <div class="top-margin">
                                 <label>Ticket Price <span class="text-danger">*</span></label>
                                 <input type="number" value="<?=$flight->price?>" name="price" class="form-control" placeholder="Enter Ticket Price">
                                 <?= ErrMgr::bind('price') ?>
                             </div>
-
-                            <hr>
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Register</button>
                             </div>
                             <div class="col-lg-4 text-left">
                                 <a button class="btn btn-action" href="<?=Url::toRoute('flight/index')?>">Return</a></button>                            </div>
-                            </div>
+                    </div>
                     </form>
+                    <?php } ?>
                 </div>
             </div>
-
     </div>
-
     </article>
     <!-- /Article -->
-
-</div>
+    </div>
 <?php } ?>
-</div>	<!-- /container -->
-
+    </div>	<!-- /container -->
 <?php Layout::includeLayout('footer') ?>

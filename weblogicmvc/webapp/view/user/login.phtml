@@ -29,20 +29,20 @@ Layout::includeLayout('loginheader') ?>
                                 <label>Username <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$user->username?>" name="username" class="form-control" placeholder="Enter Username">
                                 <?= ErrMgr::bind('username') ?>
-
                             </div>
                             <div class="top-margin">
                                 <label>Password <span class="text-danger">*</span></label>
                                 <input type="password" value="<?=$user->password?>" name="password" class="form-control" placeholder="Enter Password">
                                 <?= ErrMgr::bind('password') ?>
                             </div>
-
                             <hr>
-                            <div class="col-lg-6 text-center">
-                                <button class="btn btn-action" type="submit">Login</button>
-                            </div>
-                            <div class="col-lg-6 text-center">
-                                <a href="<?=Url::toRoute('user/create')?>" class="btn btn-action">Register</a>
+                            <div class="row">
+                                <div class="col-lg-6 p-2 text-center">
+                                    <button class="btn btn-action" type="submit">Login</button>
+                                </div>
+                                <div class="col-lg-6 p-2 text-center">
+                                    <a href="<?=Url::toRoute('user/create')?>" class="btn btn-action">Register</a>
+                                </div>
                             </div>
                             <br>
                             <div class="col-lg-15 text-center">

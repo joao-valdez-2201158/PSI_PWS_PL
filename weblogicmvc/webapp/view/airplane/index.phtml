@@ -6,16 +6,13 @@ use ArmoredCore\WebObjects\Session;
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $airplanes = Data::get('airplanes') ?>
-
 <!-- container -->
 <div class="container">
 <?php if (!is_null($user_logado)){ ?>
-
     <ol class="breadcrumb">
         <li><a href="../home/index">Home</a></li>
         <li class="active">Airplane Index</li>
     </ol>
-
     <h2 class="text-left top-space">Airplane Index</h2>
     <h2 class="top-space"></h2>
     <div class="row">
@@ -28,9 +25,6 @@ Layout::includeLayout('header') ?>
                     <td><?=$airplane->reference?></td>
                     <td><?=$airplane->airplanetype?></td>
                     <td><?=$airplane->lotation?></td>
-
-
-
                     <td>
                         <a href="<?=Url::toRoute('airplane/show', $airplane->id)?>" class="btn btn-info" role="button">Show</a>
                         <a href="<?=Url::toRoute('airplane/edit', $airplane->id)?>" class="btn btn-info" role="button">Edit</a>
@@ -38,11 +32,8 @@ Layout::includeLayout('header') ?>
                     </td>
                 </tr>
                 <?php } ?>
-
                 </tbody>
-
             </table>
-
         </div>
         <div class="col-sm-6">
             <h3>Create a new Airplane</h3>

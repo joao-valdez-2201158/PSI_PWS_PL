@@ -16,8 +16,6 @@ class AirportController extends BaseController implements ResourceControllerInte
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         $airports = Airport::all();
         return View::make('airport.index', ['airports' => $airports, 'user' => $user_logado]);
     }
@@ -28,8 +26,6 @@ class AirportController extends BaseController implements ResourceControllerInte
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
-
-        $user_logado;
 
         return View::make('airport.create', ['user' => $user_logado]);
     }
@@ -43,8 +39,6 @@ class AirportController extends BaseController implements ResourceControllerInte
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
-
-        $user_logado;
 
         if($airport->is_valid()){
             $airport->save();
@@ -63,8 +57,6 @@ class AirportController extends BaseController implements ResourceControllerInte
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($airport)) {
 
         } else {
@@ -81,8 +73,6 @@ class AirportController extends BaseController implements ResourceControllerInte
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($airport)) {
         } else {
             return View::make('airport.edit', ['airport' => $airport, 'user' => $user_logado]);
@@ -97,8 +87,6 @@ class AirportController extends BaseController implements ResourceControllerInte
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
-
-        $user_logado;
 
         if($airport->is_valid()){
             $airport->save();

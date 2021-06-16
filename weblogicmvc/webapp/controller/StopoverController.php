@@ -18,8 +18,6 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($stopovers)) {
         } else {
             return View::make('stopover.index', ['stopovers' => $stopovers, 'user' => $user_logado ]);
@@ -33,7 +31,6 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
         return View::make('stopover.create',  ['user' => $user_logado]);
     }
 
@@ -45,8 +42,6 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
-
-        $user_logado;
 
         if($stopover->is_valid()){
             $stopover->save();
@@ -64,7 +59,6 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
 
         if (is_null($stopover)) {
 
@@ -82,8 +76,6 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($stopover)) {
         } else {
             return View::make('stopover.edit', ['stopover' => $stopover, 'user' => $user_logado ]);
@@ -98,8 +90,6 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
-
-        $user_logado;
 
         if($stopover->is_valid()){
             $stopover->save();

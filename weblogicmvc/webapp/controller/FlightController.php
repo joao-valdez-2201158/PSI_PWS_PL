@@ -18,7 +18,6 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
         return View::make('flight.index', ['flights' => $flights, 'user' => $user_logado]);
     }
 
@@ -29,7 +28,6 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
 
         return View::make('flight.create', ['user' => $user_logado]);
     }
@@ -43,8 +41,6 @@ class FlightController extends BaseController implements ResourceControllerInter
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
-
-        $user_logado;
 
         if($flight->is_valid()){
             $flight->save();
@@ -63,8 +59,6 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($flight)) {
 
         } else {
@@ -81,8 +75,6 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
-
         if (is_null($flight)) {
         } else {
             return View::make('flight.edit', ['flight' => $flight, 'user' => $user_logado]);
@@ -98,7 +90,6 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $user_logado;
         if($flight->is_valid()){
             $flight->save();
             Redirect::toRoute('flight/index');
