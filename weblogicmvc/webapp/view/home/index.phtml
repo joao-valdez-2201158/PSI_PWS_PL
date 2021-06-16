@@ -18,12 +18,15 @@ $user_logado = Data::get('user')
             </div>
             <div class="row">-->
                 <h2>Flight Travel Air<br></h2>
-                <form method="post" action="<?=Url::toRoute('home/searchflight')?>">
-                    <input type="text" name="flight" required/>
-                    <input type="submit" value="Search"/>
+            <div class="row">
+            <form method="post" action="<?=Url::toRoute('home/searchflight')?>">
+                <input type="text" name="flight" required/>
+                <input type="date" name="date" required/>
+                <input type="date" name="date2" required/>
+                <input type="submit" value="Search"/>
                 </form>
-                <br>
             </div>
+            <br>
         </div>
     </header>
     <!-- /Header -->

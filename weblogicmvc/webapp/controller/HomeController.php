@@ -66,6 +66,9 @@ class HomeController extends BaseController
 public function searchflight()
 {
     $flight = Post::get('flight');
+    $date = Post::get('date');
+    $date2 = Post::get('date2');
+
     $user_logado = null;
 
     if(Session::has('user'))
@@ -73,17 +76,22 @@ public function searchflight()
 
     if(is_null($flight))
     {
-        Redirect::toRoute('home/start');
+        Redirect::toRoute('home/start', ['user' => $user_logado]);
     }
     else
     {
         //pesquisar na BD
-        $result = [];
+        $result = Flight::find_by_sql('select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, departure.name as origin, 
+arrival.name as destination,stopovers.date_of_departure, stopovers.date_of_arrival
+from flights 
+left join airplanes on flights.id_airplane = airplanes.id_airplane
+left join stopovers on flights.id_flight = stopovers.id_flight
+left join airports as departure on stopovers.id_departure = departure.id_airport
+left join airports as arrival on stopovers.id_destination = arrival.id_airport
+where arrival.name like "%'.$flight.'%" and stopovers.date_of_departure like "%'.$date.'%" and stopovers.date_of_arrival like"%'.$date2.'%"');
 
-        //aceder à BD com lefts
 
-        Session::set('flight', $flight);
-        return View::make('home.searchflight',['flight' => $flight, 'user' => $user_logado, 'result' => $result]);
+        return View::make('home.searchflight',['flight' => $flight, 'date' => $date, 'date2' => $date2, 'result' => $result]);
     }
 }
 

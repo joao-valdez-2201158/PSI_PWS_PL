@@ -13,8 +13,10 @@ use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header');
 $user = Data::get('user');
-$flight = Data::get('flight');
+$date = Data::get('date');
+$date2 = Data::get('date2');
 $result = Data::get('result');
+$flight = Data::get('flight');
 ErrMgr::attach($flight);
 ?>
     <header id="head">
@@ -28,16 +30,16 @@ ErrMgr::attach($flight);
                     <form method="post" action="<?=Url::toRoute('home/searchflight')?>">
                         <h1>SEARCH FOR FLIGHTS</h1>
                         <input type="text" name="flight" value="<?php $flight ?>" required/>
+                        <input type="date" name="date" value="<?php $date ?>" required/>
+                        <input type="date" name="date2" value="<?php $date2 ?>" required/>
                         <input type="submit" value="Search"/>
                     </form>
                     <br>
                     <tbody>
-
                         <?php foreach ($result as $value) { ?>
                     <tr>
-                        <td><a href="/comprar?flight=1(id_flight)">Buy</a></td>
-                        <td><?=$value->id_flight?></td>
-                        <td><?=$value->id_airplane?></td>
+                        <td><?=$value->origin?></td>
+                        <td><?=$value->destination?></td>
                         <td><?=$value->price?></td>
                     </tr>
                     </tbody>

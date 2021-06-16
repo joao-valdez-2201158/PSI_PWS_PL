@@ -42,13 +42,23 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_destination') ?>
                                 </div>
                             <div class="top-margin">
+                                <label>Departure Date <span class="text-danger">*</span></label>
+                                <input type="date" value="<?=$stopover->date_of_departure?>" name="date_of_departure" class="form-control" placeholder="Date of Departure">
+                                <?= ErrMgr::bind('date_of_departure') ?>
+                            </div>
+                            <div class="top-margin">
                                 <label>Departure Hour <span class="text-danger">*</span></label>
-                                <input type="datetime-local" value="<?=$stopover->hour_of_departure?>" name="hour_of_departure" class="form-control" placeholder="Enter Hour of Departure">
+                                <input type="time" value="<?=$stopover->hour_of_departure?>" name="hour_of_departure" class="form-control" placeholder="Enter Hour of Departure">
                                 <?= ErrMgr::bind('hour_of_departure') ?>
                             </div>
                             <div class="top-margin">
+                                <label>Arrival Date<span class="text-danger">*</span></label>
+                                <input type="date" value="<?=$stopover->date_of_arrival?>" name="hour_of_arrival" class="form-control" placeholder="Enter Date of Arrival">
+                                <?= ErrMgr::bind('date_of_arrival') ?>
+                            </div>
+                            <div class="top-margin">
                                 <label>Arrival Hour<span class="text-danger">*</span></label>
-                                <input type="datetime-local" value="<?=$stopover->hour_of_arrival?>" name="hour_of_arrival" class="form-control" placeholder="Enter Hour of Arrival">
+                                <input type="time" value="<?=$stopover->hour_of_arrival?>" name="hour_of_arrival" class="form-control" placeholder="Enter Hour of Arrival">
                                 <?= ErrMgr::bind('hour_of_arrival') ?>
                             </div>
                             <div class="top-margin">
