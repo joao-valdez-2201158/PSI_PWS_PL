@@ -14,20 +14,16 @@ $user_logado = Data::get('user')
         <link rel="stylesheet" type="text/css" href="../layout/style/mystyle.css"/>
         <div class="container">
             <div class="row">
-                <h2>Flight Travel Air<br></h2>
-                <br>
                     <h1>User Details</h1><br>
-
                     <h5><?= !is_null($user_logado) ? 'NAME: ' .$user_logado->name.' <br><br> ROLE:  '. $user_logado->role : '' ?></h5>
-
                 <?php if (!$user_logado == null){?>
         <?php if ($user_logado->role == 'admin' ){ ?>
-            <a href="../user/index">User Index</a><br>
-            <a href="../ticket/index">Ticket Index</a><br>
-            <a href="../stopover/index">Stopover Index</a><br>
-            <a href="../flight/index">Flight Index</a><br>
-            <a href="../airport/index">Airport Index</a><br>
-            <a href="../airplane/index">Airplane Index</a><br>
+            <a href="../user/index" style="color: white">User Index</a><br>
+            <a href="../ticket/index"style="color: white">Ticket Index</a><br>
+            <a href="../stopover/index"style="color: white">Stopover Index</a><br>
+            <a href="../flight/index"style="color: white">Flight Index</a><br>
+            <a href="../airport/index"style="color: white">Airport Index</a><br>
+            <a href="../airplane/index"style="color: white">Airplane Index</a><br>
             <?php } ?>
                 <?php } ?>
                 <br>

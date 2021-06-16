@@ -7,6 +7,7 @@ class Stopover extends Model
 {
 
     static $validates_presence_of = array(
+        array('id_stopover'),
         array('id_flight'),
         array('id_departure'),
         array('id_destination'),

@@ -25,7 +25,7 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('stopover/store')?>">
-                            <?php if ($user_logado->role == 'admin' ){ ?>«
+                            <?php if ($user_logado->role == 'admin' ){ ?>
                                 <div class="top-margin">
                                     <label>Flight ID <span class="text-danger">*</span></label>
                                     <input type="number" value="<?=$stopover->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
