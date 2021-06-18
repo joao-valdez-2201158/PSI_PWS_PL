@@ -108,13 +108,5 @@ class TicketController extends BaseController implements ResourceControllerInter
         Redirect::toRoute('ticket/index');
     }
 
-    public function buy()
-    {
-        $user_logado = null;
-        if(Session::has('user'))
-            $user_logado = Session::get('user');
-
-        return View::make('ticket.buy', ['user' => $user_logado]);
-    }
 
 }

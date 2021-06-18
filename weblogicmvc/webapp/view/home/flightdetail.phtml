@@ -1,0 +1,36 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
+Layout::includeLayout('header');
+$user_logado = Data::get('user');
+$flight = Data::get('flight');
+$stopovers = Data::get('stopovers');
+
+?>
+    <!-- container -->
+    <div class="container">
+        <?php if (!is_null($user_logado)){ ?>
+            <div class="row">
+                <div class="col-md-12">
+                  <?php echo $flight->price ?>
+                </div>
+                <div class="col-md-6">
+                    <?php echo $flight->price ?>
+                </div>
+                <div class="col-md-6">
+                    <?php echo $flight->price ?>
+                </div>
+                <div class="col-md-4">
+                    <form method="post" action="<?=Url::toRoute('home/buy')?>">
+                        <label>Quantity</label>
+                        <input type="hidden" id="id_flight" name="id_flight" value="<?php echo $flight->id_flight ?>">
+                        <input type="text" name="qtt" id="qtt" class="form-control"></input>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-plane"></i> Buy</button>
+                    </form>
+                </div>
+            </div>
+
+        <?php } ?>
+    </div>	<!-- /container -->
+<?php Layout::includeLayout('footer')?>

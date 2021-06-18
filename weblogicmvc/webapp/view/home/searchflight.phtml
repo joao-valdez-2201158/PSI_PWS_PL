@@ -23,31 +23,51 @@ ErrMgr::attach($flight);
         <link rel="stylesheet" type="text/css" href="../layout/style/mystyle.css"/>
         <div class="container">
             <div class="row">
-                <h2>Flight Travel Air<br></h2>
-                <br>
+                <div class="col-md-12">
+                    <h2>Flight Travel Air<br></h2>
+                    <br>
                     <h1>Flight Result</h1>
                     <br>
                     <form method="post" action="<?=Url::toRoute('home/searchflight')?>">
-                        <h1>SEARCH FOR FLIGHTS</h1>
-                        <input type="text" name="flight" value="<?php $flight ?>" required/>
-                        <input type="date" name="date" value="<?php $date ?>" required/>
-                        <input type="date" name="date2" value="<?php $date2 ?>" required/>
+                        <select name="flight" required>
+                            <option value="Select">Select</option>
+                            <option value="Porto">Porto</option>
+                            <option value="Lisboa">Lisboa</option>
+                            <option value="Açores">Açores</option>
+                            <option value="New Deli">New Deli</option>
+                            <option value="New York">New York</option>
+                            <option value="Washington">Washington DC</option>
+                        </select>
+                        <input type="date" name="date" required/>
+                        <input type="date" name="date2" required/>
                         <input type="submit" value="Search"/>
                     </form>
-                    <br>
-                    <tbody>
-                        <?php foreach ($result as $value) { ?>
-                    <tr>
-                        <td><?=$value->origin?></td>
-                        <td><?=$value->destination?></td>
-                        <td><?=$value->price?></td>
-                    </tr>
-                    </tbody>
-                <?php } ?>
-            </div>
+                </div>
         </div>
         <br>
     </header>
     <!-- /Header -->
+<div class="container">
+    <div class="row">
+        <div class="com-md-12">
+            <table class="table">
+                <tbody>
+                <?php foreach ($result as $value) { ?>
+                    <tr>
+                        <td><a href="#" class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
+                        <td><?=$value->reference?></td>
+                        <td><?=$value->origin?></td>
+                        <td><?=$value->destination?></td>
+                        <td><?=$value->date_of_departure?> <?=$value->hour_of_departure?></td>
+                        <td><?=$value->date_of_arrival?> <?=$value->hour_of_arrival?></td>
+                        <td><?=$value->price?> €</td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
 
 <?php Layout::includeLayout('footer')?>

@@ -3,9 +3,15 @@ use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\ErrMgr;
 
 Layout::includeLayout('indexheader');
-$user_logado = Data::get('user')
+$user_logado = Data::get('user');
+$date = Data::get('date');
+$date2 = Data::get('date2');
+$result = Data::get('result');
+$flight = Data::get('flight');
+ErrMgr::attach($flight);
 ?>
 
 
@@ -19,16 +25,47 @@ $user_logado = Data::get('user')
             <div class="row">-->
                 <h2>Flight Travel Air<br></h2>
             <div class="row">
-            <form method="post" action="<?=Url::toRoute('home/searchflight')?>">
-                <input type="text" name="flight" required/>
-                <input type="date" name="date" required/>
-                <input type="date" name="date2" required/>
+            <form method="post" action="<?=Url::toRoute('home/index')?>">
+                <select name="flight">
+                    <option value="" <?php if($flight == '') echo 'selected' ?>>Select</option>
+                    <option value="Porto" <?php if($flight == 'Porto') echo 'selected' ?>>Porto</option>
+                    <option value="Lisboa" <?php if($flight == 'Lisboa') echo 'selected' ?>>Lisboa</option>
+                    <option value="Faro" <?php if($flight == 'Faro') echo 'selected' ?>>Faro</option>
+                    <option value="Açores" <?php if($flight == 'Açores') echo 'selected' ?>>Açores</option>
+                    <option value="New Deli" <?php if($flight == 'New Deli') echo 'selected' ?>>New Deli</option>
+                    <option value="New York" <?php if($flight == 'New York') echo 'selected' ?>>New York</option>
+                    <option value="Washington" <?php if($flight == 'Washington') echo 'selected' ?>>Washington DC</option>
+                </select>
+                <input type="date" name="date" <?php if($date != '')  echo 'value="'.$date.'"' ?>  required/>
+                <input type="date" name="date2" <?php if($date2 != '')  echo 'value="'.$date2.'"' ?> required/>
                 <input type="submit" value="Search"/>
                 </form>
             </div>
             <br>
         </div>
     </header>
+    <div class="container">
+        <div class="row">
+            <div class="com-md-12">
+                <table class="table">
+                    <tbody>
+                    <?php foreach ($result as $value) { ?>
+                        <tr>
+                            <td><a href="<?php echo 'flightdetail/'.$value->id_flight ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
+                            <td><?=$value->reference?></td>
+                            <td><?=$value->origin?></td>
+                            <td><?=$value->destination?></td>
+                            <td><?=$value->date_of_departure?> <?=$value->hour_of_departure?></td>
+                            <td><?=$value->date_of_arrival?> <?=$value->hour_of_arrival?></td>
+                            <td><?=$value->price?> €</td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
     <!-- /Header -->
 
 <?php Layout::includeLayout('footer')?>
