@@ -6,31 +6,37 @@ Layout::includeLayout('header');
 $user_logado = Data::get('user');
 $flight = Data::get('flight');
 $stopovers = Data::get('stopovers');
-
+$origin = Data::get('origin');
+$destination = Data::get('destination');
 ?>
     <!-- container -->
     <div class="container">
         <?php if (!is_null($user_logado)){ ?>
-            <div class="row">
-                <div class="col-md-12">
-                  <?php echo $flight->price ?>
-                </div>
-                <div class="col-md-6">
-                    <?php echo $flight->price ?>
-                </div>
-                <div class="col-md-6">
-                    <?php echo $flight->price ?>
-                </div>
-                <div class="col-md-4">
-                    <form method="post" action="<?=Url::toRoute('home/buy')?>">
-                        <label>Quantity</label>
-                        <input type="hidden" id="id_flight" name="id_flight" value="<?php echo $flight->id_flight ?>">
-                        <input type="text" name="qtt" id="qtt" class="form-control"></input>
-                        <button type="submit" class="btn btn-success"><i class="fa fa-plane"></i> Buy</button>
-                    </form>
+            <div class="container">
+                <div class="row">
+                    <div class="com-md-12">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td><?php echo $flight->price?></td>
+                                    <td><?php echo $flight->price?></td>
+                                    <td><?php echo $stopovers->id?></td>
+                                    <td><?php echo $origin->name?></td>
+                                    <td><?php echo $destination->name?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
+            <div class="col-md-4">
+                <form method="post" action="<?=Url::toRoute('home/buy')?>">
+                    <label>Quantity</label>
+                    <input type="hidden" id="id_flight" name="id_flight" value="<?php echo $flight->id_flight ?>">
+                    <input type="text" name="qtt" id="qtt" class="form-control"></input>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-plane"></i> Buy</button>
+                    </form>
+            </div>
         <?php } ?>
     </div>	<!-- /container -->
 <?php Layout::includeLayout('footer')?>

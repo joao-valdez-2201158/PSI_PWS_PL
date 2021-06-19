@@ -51,7 +51,7 @@ ErrMgr::attach($flight);
                     <tbody>
                     <?php foreach ($result as $value) { ?>
                         <tr>
-                            <td><a href="<?php echo 'flightdetail/'.$value->id_flight ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
+                            <td><a href="<?php echo 'flightdetail/'.$value->id_flight . '/' . $value->origin . '/' . $value->destination ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
                             <td><?=$value->reference?></td>
                             <td><?=$value->origin?></td>
                             <td><?=$value->destination?></td>

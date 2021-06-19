@@ -82,9 +82,10 @@ and stopovers.date_of_departure >= "'.$date.'" and stopovers.date_of_arrival <= 
         Redirect::toRoute('home/worksheet');
     }
 
-    public function flightdetail($id)
+    public function flightdetail($id, $id2, $id3)
     {
         $user_logado = null;
+
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
@@ -93,17 +94,34 @@ and stopovers.date_of_departure >= "'.$date.'" and stopovers.date_of_arrival <= 
 
         $stopovers = Stopover::find_by_id_flight([$id]);
 
+        $origin = Airport::find_by_name([$id2]);
+        $destination = Airport::find_by_name([$id3]);
 
-        return View::make('home/flightdetail', ['user' => $user_logado, 'flight' => $flight, 'stopovers' => $stopovers]);
+
+
+
+        return View::make('home/flightdetail', ['user' => $user_logado, 'flight' => $flight, 'stopovers' => $stopovers, 'origin' => $origin, 'destination' => $destination]);
     }
 
     public function buy()
     {
         $qtt = Post::get('qtt');
         $id_flight = Post::get('id_flight');
+
         $stopovers = Stopover::find_by_id_flight([$id_flight]);
 
         //gravar na BD na tabela tickets
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if($id_flight->is_valid()){
+            $id_flight->save();
+            Redirect::toRoute('home/flightdetail');
+        } else {
+            Redirect::flashToRoute('home/buy', ['id_flight' => $id_flight, 'qtt' => $qtt, 'stopovers'=> $stopovers,  'user' => $user_logado]);
+        }
 
     }
 

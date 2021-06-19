@@ -1,0 +1,23 @@
+<?php
+use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
+Layout::includeLayout('header');
+$user_logado = Data::get('user');
+$id_flight = Data::get('id_flight');
+$stopovers = Data::get('stopovers');
+
+?>
+    <!-- container -->
+    <div class="container">
+        <?php if (!is_null($user_logado)){ ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php echo $id_flight->price ?>
+                </div>
+            </div>
+
+        <?php } ?>
+    </div>	<!-- /container -->
+<?php Layout::includeLayout('footer')?><?php
