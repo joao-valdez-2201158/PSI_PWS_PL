@@ -14,21 +14,33 @@ $user_logado = Data::get('user')
         <link rel="stylesheet" type="text/css" href="../layout/style/mystyle.css"/>
         <div class="container">
             <div class="row">
-                    <h1>User Details</h1><br>
-                    <h5><?= !is_null($user_logado) ? 'NAME: ' .$user_logado->name.' <br><br> ROLE:  '. $user_logado->role : '' ?></h5>
-                <?php if (!$user_logado == null){?>
-        <?php if ($user_logado->role == 'admin' ){ ?>
-            <a href="../user/index" style="color: white">User Index</a><br>
-            <a href="../ticket/index"style="color: white">Ticket Index</a><br>
-            <a href="../stopover/index"style="color: white">Stopover Index</a><br>
-            <a href="../flight/index"style="color: white">Flight Index</a><br>
-            <a href="../airport/index"style="color: white">Airport Index</a><br>
-            <a href="../airplane/index"style="color: white">Airplane Index</a><br>
-            <?php } ?>
-                <?php } ?>
-                <br>
+                <h1>User Details</h1><br>
             </div>
         </div>
     </header>
+<?php if (!$user_logado == null){?>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th  scope="col"> <?= !is_null($user_logado) ? 'NAME: ' .$user_logado->name.' <br><br> ROLE:  '. $user_logado->role : '' ?></th?>
+    </tr>
+    </thead>
+    <?php if ($user_logado->role == 'admin' ){ ?>
+    <tbody>
+    <tr>
+        <td><p><a href="../user/index" class="text-primary">User Index</a></p></td>
+        <td><p><a href="../ticket/index" class="text-primary">Ticket Index</a></p></td>
+        <td><p><a href="../flight/index" class="text-primary">Flight Index</a></p></td>
+        <td><p><a href="../stopover/index" class="text-primary">Stopover Index</a></p></td>
+        <td><p><a href="../airport/index" class="text-primary">Airport Index</a></p></td>
+        <td><p><a href="../airplane/index" class="text-primary">Airplane Index</a></p></td>
+    </tr>
+    </tbody>
+    <?php } ?>
+
+</table>
+<?php } ?>
 
 <?php Layout::includeLayout('footer') ?>
+
+"<td><a href='http://yourlink'>delete</a></td>";

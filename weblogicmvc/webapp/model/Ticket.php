@@ -13,7 +13,8 @@ class Ticket extends Model
         array('price'),
         array('date'),
         array('hour'),
-        array('check_in')
+        array('check_in'),
+        array('check_in_return')
 
     );
 }

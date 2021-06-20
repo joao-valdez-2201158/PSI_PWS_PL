@@ -24,6 +24,7 @@ Router::post('home/searchflight/',	'HomeController/searchflight');
 Router::get('home/flightdetail',	'HomeController/flightdetail');
 
 Router::post('home/buy',	'HomeController/buy');
+Router::get('home/buy',	'HomeController/buy');
 
 //Router::get('home/start',	'UserController/start');
 

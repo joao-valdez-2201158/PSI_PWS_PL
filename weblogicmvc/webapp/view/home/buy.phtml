@@ -1,23 +1,39 @@
-<?php
-use ArmoredCore\WebObjects\Data;
+<?php use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
 Layout::includeLayout('header');
+
 $user_logado = Data::get('user');
 $id_flight = Data::get('id_flight');
-$stopovers = Data::get('stopovers');
-
+$id_flight_return = Data::get('id_flight_return');
+$qtt = Data::get('qtt');
 ?>
     <!-- container -->
     <div class="container">
         <?php if (!is_null($user_logado)){ ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <?php echo $id_flight->price ?>
+            <div class="container">
+                <div class="row">
+                    <div class="com-md-12">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID Voo de Ida </th>
+                                <th scope="col">ID Voo de Volta</th>
+                                <th scope="col">Quantidade</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th><?php echo $id_flight?></th>
+                                <th><?php echo $id_flight_return?></th>
+                                <th><?php echo $qtt?></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
         <?php } ?>
     </div>	<!-- /container -->
-<?php Layout::includeLayout('footer')?><?php
+<?php Layout::includeLayout('footer')?>

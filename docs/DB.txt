@@ -1,175 +1,319 @@
--- MySQL Workbench Forward Engineering
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 20, 2021 at 09:53 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.4.20
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema travel_flight_air
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `travel_flight_air` ;
-
--- -----------------------------------------------------
--- Schema travel_flight_air
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `travel_flight_air` DEFAULT CHARACTER SET utf8;
-USE `travel_flight_air` ;
-
--- -----------------------------------------------------
--- Table `travel_flight_air`.`airplanes`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `travel_flight_air`.`airplanes` ;
-
-CREATE TABLE IF NOT EXISTS `travel_flight_air`.`airplanes` (
-  `id_airplane` INT(11) NOT NULL AUTO_INCREMENT,
-  `reference` VARCHAR(45) NULL DEFAULT NULL,
-  `airplanetype` VARCHAR(45) NOT NULL,
-  `lotation` INT(11) NOT NULL,
-  PRIMARY KEY (`id_airplane`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 24
-DEFAULT CHARACTER SET = utf8;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
--- -----------------------------------------------------
--- Table `travel_flight_air`.`flights`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `travel_flight_air`.`flights` ;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE IF NOT EXISTS `travel_flight_air`.`flights` (
-  `id_flight` INT(11) NOT NULL AUTO_INCREMENT,
-  `id_airplane` INT(45) NOT NULL,
-  `price` FLOAT NOT NULL,
-  PRIMARY KEY (`id_flight`),
-  CONSTRAINT `id_airplane_fk`
-    FOREIGN KEY (`id_airplane`)
-    REFERENCES `travel_flight_air`.`airplanes` (`id_airplane`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 233334
-DEFAULT CHARACTER SET = utf8;
+--
+-- Database: `travel_flight_air`
+--
 
+-- --------------------------------------------------------
+DROP DATABASE IF EXISTS travel_flight_air;
+CREATE DATABASE travel_flight_air;
+USE  travel_flight_air;
 
--- -----------------------------------------------------
--- Table `travel_flight_air`.`airports`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `travel_flight_air`.`airports` ;
+--
+-- Table structure for table `airplanes`
+DROP DATABASE IF EXISTS travel_flight_air;
+CREATE DATABASE travel_flight_air;
+USE  travel_flight_air;
 
-CREATE TABLE IF NOT EXISTS `travel_flight_air`.`airports` (
-  `id_airport` INT(11) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `localization` VARCHAR(255) NOT NULL,
-  `telephone` INT(50) NOT NULL,
-  `email` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`id_airport`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE `airplanes` (
+  `id_airplane` int(11) NOT NULL,
+  `reference` varchar(45) DEFAULT NULL,
+  `airplanetype` varchar(45) NOT NULL,
+  `lotation` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `airplanes`
+--
 
--- -----------------------------------------------------
--- Table `travel_flight_air`.`stopovers`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `travel_flight_air`.`stopovers` ;
+INSERT INTO `airplanes` (`id_airplane`, `reference`, `airplanetype`, `lotation`) VALUES
+(24, 'sda23', 'boeing', 1232);
 
-CREATE TABLE IF NOT EXISTS `travel_flight_air`.`stopovers` (
-  `id_stopover` INT(11) NOT NULL,
-  `hour_of_departure` DATE NOT NULL,
-  `hour_of_arrival` DATE NOT NULL,
-  `distance` FLOAT NOT NULL,
-  `id_flight` INT(45) NOT NULL,
-  `id_departure` INT(11) NOT NULL,
-  `id_destination` INT(11) NOT NULL,
-  INDEX `fk_id_flight_idx` (`id_flight` ASC),
-  PRIMARY KEY (`id_stopover`),
-  INDEX `id_airport_departure_fk_idx` (`id_departure` ASC),
-  INDEX `id_airport_destination_fk_idx` (`id_destination` ASC),
-  CONSTRAINT `id_flight_fk`
-    FOREIGN KEY (`id_flight`)
-    REFERENCES `travel_flight_air`.`flights` (`id_flight`),
-  CONSTRAINT `id_airport_departure_fk`
-    FOREIGN KEY (`id_departure`)
-    REFERENCES `travel_flight_air`.`airports` (`id_airport`),
-  CONSTRAINT `id_airport_destination_fk`
-    FOREIGN KEY (`id_destination`)
-    REFERENCES `travel_flight_air`.`airports` (`id_airport`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `airplanesstopovers`
+--
 
--- -----------------------------------------------------
--- Table `travel_flight_air`.`airplanesstopovers`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `travel_flight_air`.`airplanesstopovers` ;
+CREATE TABLE `airplanesstopovers` (
+  `id_airplane` int(11) NOT NULL,
+  `id_stopover` int(11) NOT NULL,
+  `passengers_quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `travel_flight_air`.`airplanesstopovers` (
-  `id_airplane` INT NOT NULL,
-  `id_stopover` INT NOT NULL,
-  `passengers_quantity` INT(11) NOT NULL,
-  INDEX `id_airplane_fk_idx` (`id_airplane` ASC),
-  INDEX `id_stopover_fk_idx` (`id_stopover` ASC),
-  CONSTRAINT `id_airplanesstopovers_airplane_fk`
-    FOREIGN KEY (`id_airplane`)
-    REFERENCES `travel_flight_air`.`airplanes` (`id_airplane`),
-  CONSTRAINT `id_airplanesstopovers_stopover_fk`
-    FOREIGN KEY (`id_stopover`)
-    REFERENCES `travel_flight_air`.`stopovers` (`id_stopover`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `airports`
+--
 
--- -----------------------------------------------------
--- Table `travel_flight_air`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `travel_flight_air`.`users` ;
+CREATE TABLE `airports` (
+  `id_airport` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `localization` varchar(255) NOT NULL,
+  `telephone` int(50) NOT NULL,
+  `email` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `travel_flight_air`.`users` (
-  `id_user` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `birthday_date` DATE NOT NULL,
-  `nif` INT(45) NOT NULL,
-  `username` VARCHAR(16) NOT NULL,
-  `password` VARCHAR(32) NOT NULL,
-  `address` VARCHAR(45) NOT NULL,
-  `telephone` INT(45) NOT NULL,
-  `email` VARCHAR(255) NOT NULL,
-  `role` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_user`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 13
-DEFAULT CHARACTER SET = utf8;
+--
+-- Dumping data for table `airports`
+--
 
+INSERT INTO `airports` (`id_airport`, `name`, `localization`, `telephone`, `email`) VALUES
+(1, 'Aerporto Cu de Judas', 'Açores', 5654554, 'vbs@s.com'),
+(2, 'Lisboa', 'Lisboa', 213, '31'),
+(3, 'Porto', 'Porto', 555, 'dasda');
 
--- -----------------------------------------------------
--- Table `travel_flight_air`.`tickets`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `travel_flight_air`.`tickets` ;
+-- --------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS `travel_flight_air`.`tickets` (
-  `id_ticket` INT(11) NOT NULL AUTO_INCREMENT,
-  `id_user` INT(11) NOT NULL,
-  `id_departure_flight` INT(11) NOT NULL,
-  `id_return_flight` INT(11) NOT NULL,
-  `price` FLOAT NOT NULL,
-  `date` DATE NOT NULL,
-  `check_in` INT(11) NOT NULL,
-  PRIMARY KEY (`id_ticket`),
-  INDEX `id_user_fk_idx` (`id_user` ASC),
-  CONSTRAINT `id_departure_flight_fk`
-    FOREIGN KEY (`id_departure_flight`)
-    REFERENCES `travel_flight_air`.`stopovers` (`id_stopover`),
-  CONSTRAINT `id_return_flight_fk`
-    FOREIGN KEY (`id_return_flight`)
-    REFERENCES `travel_flight_air`.`stopovers` (`id_stopover`),
-  CONSTRAINT `id_user_fk`
-    FOREIGN KEY (`id_user`)
-    REFERENCES `travel_flight_air`.`users` (`id_user`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 123
-DEFAULT CHARACTER SET = utf8;
+--
+-- Table structure for table `flights`
+--
 
+CREATE TABLE `flights` (
+  `id_flight` int(11) NOT NULL,
+  `id_airplane` int(45) NOT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+--
+-- Dumping data for table `flights`
+--
+
+INSERT INTO `flights` (`id_flight`, `id_airplane`, `price`) VALUES
+(233334, 24, 9999),
+(233335, 24, 150),
+(233336, 24, 70);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stopovers`
+--
+
+CREATE TABLE `stopovers` (
+  `id_stopover` int(11) NOT NULL,
+  `date_of_departure` date NOT NULL,
+  `date_of_arrival` date NOT NULL,
+  `hour_of_departure` time NOT NULL,
+  `hour_of_arrival` time NOT NULL,
+  `distance` float NOT NULL,
+  `id_flight` int(45) NOT NULL,
+  `id_departure` int(11) NOT NULL,
+  `id_destination` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stopovers`
+--
+
+INSERT INTO `stopovers` (`id_stopover`, `date_of_departure`, `date_of_arrival`, `hour_of_departure`, `hour_of_arrival`, `distance`, `id_flight`, `id_departure`, `id_destination`) VALUES
+(3, '2021-06-26', '2021-06-26', '05:00:00', '06:00:00', 5654550, 233334, 1, 2),
+(4, '2021-06-26', '2021-06-26', '06:39:31', '07:39:31', 5511, 233334, 2, 3),
+(5, '2021-06-26', '2021-06-26', '09:17:41', '10:17:41', 50, 233335, 1, 2),
+(7, '2021-06-27', '2021-06-27', '18:35:30', '20:35:30', 50, 233336, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tickets`
+--
+
+CREATE TABLE `tickets` (
+  `id_ticket` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `price` float NOT NULL,
+  `date` date NOT NULL,
+  `hour` time NOT NULL,
+  `check_in` tinyint(4) DEFAULT NULL,
+  `check_in_return` tinyint(4) DEFAULT NULL,
+  `id_departure_flight` int(11) NOT NULL,
+  `id_return_flight` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`id_ticket`, `id_user`, `price`, `date`, `hour`, `check_in`, `check_in_return`, `id_departure_flight`, `id_return_flight`) VALUES
+(126, 13, 10, '2021-06-26', '05:00:00', NULL, NULL, 233334, 233336),
+(127, 13, 220, '2021-06-20', '00:00:00', NULL, NULL, 233335, 233336),
+(128, 13, 9999, '2021-06-20', '09:42:43', NULL, NULL, 233334, NULL),
+(129, 13, 9999, '2021-06-20', '09:45:04', NULL, NULL, 233334, NULL),
+(130, 13, 9999, '2021-06-20', '09:45:04', NULL, NULL, 233334, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id_user` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `birthday_date` date NOT NULL,
+  `nif` int(45) NOT NULL,
+  `username` varchar(16) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `telephone` int(45) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id_user`, `name`, `birthday_date`, `nif`, `username`, `password`, `address`, `telephone`, `email`, `role`) VALUES
+(13, 'joao', '1985-06-26', 235497789, 'jpvaldez26', '1313', 'rua da esperanca', 969419408, 'jpvaldez26@gmail.com', 'admin'),
+(14, 'Admin', '2021-06-21', 4324124, 'admin', 'admin', 'asdad', 55433, 'admin@gmail.com', 'admin');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `airplanes`
+--
+ALTER TABLE `airplanes`
+  ADD PRIMARY KEY (`id_airplane`);
+
+--
+-- Indexes for table `airplanesstopovers`
+--
+ALTER TABLE `airplanesstopovers`
+  ADD KEY `id_airplane_fk_idx` (`id_airplane`),
+  ADD KEY `id_stopover_fk_idx` (`id_stopover`);
+
+--
+-- Indexes for table `airports`
+--
+ALTER TABLE `airports`
+  ADD PRIMARY KEY (`id_airport`);
+
+--
+-- Indexes for table `flights`
+--
+ALTER TABLE `flights`
+  ADD PRIMARY KEY (`id_flight`),
+  ADD KEY `id_airplane_fk` (`id_airplane`);
+
+--
+-- Indexes for table `stopovers`
+--
+ALTER TABLE `stopovers`
+  ADD PRIMARY KEY (`id_stopover`),
+  ADD KEY `fk_id_flight_idx` (`id_flight`),
+  ADD KEY `id_airport_departure_fk_idx` (`id_departure`),
+  ADD KEY `id_airport_destination_fk_idx` (`id_destination`);
+
+--
+-- Indexes for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`id_ticket`),
+  ADD KEY `id_user_fk_idx` (`id_user`),
+  ADD KEY `fk_tickets_flights1_idx` (`id_departure_flight`),
+  ADD KEY `fk_tickets_flights2_idx` (`id_return_flight`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `airplanes`
+--
+ALTER TABLE `airplanes`
+  MODIFY `id_airplane` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `airports`
+--
+ALTER TABLE `airports`
+  MODIFY `id_airport` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `flights`
+--
+ALTER TABLE `flights`
+  MODIFY `id_flight` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233337;
+
+--
+-- AUTO_INCREMENT for table `stopovers`
+--
+ALTER TABLE `stopovers`
+  MODIFY `id_stopover` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `id_ticket` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `airplanesstopovers`
+--
+ALTER TABLE `airplanesstopovers`
+  ADD CONSTRAINT `id_airplanesstopovers_airplane_fk` FOREIGN KEY (`id_airplane`) REFERENCES `airplanes` (`id_airplane`),
+  ADD CONSTRAINT `id_airplanesstopovers_stopover_fk` FOREIGN KEY (`id_stopover`) REFERENCES `stopovers` (`id_stopover`);
+
+--
+-- Constraints for table `flights`
+--
+ALTER TABLE `flights`
+  ADD CONSTRAINT `id_airplane_fk` FOREIGN KEY (`id_airplane`) REFERENCES `airplanes` (`id_airplane`);
+
+--
+-- Constraints for table `stopovers`
+--
+ALTER TABLE `stopovers`
+  ADD CONSTRAINT `id_airport_departure_fk` FOREIGN KEY (`id_departure`) REFERENCES `airports` (`id_airport`),
+  ADD CONSTRAINT `id_airport_destination_fk` FOREIGN KEY (`id_destination`) REFERENCES `airports` (`id_airport`),
+  ADD CONSTRAINT `id_flight_fk` FOREIGN KEY (`id_flight`) REFERENCES `flights` (`id_flight`);
+
+--
+-- Constraints for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD CONSTRAINT `fk_tickets_flights1` FOREIGN KEY (`id_departure_flight`) REFERENCES `flights` (`id_flight`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tickets_flights2` FOREIGN KEY (`id_return_flight`) REFERENCES `flights` (`id_flight`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

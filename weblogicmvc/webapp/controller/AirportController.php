@@ -12,7 +12,7 @@ class AirportController extends BaseController implements ResourceControllerInte
     public function index()
     {
         $user_logado = null;
-
+        
         if(Session::has('user'))
             $user_logado = Session::get('user');
 

@@ -29,7 +29,6 @@ Layout::includeLayout('header') ?>
                     <td><?=$stopover->hour_of_departure?></td>
                     <td><?=$stopover->hour_of_arrival?></td>
                     <td><?=$stopover->distance?></td>
-
                     <td>
                         <a href="<?=Url::toRoute('stopover/show', $stopover->id)?>" class="btn btn-info" role="button">Show</a>
                         <a href="<?=Url::toRoute('stopover/edit', $stopover->id)?>" class="btn btn-info" role="button">Edit</a>
