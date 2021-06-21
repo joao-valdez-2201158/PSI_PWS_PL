@@ -1,5 +1,4 @@
 <?php
-
 use ArmoredCore\Controllers\BaseController;
 use ArmoredCore\Interfaces\ResourceControllerInterface;
 use ArmoredCore\WebObjects\Post;
@@ -41,8 +40,13 @@ class TicketController extends BaseController implements ResourceControllerInter
 
 
         if($ticket->is_valid()){
+
             $ticket->save();
-            Redirect::toRoute('ticket/index');
+
+            $tickets = Ticket::all();
+
+            Redirect::toRoute('ticket/index',['tickets' => $tickets, 'user' => $user_logado]);
+
         } else {
             Redirect::flashToRoute('ticket/create', ['ticket' => $ticket, 'user' => $user_logado]);
         }
@@ -50,7 +54,9 @@ class TicketController extends BaseController implements ResourceControllerInter
 
     public function show($id)
     {
-        $ticket= Ticket::find($id);
+
+        $ticket= Ticket::find([$id]);
+
         $user_logado = null;
 
         if(Session::has('user'))
@@ -80,11 +86,14 @@ class TicketController extends BaseController implements ResourceControllerInter
         }
     }
 
-
     public function update($id)
     {
         $ticket = Ticket::find([$id]);
         $ticket->update_attributes(Post::getAll());
+
+
+        $check_in = Post::get('check_in') ;
+        $check_in_return = Post::get('check_in_return') ;
 
         $user_logado = null;
 
@@ -92,6 +101,7 @@ class TicketController extends BaseController implements ResourceControllerInter
             $user_logado = Session::get('user');
 
         if($ticket->is_valid()){
+
             $ticket->save();
             Redirect::toRoute('ticket/index');
         } else {

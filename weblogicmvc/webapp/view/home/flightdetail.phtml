@@ -9,34 +9,38 @@ $stopovers = Data::get('stopovers');
 $origin = Data::get('origin');
 $destination = Data::get('destination');
 ?>
-    <!-- container -->
-    <div class="container">
-        <?php if (!is_null($user_logado)){ ?>
-            <div class="container">
-                <div class="row">
-                    <div class="com-md-12">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td><?php echo $flight->price?></td>
-                                    <td><?php echo $flight->price?></td>
-                                    <td><?php echo $stopovers->id?></td>
-                                    <td><?php echo $origin->name?></td>
-                                    <td><?php echo $destination->name?></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+<!-- container -->
+<div class="container">
+    <?php if (!is_null($user_logado)){ ?>
+        <div class="container">
+            <div class="row">
+                <div class="com-md-12">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">Preço</th>
+                            <th scope="col">Voo Origem</th>
+                            <th scope="col">Voo Destino</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th><?php echo $flight->price?></th>
+                            <th><?php echo $origin->name?></th>
+                            <?php if(!is_null($destination)) { ?>
+                            <th><?php echo $destination->name?></th>
+                            <?php } ?>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-4">
-                <form method="post" action="<?=Url::toRoute('home/buy')?>">
-                    <label>Quantity</label>
-                    <input type="hidden" id="id_flight" name="id_flight" value="<?php echo $flight->id_flight ?>">
-                    <input type="text" name="qtt" id="qtt" class="form-control"></input>
-                    <button type="submit" class="btn btn-success"><i class="fa fa-plane"></i> Buy</button>
-                    </form>
-            </div>
-        <?php } ?>
-    </div>	<!-- /container -->
+        </div>
+        <div class="col-md-4">
+            <a href="../index" class="btn btn-info" role="button">Return</a>
+        </div>
+    <?php } ?>
+</div>	<!-- /container -->
 <?php Layout::includeLayout('footer')?>
+
+

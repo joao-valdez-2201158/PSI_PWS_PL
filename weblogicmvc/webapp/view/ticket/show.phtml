@@ -10,7 +10,6 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)){ ?>
-
     <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
@@ -22,6 +21,7 @@ Layout::includeLayout('header') ?>
                         <div class="panel-body">
                             <hr>
                             <form method="post" action="<?=Url::toRoute('ticket/index')?>">
+                            <?php if ($user_logado->role == 'admin') { ?>
                                 <div class="top-margin">
                                     <label>Ticket ID <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?=$ticket->id_ticket?>" name="id_ticket" class="form-control">
@@ -47,10 +47,42 @@ Layout::includeLayout('header') ?>
                                     <input readonly="true" type="datetime-local" value="<?=$ticket->date?>" name="date" class="form-control">
                                 </div>
                                 <div class="top-margin">
+                                    <label>Check-In <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="checkbox" value="<?=$ticket->check_in?>" name="check_in" class="checkbox">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Check-In Return <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="checkbox" value="<?=$ticket->check_in_return?>" name="check_in" class="checkbox">
+                                </div>
+                                <hr>
+                                <?php }?>
+
+                                <?php if ($user_logado->role == 'user') { ?>
+                                <?php if ($ticket->id_user == $user_logado->id_user) { ?>
+                                <div class="top-margin">
+                                    <label>Departure Flight ID <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Return Flight ID <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Ticket Price <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?=$ticket->price?>" name="price" class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Date <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="datetime-local" value="<?=$ticket->date?>" name="date" class="form-control">
+                                </div>
+                                <div class="top-margin">
                                     <label>Check-In Number <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?=$ticket->check_in?>" name="check_in" class="form-control">
                                 </div>
                                 <hr>
+                                    <?php }?>
+                                <?php }?>
+
                                 <div class="col-lg-4 text-right">
                                     <button class="btn btn-action" type="submit">Return</button>
                                 </div>

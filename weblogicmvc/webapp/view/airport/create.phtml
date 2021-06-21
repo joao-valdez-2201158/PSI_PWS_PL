@@ -10,7 +10,8 @@ Layout::includeLayout('header') ?>
 <!-- container -->
 <div class="container">
 <?php if (!is_null($user_logado)){ ?>
-    <div class="row">
+    <?php if ($user_logado->role == 'admin' ){ ?>
+        <div class="row">
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">
             <header class="page-header">
@@ -21,7 +22,6 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('airport/store')?>">
-                        <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="top-margin">
                                 <label>Name <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$airport->name?>" name="name" class="form-control" placeholder="Enter Airport Name">
@@ -51,7 +51,6 @@ Layout::includeLayout('header') ?>
                     </div>
                     </div>
                     </form>
-                <?php } ?>
                 </div>
             </div>
     </div>
@@ -59,5 +58,6 @@ Layout::includeLayout('header') ?>
     <!-- /Article -->
 </div>
 <?php } ?>
-</div>	<!-- /container -->
+<?php } ?>
+    </div>	<!-- /container -->
 <?php Layout::includeLayout('footer') ?>

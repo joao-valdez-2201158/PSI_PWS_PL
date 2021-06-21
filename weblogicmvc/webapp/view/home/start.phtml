@@ -19,26 +19,60 @@ $user_logado = Data::get('user')
         </div>
     </header>
 <?php if (!$user_logado == null){?>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th  scope="col"> <?= !is_null($user_logado) ? 'NAME: ' .$user_logado->name.' <br><br> ROLE:  '. $user_logado->role : '' ?></th?>
-    </tr>
-    </thead>
-    <?php if ($user_logado->role == 'admin' ){ ?>
-    <tbody>
-    <tr>
-        <td><p><a href="../user/index" class="text-primary">User Index</a></p></td>
-        <td><p><a href="../ticket/index" class="text-primary">Ticket Index</a></p></td>
-        <td><p><a href="../flight/index" class="text-primary">Flight Index</a></p></td>
-        <td><p><a href="../stopover/index" class="text-primary">Stopover Index</a></p></td>
-        <td><p><a href="../airport/index" class="text-primary">Airport Index</a></p></td>
-        <td><p><a href="../airplane/index" class="text-primary">Airplane Index</a></p></td>
-    </tr>
-    </tbody>
-    <?php } ?>
 
-</table>
+        <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <?= !is_null($user_logado) ? 'NAME: <b>' .$user_logado->name.'</b><br><br> ROLE:  <b>'. $user_logado->role : '</b>' ?>
+                </p>
+            </div>
+            <?php if ($user_logado->role == 'admin' ){ ?>
+                <div class="col-md-2">
+                    <td><p><a href="../user/index" class="btn btn-warning text-primary">User Index</a></p></td>
+                </div>
+                <div class="col-md-2">
+                    <td><p><a href="../ticket/index" class="btn btn-warning text-primary">Ticket Index</a></p></td>
+                </div>
+                <div class="col-md-2">
+                    <td><p><a href="../flight/index" class="btn btn-warning text-primary">Flight Index</a></p></td>
+                </div>
+                <div class="col-md-2">
+                    <td><p><a href="../stopover/index" class="btn btn-warning text-primary">Stopover Index</a></p></td>
+                </div>
+                <div class="col-md-2">
+                    <td><p><a href="../airport/index" class="btn btn-warning text-primary">Airport Index</a></p></td>
+                </div>
+                <div class="col-md-2">
+                    <td><p><a href="../airplane/index" class="btn btn-warning text-primary">Airplane Index</a></p></td>
+                </div>
+            <?php } ?>
+            </div>
+
+
+            <?php if ($user_logado->role == 'user' ){ ?>
+
+               <div class="row">
+                   <div class="col-md-6">
+                       <a href="../ticket/index" class="btn btn-warning text-primary">Purchases</a>
+                   </div>
+                   <div class="col-md-6">
+                       <a href="../user/index" class="btn btn-warning text-primary">Details</a>
+                   </div>
+               </div>
+            <?php } ?>
+
+            <?php if ($user_logado->role == 'op' ){ ?>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="../ticket/index" class="text-primary">Check-In</a>
+                    </div>
+                </div>
+            <?php } ?>
+
+        </div>
+
 <?php } ?>
 
 <?php Layout::includeLayout('footer') ?>

@@ -11,7 +11,8 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)){ ?>
-    <div class="row">
+    <?php if ($user_logado->role == 'admin' ||$user_logado->role == 'gest' ){ ?>
+        <div class="row">
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">
             <header class="page-header">
@@ -21,7 +22,6 @@ Layout::includeLayout('header') ?>
                 <div class="panel-body">
                     <hr>
                     <form class="form-horizontal" method="post" action="<?=Url::toRoute('flight/update', $flight->id)?>">
-                        <?php if ($user_logado->role == 'admin' ){ ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Airplane ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
@@ -42,12 +42,12 @@ Layout::includeLayout('header') ?>
                         </div>
                 </div>
                 </form>
-                <?php } ?>
             </div>
     </div>
     </article>
     <!-- /Article -->
     </div>
+<?php } ?>
 <?php } ?>
     </div>	<!-- /container -->
 <?php Layout::includeLayout('footer') ?>

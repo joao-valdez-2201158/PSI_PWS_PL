@@ -74,9 +74,12 @@ class AirportController extends BaseController implements ResourceControllerInte
             $user_logado = Session::get('user');
 
         if (is_null($airport)) {
-        } else {
+        }
+        else {
             return View::make('airport.edit', ['airport' => $airport, 'user' => $user_logado]);
-        }    }
+        }
+
+    }
 
     public function update($id)
     {

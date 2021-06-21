@@ -13,7 +13,8 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)){ ?>
-    <div class="row">
+    <?php if ($user_logado->role == 'admin' || $user_logado->role == 'gest' ){ ?>
+        <div class="row">
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">
             <header class="page-header">
@@ -25,7 +26,6 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('stopover/store')?>">
-                            <?php if ($user_logado->role == 'admin' ){ ?>
                                 <div class="top-margin">
                                     <label>Flight ID <span class="text-danger">*</span></label>
                                     <input type="number" value="<?=$stopover->id_flight?>" name="id_flight" class="form-control" placeholder="Enter Flight ID">
@@ -76,13 +76,13 @@ Layout::includeLayout('header') ?>
                     </div>
                 </div>
                 </form>
-                <?php } ?>
             </div>
     </div>
     </div>
     </article>
     <!-- /Article -->
     </div>
+<?php } ?>
 <?php } ?>
     </div>	<!-- /container -->
 <?php Layout::includeLayout('footer') ?>

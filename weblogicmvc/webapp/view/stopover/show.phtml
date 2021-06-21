@@ -10,7 +10,6 @@ Layout::includeLayout('header') ?>
     <div class="container">
     <?php if (!is_null($user_logado)){ ?>
         <div class="row">
-
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
                 <header class="page-header">
@@ -51,10 +50,7 @@ Layout::includeLayout('header') ?>
                                     <label>Distance <span class="text-danger">*</span></label>
                                     <input readonly="number" type="text" value="<?=$stopover->distance?>" name="distance" class="form-control">
                                 </div>
-
-
                                 <hr>
-
                                 <div class="col-lg-4 text-right">
                                     <button class="btn btn-action" type="submit">Return</button>
                                 </div>

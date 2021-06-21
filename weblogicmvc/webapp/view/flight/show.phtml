@@ -6,24 +6,19 @@ use ArmoredCore\WebObjects\Session;
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $flight = Data::get('flight') ?>
-
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
-
+    <?php if (!is_null($user_logado)){ ?>
         <div class="row">
-
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
                 <header class="page-header">
                     <h1 class="page-title">View Flight</h1>
                 </header>
-
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <hr>
-
                             <form method="post" action="<?=Url::toRoute('flight/index')?>">
                                 <div class="top-margin">
                                     <label>Flight ID <span class="text-danger">*</span></label>
@@ -37,10 +32,7 @@ Layout::includeLayout('header') ?>
                                     <label>Ticket Price <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?=$flight->price?>" name="price" class="form-control">
                                 </div>
-
-
                                 <hr>
-
                                 <div class="col-lg-4 text-right">
                                     <button class="btn btn-action" type="submit">Return</button>
                                 </div>
@@ -48,15 +40,11 @@ Layout::includeLayout('header') ?>
                         </form>
                     </div>
                 </div>
-
         </div>
-
         </article>
         <!-- /Article -->
-
     </div>
-<?php } ?>
-
+    <?php } ?>
     </div>	<!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

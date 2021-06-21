@@ -3,7 +3,7 @@ use ArmoredCore\WebObjects\ErrMgr;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 
-Layout::includeLayout('header') ?>
+Layout::includeLayout('newuserheader') ?>
 <?php $user = Data::get('user')?>
 <?php ErrMgr::attach($user) ?>
 <!-- container -->
@@ -64,6 +64,9 @@ Layout::includeLayout('header') ?>
                                 <label>Role <span class="text-danger">*</span></label>
                                 <input type="text" value="<?=$user->role?>" name="role" class="form-control" placeholder="Enter Role">
                                 <?= ErrMgr::bind('role') ?>
+                            </div>
+                            <div class="top-margin">
+                                <h5><b><h4>Roles: </h4></b>Administrador : admin <br> Passageiro: user <br> Operador: op <br> Gestor: gest </h5>
                             </div>
                             <hr>
                             <div class="col-lg-4 text-right">

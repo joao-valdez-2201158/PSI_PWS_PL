@@ -15,7 +15,6 @@ Layout::includeLayout('header') ?>
         <li><a href="../home/index">Home</a></li>
         <li class="active">Flight Index</li>
     </ol>
-
     <h2 class="text-left top-space">Flight Index</h2>
     <h2 class="top-space"></h2>
     <div class="row">
@@ -27,9 +26,6 @@ Layout::includeLayout('header') ?>
                     <td><?=$flight->id_flight?></td>
                     <td><?=$flight->id_airplane?></td>
                     <td><?=$flight->price?></td>
-
-
-
                     <td>
                         <a href="<?=Url::toRoute('flight/show', $flight->id)?>" class="btn btn-info" role="button">Show</a>
                         <a href="<?=Url::toRoute('flight/edit', $flight->id)?>" class="btn btn-info" role="button">Edit</a>
@@ -37,11 +33,8 @@ Layout::includeLayout('header') ?>
                     </td>
                 </tr>
                 <?php } ?>
-
                 </tbody>
-
             </table>
-
         </div>
         <div class="col-sm-6">
             <h3>Create a new Flight</h3>

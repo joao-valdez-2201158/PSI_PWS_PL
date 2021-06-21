@@ -10,8 +10,9 @@ Layout::includeLayout('header') ?>
 <?php ErrMgr::attach($ticket) ?>
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <div class="row">
+    <?php if (!is_null($user_logado)){ ?>
+    <?php if ($user_logado->role == 'admin' ){ ?>
+        <div class="row">
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">
             <header class="page-header">
@@ -22,7 +23,6 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('ticket/store')?>">
-                            <?php if ($user_logado->role == 'admin' ){ ?>
                                 <div class="top-margin">
                                     <label>User ID <span class="text-danger">*</span></label>
                                     <input type="number" value="<?=$ticket->id_user?>" name="id_user" class="form-control" placeholder="Enter User ID">
@@ -54,9 +54,14 @@ Layout::includeLayout('header') ?>
                                 <?= ErrMgr::bind('hour') ?>
                             </div>
                             <div class="top-margin">
-                                <label>Check-In <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$ticket->check_in?>" name="check_in" class="form-control" placeholder="Enter Check-In Number">
+                                <label  class="form-check-label">Check-In <span class="form-check form-switch">*</span></label>
+                                <input type="checkbox" value="<?=$ticket->check_in?>" name="check_in" class="form-check-input" placeholder="Enter Check-In Number">
                                 <?= ErrMgr::bind('check_in') ?>
+                            </div>
+                            <div class="top-margin">
+                                <label  class="form-check-label">Check-In Return <span class="form-check form-switch">*</span></label>
+                                <input type="checkbox" value="<?=$ticket->check_in_return?>" name="check_in_return" class="form-check-input" placeholder="Enter Check-In Return Number">
+                                <?= ErrMgr::bind('check_in_return') ?>
                             </div>
                             <hr>
                             <div class="col-lg-4 text-right">
@@ -68,13 +73,13 @@ Layout::includeLayout('header') ?>
                     </div>
                 </div>
                 </form>
-                <?php } ?>
             </div>
     </div>
     </div>
     </article>
     <!-- /Article -->
     </div>
+    <?php } ?>
 <?php } ?>
     </div>	<!-- /container -->
 <?php Layout::includeLayout('footer') ?>

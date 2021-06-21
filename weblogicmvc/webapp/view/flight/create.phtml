@@ -12,9 +12,8 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)){ ?>
-
-    <div class="row">
-
+    <?php if ($user_logado->role == 'admin' ||$user_logado->role == 'gest' ){ ?>
+        <div class="row">
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">
             <header class="page-header">
@@ -26,7 +25,6 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?=Url::toRoute('flight/store')?>">
-                            <?php if ($user_logado->role == 'admin' ){ ?>
                                 <div class="top-margin">
                                     <label>Airplane ID <span class="text-danger">*</span></label>
                                     <input type="number" value="<?=$flight->id_airplane?>" name="id_airplane" class="form-control" placeholder="Enter Airplane ID">
@@ -44,13 +42,13 @@ Layout::includeLayout('header') ?>
                                 <a button class="btn btn-action" href="<?=Url::toRoute('flight/index')?>">Return</a></button>                            </div>
                     </div>
                     </form>
-                    <?php } ?>
                 </div>
             </div>
     </div>
     </article>
     <!-- /Article -->
     </div>
+<?php } ?>
 <?php } ?>
     </div>	<!-- /container -->
 <?php Layout::includeLayout('footer') ?>

@@ -10,12 +10,10 @@ Layout::includeLayout('header') ?>
 <!-- container -->
 <div class="container">
 <?php if (!is_null($user_logado)){ ?>
-
     <ol class="breadcrumb">
         <li><a href="../home/index">Home</a></li>
         <li class="active">Airport Index</li>
     </ol>
-
     <h2 class="text-left top-space">Airport Index</h2>
     <h2 class="top-space"></h2>
     <div class="row">
@@ -29,9 +27,6 @@ Layout::includeLayout('header') ?>
                     <td><?=$airport->localization?></td>
                     <td><?=$airport->telephone?></td>
                     <td><?=$airport->email?></td>
-
-
-
                     <td>
                         <a href="<?=Url::toRoute('airport/show', $airport->id)?>" class="btn btn-info" role="button">Show</a>
                         <a href="<?=Url::toRoute('airport/edit', $airport->id)?>" class="btn btn-info" role="button">Edit</a>
@@ -39,11 +34,8 @@ Layout::includeLayout('header') ?>
                     </td>
                 </tr>
                 <?php } ?>
-
                 </tbody>
-
             </table>
-
         </div>
         <div class="col-sm-6">
             <h3>Create a new Airport</h3>
