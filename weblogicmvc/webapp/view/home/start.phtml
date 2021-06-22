@@ -48,7 +48,6 @@ $user_logado = Data::get('user')
             <?php } ?>
             </div>
 
-
             <?php if ($user_logado->role == 'user' ){ ?>
 
                <div class="row">
@@ -64,8 +63,24 @@ $user_logado = Data::get('user')
             <?php if ($user_logado->role == 'op' ){ ?>
 
                 <div class="row">
-                    <div class="col-md-12">
-                        <a href="../ticket/index" class="text-primary">Check-In</a>
+                    <div class="col-md-6">
+                        <a href="../ticket/index" class="btn btn-warning text-primary">Tickets</a>
+                    </div>
+                </div>
+            <?php } ?>
+
+
+            <?php if ($user_logado->role == 'gest' ){ ?>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="../flight/index" class="btn btn-warning text-primary">Flights</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="../stopover/index" class="btn btn-warning text-primary">Stopovers</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="../airplane/index" class="btn btn-warning text-primary">Airplanes</a>
                     </div>
                 </div>
             <?php } ?>
