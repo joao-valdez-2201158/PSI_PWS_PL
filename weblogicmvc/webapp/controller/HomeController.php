@@ -26,19 +26,6 @@ class HomeController extends BaseController
         $destiny = Post::has('destiny') ? Post::get('destiny') : '';
         $date = Post::has('date') ?  Post::get('date') : '';
         $date_return = Post::has('date_return') ?  Post::get('date_return') : '';
-
-        /*
-        $query = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, departure.name as origin, 
-arrival.name as destination,stopovers.date_of_departure, stopovers.date_of_arrival,
-       stopovers.hour_of_departure, stopovers.hour_of_arrival
-from flights 
-left join airplanes on flights.id_airplane = airplanes.id_airplane
-left join stopovers on flights.id_flight = stopovers.id_flight
-left join airports as departure on stopovers.id_departure = departure.id_airport
-left join airports as arrival on stopovers.id_destination = arrival.id_airport
-where (arrival.localization like "%'.$destiny.'%" and departure.localization like "%'.$flight.'%") 
-and stopovers.date_of_departure >= "'.$date.'" and stopovers.date_of_arrival <= "'.$date2.'"';*/
-
        
 $query = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, departure.name as origin, 
 arrival.name as destination,stopovers.date_of_departure, stopovers.date_of_arrival,

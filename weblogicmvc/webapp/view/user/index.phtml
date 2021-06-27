@@ -26,7 +26,7 @@ Layout::includeLayout('header') ?>
                 <tr>
                     <td><?=$user->id_user?></td>
                     <td><?=$user->name?></td>
-                    <td><?=$user->birthday_date?></td>
+                    <td><?= \Carbon\Carbon::parse($user->birthday_date)->format('Y-m-d')?> </td>
                     <td><?=$user->nif?></td>
                     <td><?=$user->username?></td>
                     <td><?=$user->address?></td>
@@ -68,7 +68,7 @@ Layout::includeLayout('header') ?>
                 <tr>
                     <td><?=$user->id_user?></td>
                     <td><?=$user->name?></td>
-                    <td><?=$user->birthday_date?></td>
+                    <td><?= \Carbon\Carbon::parse($user->birthday_date)->format('Y-m-d')?> </td>
                     <td><?=$user->nif?></td>
                     <td><?=$user->username?></td>
                     <td><?=$user->address?></td>
