@@ -29,9 +29,9 @@ Layout::includeLayout('header') ?>
                     <td><?=$stopover->hour_of_arrival?></td>
                     <td><?=$stopover->distance?></td>
                     <td>
-                        <a href="<?=Url::toRoute('stopover/show', $stopover->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('stopover/edit', $stopover->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('stopover/destroy', $stopover->id)?>" class="btn btn-warning" role="button">Delete</a>
+                        <a href="<?=Url::toRoute('stopover/show', $stopover->id)?>" class="btn btn-info btn-block" role="button">Show</a>
+                        <a href="<?=Url::toRoute('stopover/edit', $stopover->id)?>" class="btn btn-info btn-block" role="button">Edit</a>
+                        <a href="<?=Url::toRoute('stopover/destroy', $stopover->id)?>" class="btn btn-warning btn-block" role="button">Delete</a>
                     </td>
                 </tr>
                 <?php } ?>
@@ -42,10 +42,9 @@ Layout::includeLayout('header') ?>
 
         </div>
         <div class="col-sm-6">
-            <h3>Create a new Stopover</h3>
-            <br>
             <p>
                 <a href="<?=Url::toRoute('stopover/create')?>" class="btn btn-info" role="button">New</a>
+                 <a href="../home/start" class="btn btn-info" role="button">Return</a>
             </p>
         </div>
     </div> <!-- /row -->

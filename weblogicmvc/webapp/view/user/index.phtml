@@ -34,18 +34,22 @@ Layout::includeLayout('header') ?>
                     <td><?=$user->email?></td>
                     <td><?=$user->role?></td>
                     <td>
-                        <a href="<?=Url::toRoute('user/show', $user->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('user/edit', $user->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('user/destroy', $user->id)?>" class="btn btn-warning" role="button">Delete</a>
+                        <a href="<?=Url::toRoute('user/show', $user->id)?>" class="btn btn-info btn-block" role="button">Show</a>
+                        <a href="<?=Url::toRoute('user/edit', $user->id)?>" class="btn btn-info btn-block" role="button">Edit</a>
+                        <a href="<?=Url::toRoute('user/destroy', $user->id)?>" class="btn btn-warning btn-block" role="button">Delete</a>
                     </td>
                 </tr>
                 <?php } ?>
                 </tbody>
             </table>
+            <div class="col-sm-6">
+                <p>
+                    <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                </p>
+            </div>
         </div>
     </div>
 </div>
-
     <div class="container">
     <?php } ?>
     <?php if ($user_logado->role == 'user'){ ?>
@@ -72,22 +76,25 @@ Layout::includeLayout('header') ?>
                     <td><?=$user->email?></td>
                     <td><?=$user->role?></td>
                     <td>
-                        <a href="<?=Url::toRoute('user/show', $user->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('user/edit', $user->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('user/destroy', $user->id)?>" class="btn btn-warning" role="button">Delete</a>
+                        <a href="<?=Url::toRoute('user/show', $user->id)?>" class="btn btn-info btn-block" role="button">Show</a>
+                        <a href="<?=Url::toRoute('user/edit', $user->id)?>" class="btn btn-info btn-block" role="button">Edit</a>
+                        <a href="<?=Url::toRoute('user/destroy', $user->id)?>" class="btn btn-warning btn-block" role="button">Delete</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div class="col-sm-6">
+            <p>
+                <a href="../home/start" class="btn btn-info" role="button">Return</a>
+            </p>
+        </div>
     </div>
     <?php } ?>
     <?php } ?>
     <?php } ?>
     </div> <!-- /row -->
     </div>	<!-- /container -->
-
         <?php } ?>
-
 <?php Layout::includeLayout('footer')?>
 
 

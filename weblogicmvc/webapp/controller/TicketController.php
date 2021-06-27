@@ -118,5 +118,4 @@ class TicketController extends BaseController implements ResourceControllerInter
         Redirect::toRoute('ticket/index');
     }
 
-
 }

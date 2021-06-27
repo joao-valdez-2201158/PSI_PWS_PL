@@ -31,9 +31,10 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $user = new User(Post::getAll());
         $user->password = md5($user->password, false);
 
+
         if($user->is_valid()){
             $user->save();
-            Redirect::toRoute('home/index');
+            Redirect::toRoute('user/login');
         } else {
             Redirect::flashToRoute('user/create', ['user' => $user]);
         }
@@ -83,7 +84,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
     public function login()
     {
         return View::make('user.login');
-
     }
 
     public function makelogin()

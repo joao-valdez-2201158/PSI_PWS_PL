@@ -39,7 +39,6 @@ left join airports as arrival on stopovers.id_destination = arrival.id_airport
 where (arrival.localization like "%'.$destiny.'%" and departure.localization like "%'.$flight.'%") 
 and stopovers.date_of_departure >= "'.$date.'" and stopovers.date_of_arrival <= "'.$date2.'"';*/
 
-
        
 $query = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, departure.name as origin, 
 arrival.name as destination,stopovers.date_of_departure, stopovers.date_of_arrival,
@@ -75,8 +74,6 @@ group by flights.id_flight';
                 group by flights.id_flight';
             $result_return = Flight::find_by_sql($query_return);
         }
-        
-        
        
         return View::make('home.index',['flight' => $flight, 'destiny' => $destiny, 'date' => $date, 'date_return' => $date_return, 'result' => $result,'result_return' => $result_return, 'user' => $user_logado]);
 
@@ -87,8 +84,7 @@ group by flights.id_flight';
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
-        
-        
+
         return View::make('home.start', ['user' => $user_logado]);
 
     }
@@ -149,15 +145,11 @@ group by flights.id_flight';
         $id_flight = Post::has('id_flight') ? Post::get('id_flight') : null;
         $id_flight_return = Post::has('id_flight_return') ? Post::get('id_flight_return') : null;
 
-        $stopovers = Stopover::find_by_id_flight([$id_flight]);
-
-        //gravar na BD na tabela tickets
         $user_logado = null;
        
         if(Session::has('user')){
             $user_logado = Session::get('user');
-            //Buy
-            
+
             $flight = Flight::find_by_id_flight($id_flight);
             $price = $flight->price * $qtt;
 
@@ -169,7 +161,6 @@ group by flights.id_flight';
             #$attributes = array( 'id_departure_flight' => '233334', 'id_return_flight'=> '233336',  'price' => '10' ,  'date' => '2021-06-26' ,  'hour' => '05:00:00' ,  'check_in' => 0,  'check_in_return' => 0);
             for ($i = 0; $i < $qtt ; $i++){
                 $ticket = new Ticket();
-                //$ticket->id_user = $user_logado->id_user;
                 $ticket->id_user = $user_logado->id_user;
                 $ticket->id_departure_flight = $id_flight;
                 $ticket->id_return_flight = $id_flight_return;

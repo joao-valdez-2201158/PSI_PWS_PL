@@ -28,7 +28,6 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-
         return View::make('flight.create', ['user' => $user_logado]);
     }
 
