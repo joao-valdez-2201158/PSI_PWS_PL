@@ -38,7 +38,6 @@ Layout::includeLayout('header') ?>
                         <td><?php if($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
                          <td>
                         <a href="<?=Url::toRoute('ticket/show', $ticket->id)?>" class="btn btn-info btn-block" role="button">Show</a>
-                        <a href="<?=Url::toRoute('ticket/destroy', $ticket->id)?>" class="btn btn-warning btn-block" role="button">Delete</a>
                         </td>
                     <?php } ?>
                         </tr>
@@ -59,7 +58,9 @@ Layout::includeLayout('header') ?>
                         <td>
                             <a href="<?=Url::toRoute('ticket/show', $ticket->id)?>" class="btn btn-info btn-block" role="button">Show</a>
                             <a href="<?=Url::toRoute('ticket/edit', $ticket->id)?>" class="btn btn-info btn-block" role="button">Edit</a>
-                            <a href="<?=Url::toRoute('ticket/destroy', $ticket->id)?>" class="btn btn-warning btn-block" role="button">Delete</a>
+                            <?php if($user_logado->role == 'admin') { ?>
+                         <a href="<?=Url::toRoute('ticket/destroy', $ticket->id)?>" class="btn btn-warning btn-block" role="button">Delete</a>
+                        <?php } ?>
                         </td>
                     </tr>
                 <?php } ?>
@@ -70,7 +71,9 @@ Layout::includeLayout('header') ?>
         </div>
         <div class="col-sm-6">
             <p>
-                <a href="<?=Url::toRoute('ticket/create')?>" class="btn btn-info " role="button">New</a>
+    <?php if($user_logado->role == 'admin') { ?>
+        <a href="<?=Url::toRoute('ticket/create')?>" class="btn btn-info " role="button">New</a>
+    <?php } ?>
                 <a href="../home/start" class="btn btn-info" role="button">Return</a>
             </p>
         </div>

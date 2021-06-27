@@ -20,7 +20,7 @@ Layout::includeLayout('header') ?>
                         <div class="panel-body">
                             <hr>
                             <form method="post" action="<?=Url::toRoute('ticket/index')?>">
-                            <?php if ($user_logado->role == 'admin') { ?>
+                            <?php if ($user_logado->role == 'admin' || $user_logado->role == 'op') { ?>
                                 <div class="top-margin">
                                     <label>ID <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?=$ticket->id_ticket?>" name="id_ticket" class="form-control">
@@ -46,12 +46,12 @@ Layout::includeLayout('header') ?>
                                     <input readonly="true" type="datetime-local" value="<?=$ticket->date?>" name="date" class="form-control">
                                 </div>
                                 <div class="top-margin">
-                                    <label>Check-In <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="checkbox" value="<?=$ticket->check_in?>" name="check_in" class="checkbox">
+                                    <label>Check-In <span class="text-info"></span></label>
+                                    <td><?php if($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
                                 </div>
                                 <div class="top-margin">
-                                    <label>Check-In Return <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="checkbox" value="<?=$ticket->check_in_return?>" name="check_in" class="checkbox">
+                                    <label>Check-In Return <span class="text-info"></span></label>
+                                    <td><?php if($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
                                 </div>
                                 <hr>
                                 <?php }?>
