@@ -93,7 +93,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
        $password = Post::get('password');
        $password = md5($password, false);
 
-
         $user = User::find_by_username_and_password($username, $password);
 
         if(is_null($user)){

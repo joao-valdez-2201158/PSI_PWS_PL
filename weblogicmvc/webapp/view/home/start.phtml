@@ -28,22 +28,22 @@ $user_logado = Data::get('user')
             </div>
             <?php if ($user_logado->role == 'admin' ){ ?>
                 <div class="col-md-2">
-                    <td><p><a href="../user/index" class="btn btn-warning text-primary">User Index</a></p></td>
+                    <td><p><a href="../user/index" class="btn btn-warning text-primary btn-block">User Index</a></p></td>
                 </div>
                 <div class="col-md-2">
-                    <td><p><a href="../ticket/index" class="btn btn-warning text-primary">Ticket Index</a></p></td>
+                    <td><p><a href="../ticket/index" class="btn btn-warning text-primary btn-block">Ticket Index</a></p></td>
                 </div>
                 <div class="col-md-2">
-                    <td><p><a href="../flight/index" class="btn btn-warning text-primary">Flight Index</a></p></td>
+                    <td><p><a href="../flight/index" class="btn btn-warning text-primary btn-block">Flight Index</a></p></td>
                 </div>
                 <div class="col-md-2">
-                    <td><p><a href="../stopover/index" class="btn btn-warning text-primary">Stopover Index</a></p></td>
+                    <td><p><a href="../stopover/index" class="btn btn-warning text-primary btn-block">Stopover Index</a></p></td>
                 </div>
                 <div class="col-md-2">
-                    <td><p><a href="../airport/index" class="btn btn-warning text-primary">Airport Index</a></p></td>
+                    <td><p><a href="../airport/index" class="btn btn-warning text-primary btn-block">Airport Index</a></p></td>
                 </div>
                 <div class="col-md-2">
-                    <td><p><a href="../airplane/index" class="btn btn-warning text-primary">Airplane Index</a></p></td>
+                    <td><p><a href="../airplane/index" class="btn btn-warning text-primary btn-block">Airplane Index</a></p></td>
                 </div>
             <?php } ?>
             </div>
@@ -53,8 +53,6 @@ $user_logado = Data::get('user')
                <div class="row">
                    <div class="col-md-6">
                        <a href="../ticket/index" class="btn btn-warning text-primary">Purchases</a>
-                   </div>
-                   <div class="col-md-6">
                        <a href="../user/index" class="btn btn-warning text-primary">Details</a>
                    </div>
                </div>
@@ -75,11 +73,7 @@ $user_logado = Data::get('user')
                 <div class="row">
                     <div class="col-md-6">
                         <a href="../flight/index" class="btn btn-warning text-primary">Flights</a>
-                    </div>
-                    <div class="col-md-6">
                         <a href="../stopover/index" class="btn btn-warning text-primary">Stopovers</a>
-                    </div>
-                    <div class="col-md-6">
                         <a href="../airplane/index" class="btn btn-warning text-primary">Airplanes</a>
                     </div>
                 </div>
