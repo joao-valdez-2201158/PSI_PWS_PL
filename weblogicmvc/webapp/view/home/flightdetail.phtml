@@ -18,18 +18,21 @@ $destination = Data::get('destination');
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">Preço</th>
-                            <th scope="col">Voo Origem</th>
-                            <th scope="col">Voo Destino</th>
+                            <th scope="col">Flight Ref.</th>
+                            <th scope="col">Origin</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Price</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <th><?php echo $flight->price?></th>
+                            <th><?php echo $flight->id_flight?></th>
                             <th><?php echo $origin->name?></th>
                             <?php if(!is_null($destination)) { ?>
                             <th><?php echo $destination->name?></th>
                             <?php } ?>
+                            <th><?php echo $flight->price?></th>
                         </tr>
                         </tbody>
                     </table>

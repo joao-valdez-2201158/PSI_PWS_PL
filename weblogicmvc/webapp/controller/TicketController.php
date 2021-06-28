@@ -90,10 +90,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         $ticket = Ticket::find([$id]);
         $ticket->update_attributes(Post::getAll());
 
-
-        $check_in = Post::get('check_in') ;
-        $check_in_return = Post::get('check_in_return') ;
-
         $user_logado = null;
 
         if(Session::has('user'))
@@ -104,7 +100,7 @@ class TicketController extends BaseController implements ResourceControllerInter
             $ticket->save();
             Redirect::toRoute('ticket/index');
         } else {
-            //redirect to form with data and errors
+            //obs: redirect to form with data and errors
             Redirect::flashToRoute('ticket/edit', ['ticket' => $ticket, 'user' => $user_logado]);
         }
 

@@ -11,6 +11,7 @@ class User extends Model
         array('password'),
         array('telephone'),
         array('email'),
+        array('address'),
         array('birthday_date'),
         array('nif'),
         array('role')
@@ -32,5 +33,7 @@ class User extends Model
 //    static $validates_size_of = array(
 //        array('password', 'within' => array(8,15), 'too_short' => 'too short!'),
 //    );
+
+
 
 }

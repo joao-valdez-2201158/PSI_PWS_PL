@@ -144,8 +144,12 @@ group by flights.id_flight';
                 $flight_return = Flight::find_by_id_flight($id_flight_return);
                 $price += $flight_return->price * $qtt;
             }
+
+           /* if ($id_flight == null){
+                $flight_return = Flight::find_by_id_flight($id_flight_return);
+                $price = $flight_return->price * $qtt;
+            }*/
              
-            #$attributes = array( 'id_departure_flight' => '233334', 'id_return_flight'=> '233336',  'price' => '10' ,  'date' => '2021-06-26' ,  'hour' => '05:00:00' ,  'check_in' => 0,  'check_in_return' => 0);
             for ($i = 0; $i < $qtt ; $i++){
                 $ticket = new Ticket();
                 $ticket->id_user = $user_logado->id_user;
