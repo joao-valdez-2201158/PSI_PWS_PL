@@ -9,6 +9,17 @@ Layout::includeLayout('header');
 $user_logado = Data::get('user')
 ?>
 
+<?php if (is_null($user_logado)){ ?>
+<header id="head">
+    <div class="container">
+        <div class="row">
+            <h1>No User Selected</h1><br>
+        </div>
+    </div>
+</header>
+<?php } ?>
+
+<?php if (!$user_logado == null){?>
 
     <header id="head">
         <div class="container">
@@ -17,7 +28,6 @@ $user_logado = Data::get('user')
             </div>
         </div>
     </header>
-<?php if (!$user_logado == null){?>
 
         <div class="container">
          <div class="row">
