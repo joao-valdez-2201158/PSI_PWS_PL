@@ -15,18 +15,25 @@ $flight = Data::get('flight');
 $destiny = Data::get('destiny');
 ErrMgr::attach($flight);
 ?>
+<?php if (is_null($user_logado)){ ?>
 
+    <header id="head">
+    <div class="container">
+    <h2>Flight Travel Air<br></h2>
+    </div>
+    </div>
+    </header>
+<?php } ?>
+
+
+<?php if (!is_null($user_logado)){ ?>
 
     <!-- Header -->
     <header id="head">
         <div class="container">
-            <!--<div class="row">
-                <img src="../../../public/img/logo2.png" style="width:200px;height:200px;>
-            </div>
-            <div class="row">-->
                 <h2>Flight Travel Air<br></h2>
             <div class="row">
-            <form method="post" action="<?=Url::toRoute('home/index')?>">
+    <form method="post" action="<?=Url::toRoute('home/index')?>">
                 <select name="flight">
                     <option value="" <?php if($flight == '') echo 'selected' ?>>Select</option>
                     <option value="Porto" <?php if($flight == 'Porto') echo 'selected' ?>>Porto</option>
@@ -60,7 +67,7 @@ ErrMgr::attach($flight);
         <div class="container">
             <div class="row" style="min-height: 200px;">
                 <div class="com-md-12">
-                <h1>One Side</h1>
+                  <h1>One Side</h1>
                     <table class="table">
                         <thead>
                             <th></th>
@@ -93,7 +100,7 @@ ErrMgr::attach($flight);
         <div class="container">
             <div class="row" style="min-height: 200px;">
                 <div class="com-md-12">
-                <h1>Return</h1>
+                     <h1>Return</h1>
                     <table class="table">
                         <thead>
                         <th></th>
@@ -135,7 +142,9 @@ ErrMgr::attach($flight);
                 </div>
             </div>
         </div>
+
     </form>
     <!-- /Header -->
+<?php } ?>
 
 <?php Layout::includeLayout('footer')?>
