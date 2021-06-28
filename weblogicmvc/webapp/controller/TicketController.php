@@ -40,12 +40,11 @@ class TicketController extends BaseController implements ResourceControllerInter
 
 
         if($ticket->is_valid()){
-
             $ticket->save();
 
             $tickets = Ticket::all();
 
-            Redirect::toRoute('ticket/index',['tickets' => $tickets, 'user' => $user_logado]);
+            Redirect::toRoute('ticket/index');
 
         } else {
             Redirect::flashToRoute('ticket/create', ['ticket' => $ticket, 'user' => $user_logado]);

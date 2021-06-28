@@ -17,7 +17,16 @@ Layout::includeLayout('header') ?>
     <h2 class="top-space"></h2>
     <div class="row">
         <div class="col-sm-12">
-            <table class="table table-striped"><thead><th><h3>ID</h3></th><th><h3>Flight ID</h3></th><th><h3>Departure ID</h3></th><th><h3>Destination ID</h3></th><th><h3>Departure Hour</h3></th><th><h3>Arrival Hour</h3></th><th><h3>Distance</h3></th></thead>
+            <table class="table table-striped">
+                <thead>
+                <th><h3>ID</h3></th>
+                <th><h3>Flight ID</h3></th>
+                <th><h3>Departure ID</h3></th>
+                <th><h3>Destination ID</h3></th>
+                <th><h3>Departure Date</h3></th>
+                <th><h3>Arrival Date</h3></th>
+                <th><h3>Distance</h3></th>
+                </thead>
                 <tbody>
                 <?php foreach ($stopovers as $stopover) { ?>
                 <tr>
@@ -25,8 +34,8 @@ Layout::includeLayout('header') ?>
                     <td><?=$stopover->id_flight?></td>
                     <td><?=$stopover->id_departure?></td>
                     <td><?=$stopover->id_destination?></td>
-                    <td><?=$stopover->hour_of_departure?></td>
-                    <td><?=$stopover->hour_of_arrival?></td>
+                    <td><?= \Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d')?> <?=$stopover->hour_of_departure?></td>
+                    <td><?= \Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d')?> <?=$stopover->hour_of_arrival?></td>
                     <td><?=$stopover->distance?></td>
                     <td>
                         <a href="<?=Url::toRoute('stopover/show', $stopover->id)?>" class="btn btn-info btn-block" role="button">Show</a>

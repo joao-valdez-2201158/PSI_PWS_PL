@@ -10,7 +10,7 @@ class Ticket extends Model
         array('id_departure_flight'),
         array('price'),
         array('date'),
-        array('hour'),
+        array('hour')
 
     );
 
@@ -22,5 +22,6 @@ class Ticket extends Model
         $this->set_attributes($attributes);
         return $this->save();
     }
+
 
 }

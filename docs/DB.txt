@@ -77,7 +77,7 @@ CREATE TABLE `airports` (
 --
 
 INSERT INTO `airports` (`id_airport`, `name`, `localization`, `telephone`, `email`) VALUES
-(1, 'Aerporto Cu de Judas', 'Açores', 5654554, 'vbs@s.com'),
+(1, 'Aerporto Ponta Delgada', 'Acores', 5654554, 'vbs@s.com'),
 (2, 'Lisboa', 'Lisboa', 213, '31'),
 (3, 'Porto', 'Porto', 555, 'dasda');
 

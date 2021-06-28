@@ -6,7 +6,7 @@ insert into flights (id_airplane, price) values
 insert into users (name, birthday_date, nif, username, password, address, telephone, email, role) values
 ('joao', '1985-06-26', 235497789, 'jpvaldez26', 1313, 'rua da esperanca', 969419408, 'jpvaldez26@gmail.com', 'admin');
 insert into airports (name, localization, telephone, email) values
-('Aerporto Cu de Judas', 'Cu de Judas', 5654554, 'vbs@s.com');
+('Aerporto Ponta Delgada', 'Acores', 5654554, 'vbs@s.com');
 insert into stopovers (date_of_departure, hour_of_departure, date_of_arrival, hour_of_arrival, distance, id_flight, id_departure, id_destination) values
 ('2021-06-26', '23:00', '2021-06-27','21:00', 5654554,233338, 1, 2);
 insert into tickets (id_user, id_departure_flight, id_return_flight, price, date, hour, check_in) values
