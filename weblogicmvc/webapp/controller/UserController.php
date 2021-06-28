@@ -65,6 +65,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         $user = User::find([$id]);
         $user->update_attributes(Post::getAll());
+        $user->password = md5($user->password, false);
 
         if($user->is_valid()){
             $user->save();
