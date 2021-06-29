@@ -77,9 +77,25 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function destroy($id)
     {
-        $user = User::find([$id]);
-        $user->delete();
-        Redirect::toRoute('user/index');
+        if(Session::has('user'))
+        {
+            $user_logado = Session::get('user');
+
+            //verificar se user tem tickets
+
+            $tickets = Ticket::find_by_id_user($id);
+
+            if ($tickets != null)
+            {
+                $error = 'Utilizador tem tickets associados, nao pode apagar';
+                Session::set('error_user',$error);
+                Redirect::toRoute('home/error');
+            } else {
+                $user = User::find([$id]);
+                $user->delete();
+                Redirect::toRoute('user/index');
+            }
+        }
     }
 
     public function login()

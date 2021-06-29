@@ -23,6 +23,9 @@ Router::get('home/flightdetail',	'HomeController/flightdetail');
 Router::post('home/buy',	'HomeController/buy');
 Router::get('home/buy',	'HomeController/buy');
 
+Router::get('home/error',	'HomeController/error');
+
+
 //Router::get('home/start',	'UserController/start');
 
 Router::get('test/index',  'TestController/index');

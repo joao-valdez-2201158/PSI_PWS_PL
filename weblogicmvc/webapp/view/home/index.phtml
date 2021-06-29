@@ -13,7 +13,9 @@ $result = Data::get('result');
 $result_return = Data::get('result_return');
 $flight = Data::get('flight');
 $destiny = Data::get('destiny');
+$airports = Data::get('airports');
 ErrMgr::attach($flight);
+
 ?>
 <?php if (is_null($user_logado)){ ?>
 
@@ -31,28 +33,27 @@ ErrMgr::attach($flight);
     <!-- Header -->
     <header id="head">
         <div class="container">
-                <h2>Flight Travel Air<br></h2>
+            <h2>Flight Travel Air<br></h2>
             <div class="row">
     <form method="post" action="<?=Url::toRoute('home/index')?>">
-                <select name="flight">
-                    <option value="" <?php if($flight == '') echo 'selected' ?>>Select</option>
-                    <option value="Porto" <?php if($flight == 'Porto') echo 'selected' ?>>Porto</option>
-                    <option value="Lisboa" <?php if($flight == 'Lisboa') echo 'selected' ?>>Lisboa</option>
-                    <option value="Faro" <?php if($flight == 'Faro') echo 'selected' ?>>Faro</option>
-                    <option value="Acores" <?php if($flight == 'Acores') echo 'selected' ?>>Açores</option>
-                    <option value="New Deli" <?php if($flight == 'New Deli') echo 'selected' ?>>New Deli</option>
-                    <option value="New York" <?php if($flight == 'New York') echo 'selected' ?>>New York</option>
-                    <option value="Washington" <?php if($flight == 'Washington') echo 'selected' ?>>Washington DC</option>
-                </select>
-                <select name="destiny">
-                    <option value="" <?php if($destiny == '') echo 'selected' ?>>Select</option>
-                    <option value="Porto" <?php if($destiny == 'Porto') echo 'selected' ?>>Porto</option>
-                    <option value="Lisboa" <?php if($destiny == 'Lisboa') echo 'selected' ?>>Lisboa</option>
-                    <option value="Faro" <?php if($destiny == 'Faro') echo 'selected' ?>>Faro</option>
-                    <option value="Acores" <?php if($destiny == 'Acores') echo 'selected' ?>>Açores</option>
-                    <option value="New Deli" <?php if($destiny == 'New Deli') echo 'selected' ?>>New Deli</option>
-                    <option value="New York" <?php if($destiny == 'New York') echo 'selected' ?>>New York</option>
-                    <option value="Washington" <?php if($destiny == 'Washington') echo 'selected' ?>>Washington DC</option>
+        <select name="flight">
+            <option value="" <?php if($flight == '') echo 'selected' ?>>Select</option>
+            <?php
+
+            foreach ($airports as $key=>$airport) {
+                echo "<option>$airport->localization</option>";
+            }
+            ?>
+        </select>
+
+    <select name="destiny">
+        <option value="" <?php if($destiny == '') echo 'selected' ?>>Select</option>
+        <?php
+        foreach ($airports as $key=>$airport) {
+            echo "<option>$airport->localization</option>";
+        }
+        ?>
+        ?>
                 </select>
                 <input type="date" name="date" <?php if($date != '')  echo 'value="'.$date.'"' ?>  required/>
                 <input type="date" name="date_return" <?php if($date_return != '')  echo 'value="'.$date_return.'"' ?>/>
@@ -83,10 +84,10 @@ ErrMgr::attach($flight);
                         <?php foreach ($result as $value) { ?>
                             <tr>
                                 <td><input type="radio" id="id_flight" name="id_flight" value="<?php echo $value->id_flight ?>"></td>
-                                <td><a href="<?php echo 'flightdetail/?idF='. $value->id_flight .'&or='. $flight.'&dest='. $destiny .'' ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
+                                <td><a href="<?php echo 'flightdetail/?idF='. $value->id_flight .'&or='. $value->origin_localization.'&dest='. $value->destination_localization .'' ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
                                 <td><?=$value->id_flight?></td>
-                                <td><?=$flight?></td>
-                                <td><?=$destiny?></td>
+                                <td><?=$value->origin?></td>
+                                <td><?=$value->destination?></td>
                                 <td><?=$value->date_of_departure?> <?=$value->hour_of_departure?></td>
                                 <td><?=$value->date_of_arrival?> <?=$value->hour_of_arrival?></td>
                                 <td><?=$value->price?> €</td>
@@ -116,10 +117,10 @@ ErrMgr::attach($flight);
                         <?php foreach ($result_return as $value) { ?>
                             <tr>
                                 <td><input type="radio" id="id_flight_return" name="id_flight_return" value="<?php echo $value->id_flight ?>"></td>
-                                <td><a href="<?php echo 'flightdetail/?idF='. $value->id_flight .'&or='. $destiny.'&dest='. $flight .'' ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
+                                <td><a href="<?php echo 'flightdetail/?idF='. $value->id_flight .'&or='. $value->origin_localization.'&dest='. $value->destination_localization .'' ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
                                 <td><?=$value->id_flight?></td>
-                                <td><?=$destiny?></td>
-                                <td><?=$flight?></td>
+                                <td><?=$value->origin?></td>
+                                <td><?=$value->destination?></td>
                                 <td><?=$value->date_of_departure?> <?=$value->hour_of_departure?></td>
                                 <td><?=$value->date_of_arrival?> <?=$value->hour_of_arrival?></td>
                                 <td><?=$value->price?> €</td>

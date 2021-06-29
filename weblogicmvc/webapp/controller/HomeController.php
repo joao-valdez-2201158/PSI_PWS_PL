@@ -22,47 +22,58 @@ class HomeController extends BaseController
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        $airports = Airport::all();
         $flight = Post::has('flight') ? Post::get('flight') : '';
         $destiny = Post::has('destiny') ? Post::get('destiny') : '';
         $date = Post::has('date') ?  Post::get('date') : '';
         $date_return = Post::has('date_return') ?  Post::get('date_return') : '';
        
-$query = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, departure.name as origin, 
-arrival.name as destination,stopovers.date_of_departure, stopovers.date_of_arrival,
-       stopovers.hour_of_departure, stopovers.hour_of_arrival
-from flights 
-left join airplanes on flights.id_airplane = airplanes.id_airplane
-inner join stopovers on flights.id_flight = stopovers.id_flight
-left join airports as departure on stopovers.id_departure = departure.id_airport
-left join airports as arrival on stopovers.id_destination = arrival.id_airport
-where flights.id_flight in (Select stopovers.id_flight from stopovers left join airports as departure on stopovers.id_departure = departure.id_airport
-left join airports as arrival on stopovers.id_destination = arrival.id_airport where arrival.localization like "%'.$destiny.'%" and stopovers.date_of_arrival = "'.$date.'")
-and flights.id_flight in (Select stopovers.id_flight from stopovers left join airports as departure on stopovers.id_departure = departure.id_airport
-left join airports as arrival on stopovers.id_destination = arrival.id_airport where departure.localization like "%'.$flight.'%" and stopovers.date_of_departure  = "'.$date.'")
-group by flights.id_flight';
+$query = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, 
+                departure.name as origin, arrival.name as destination,
+                departure.localization as origin_localization, arrival.localization as destination_localization,
+                stopovers.date_of_departure, stopovers.date_of_arrival,
+                    stopovers.hour_of_departure, stopovers.hour_of_arrival
+                from flights 
+                left join airplanes on flights.id_airplane = airplanes.id_airplane
+                inner join stopovers on flights.id_flight = stopovers.id_flight
+                left join airports as departure on stopovers.id_departure = departure.id_airport
+                left join airports as arrival on stopovers.id_destination = arrival.id_airport                
+				where departure.localization like "%'.$flight.'%"
+                and stopovers.date_of_departure >= "'.$date.'"
+                and  (
+                    
+                    select ifnull( sum(passengers_quantity),0) from airplanesstopovers
+                    where id_stopover = stopovers.id_stopover
+                    
+                    ) < airplanes.lotation';
 
         $result = Flight::find_by_sql($query);
 
         $result_return = array();
         //Return Flights
         if ($date_return != ''){
-            $query_return = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, departure.name as origin, 
-                arrival.name as destination,stopovers.date_of_departure, stopovers.date_of_arrival,
-                    stopovers.hour_of_departure, stopovers.hour_of_arrival
-                from flights 
-                left join airplanes on flights.id_airplane = airplanes.id_airplane
-                inner join stopovers on flights.id_flight = stopovers.id_flight
-                left join airports as departure on stopovers.id_departure = departure.id_airport
-                left join airports as arrival on stopovers.id_destination = arrival.id_airport
-                where flights.id_flight in (Select stopovers.id_flight from stopovers left join airports as departure on stopovers.id_departure = departure.id_airport
-                left join airports as arrival on stopovers.id_destination = arrival.id_airport where arrival.localization like "%'.$flight.'%" and stopovers.date_of_arrival = "'.$date_return.'")
-                and flights.id_flight in (Select stopovers.id_flight from stopovers left join airports as departure on stopovers.id_departure = departure.id_airport
-                left join airports as arrival on stopovers.id_destination = arrival.id_airport where departure.localization like "%'.$destiny.'%" and stopovers.date_of_departure  = "'.$date_return.'")
-                group by flights.id_flight';
+            $query_return = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, 
+                            departure.name as origin,arrival.name as destination,
+                            departure.localization as origin_localization, arrival.localization as destination_localization,
+                            stopovers.date_of_departure, stopovers.date_of_arrival,
+                            stopovers.hour_of_departure, stopovers.hour_of_arrival
+                            from flights 
+                            left join airplanes on flights.id_airplane = airplanes.id_airplane
+                            inner join stopovers on flights.id_flight = stopovers.id_flight
+                            left join airports as departure on stopovers.id_departure = departure.id_airport
+                            left join airports as arrival on stopovers.id_destination = arrival.id_airport                
+                            where arrival.localization like "%'.$destiny.'%"
+                            and stopovers.date_of_departure >= "'.$date_return.'"
+                            and  (
+                    
+                            select ifnull( sum(passengers_quantity),0) from airplanesstopovers
+                            where id_stopover = stopovers.id_stopover
+                            
+                            ) < airplanes.lotation';
             $result_return = Flight::find_by_sql($query_return);
         }
        
-        return View::make('home.index',['flight' => $flight, 'destiny' => $destiny, 'date' => $date, 'date_return' => $date_return, 'result' => $result,'result_return' => $result_return, 'user' => $user_logado]);
+        return View::make('home.index',[ 'airports'=> $airports, 'flight' => $flight, 'destiny' => $destiny, 'date' => $date, 'date_return' => $date_return, 'result' => $result,'result_return' => $result_return, 'user' => $user_logado]);
 
     }
 
@@ -131,24 +142,22 @@ group by flights.id_flight';
         $qtt  = Post::has('qtt') ? Post::get('qtt') : 1;
         $id_flight = Post::has('id_flight') ? Post::get('id_flight') : null;
         $id_flight_return = Post::has('id_flight_return') ? Post::get('id_flight_return') : null;
+        //$stopover = Post::has('id_flight_return') ? Post::get('id_flight_return') : null;
+
 
         $user_logado = null;
        
         if(Session::has('user')){
             $user_logado = Session::get('user');
-
             $flight = Flight::find_by_id_flight($id_flight);
-            $price = $flight->price * $qtt;
+            $price = $flight->price;
 
             if ($id_flight_return != null){
                 $flight_return = Flight::find_by_id_flight($id_flight_return);
-                $price += $flight_return->price * $qtt;
+                $price += $flight_return->price;
             }
 
-           /* if ($id_flight == null){
-                $flight_return = Flight::find_by_id_flight($id_flight_return);
-                $price = $flight_return->price * $qtt;
-            }*/
+
              
             for ($i = 0; $i < $qtt ; $i++){
                 $ticket = new Ticket();
@@ -157,9 +166,17 @@ group by flights.id_flight';
                 $ticket->id_return_flight = $id_flight_return;
                 $ticket->price = $price;
                 $ticket->date =  date("Y-m-d");
-                $ticket->hour = date("h:i:s");;
+                $ticket->hour = date("h:i:s");
                 $ticket->save(false);
             }
+
+            $stopover = Stopover::find_by_id_flight($id_flight);
+
+            $airplanestop = new  AirplaneStopover();
+            $airplanestop->passengers_quantity = $qtt;
+            $airplanestop->id_airplane = $flight->id_airplane;
+            $airplanestop->id_stopover = $stopover->id_stopover;
+            $airplanestop->save();
 
             return View::make('home/buy', ['user'=> $user_logado, 'id_flight' => $id_flight, 'id_flight_return' => $id_flight_return,
                 'qtt' => $qtt, 'price' => $price, 'id_ticket' => $ticket->id_ticket ]);
@@ -167,6 +184,20 @@ group by flights.id_flight';
             Redirect::toRoute('user/login');
         }
 
+    }
+
+    public function error()
+    {
+
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+
+        $error = Session::get('error_user');
+
+        return View::make('home.error',['error_message' => $error, 'user' => $user_logado]);
     }
 
 
