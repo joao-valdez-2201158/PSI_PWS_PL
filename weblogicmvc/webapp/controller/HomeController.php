@@ -40,6 +40,8 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
                 left join airports as arrival on stopovers.id_destination = arrival.id_airport                
 				where departure.localization like "%'.$flight.'%"
                 and stopovers.date_of_departure >= "'.$date.'"
+                and stopovers.date_of_departure <= "'.$date_return.'"
+
                 and  (
                     
                     select ifnull( sum(passengers_quantity),0) from airplanesstopovers
@@ -63,7 +65,9 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
                             left join airports as departure on stopovers.id_departure = departure.id_airport
                             left join airports as arrival on stopovers.id_destination = arrival.id_airport                
                             where arrival.localization like "%'.$destiny.'%"
-                            and stopovers.date_of_departure >= "'.$date_return.'"
+                            and stopovers.date_of_departure >= "'.$date.'"
+                            and stopovers.date_of_departure <= "'.$date_return.'"
+
                             and  (
                     
                             select ifnull( sum(passengers_quantity),0) from airplanesstopovers

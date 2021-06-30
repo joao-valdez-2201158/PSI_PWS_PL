@@ -29,6 +29,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
 
         $user = new User(Post::getAll());
+
         $user->password = md5($user->password, false);
 
 
@@ -65,6 +66,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         $user = User::find([$id]);
         $user->update_attributes(Post::getAll());
+
         $user->password = md5($user->password, false);
 
         if($user->is_valid()){
@@ -79,7 +81,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         if(Session::has('user'))
         {
-
             //verificar se user tem tickets
 
             $tickets = Ticket::find_by_id_user($id);

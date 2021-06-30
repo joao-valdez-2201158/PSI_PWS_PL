@@ -42,7 +42,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         if($ticket->is_valid()){
             $ticket->save();
 
-            //$tickets = Ticket::all();
             Redirect::toRoute('ticket/index');
 
         } else {
