@@ -43,7 +43,6 @@ class TicketController extends BaseController implements ResourceControllerInter
             $ticket->save();
 
             //$tickets = Ticket::all();
-
             Redirect::toRoute('ticket/index');
 
         } else {
@@ -107,10 +106,12 @@ class TicketController extends BaseController implements ResourceControllerInter
     }
 
     public function destroy($id)
-    {
-        $ticket = Ticket::find([$id]);
-        $ticket->delete();
-        Redirect::toRoute('ticket/index');
-    }
+
+        {
+            $ticket = Ticket::find([$id]);
+            $ticket->delete();
+            Redirect::toRoute('ticket/index');
+        }
+
 
 }

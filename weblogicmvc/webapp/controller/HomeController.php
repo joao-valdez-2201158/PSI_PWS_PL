@@ -53,7 +53,7 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
         //Return Flights
         if ($date_return != ''){
             $query_return = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, 
-                            departure.name as origin,arrival.name as destination,
+                            departure.name as origin, arrival.name as destination,
                             departure.localization as origin_localization, arrival.localization as destination_localization,
                             stopovers.date_of_departure, stopovers.date_of_arrival,
                             stopovers.hour_of_departure, stopovers.hour_of_arrival
@@ -142,8 +142,6 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
         $qtt  = Post::has('qtt') ? Post::get('qtt') : 1;
         $id_flight = Post::has('id_flight') ? Post::get('id_flight') : null;
         $id_flight_return = Post::has('id_flight_return') ? Post::get('id_flight_return') : null;
-        //$stopover = Post::has('id_flight_return') ? Post::get('id_flight_return') : null;
-
 
         $user_logado = null;
        
@@ -158,7 +156,7 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
             }
 
 
-             
+
             for ($i = 0; $i < $qtt ; $i++){
                 $ticket = new Ticket();
                 $ticket->id_user = $user_logado->id_user;
@@ -188,7 +186,6 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
 
     public function error()
     {
-
         $user_logado = null;
 
         if(Session::has('user'))

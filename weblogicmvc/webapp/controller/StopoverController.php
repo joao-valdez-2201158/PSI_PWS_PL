@@ -102,9 +102,21 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
     public function destroy($id)
     {
-        $stopover = Stopover::find([$id]);
-        $stopover->delete();
-        Redirect::toRoute('stopover/index');
+        $airports = Airport::find_by_id_airport($id);
+        $airplanestopovers = AirplaneStopover::find_by_id_stopover($id);
+        $flights = Flight::find_by_id_flight($id);
+
+        if ($airports != null || $airplanestopovers != null || $flights != null)
+        {
+            $error = 'User has airport(s)/stopover(s)/flight(s) associated, deletion is not allowed, first delete the other items';
+            Session::set('error_user',$error);
+            Redirect::toRoute('home/error');
+        } else {
+            $stopover = Stopover::find([$id]);
+            $stopover->delete();
+            Redirect::toRoute('stopover/index');
+        }
+
     }
 
 }

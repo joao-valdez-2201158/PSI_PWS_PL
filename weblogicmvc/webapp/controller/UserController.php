@@ -79,7 +79,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
     {
         if(Session::has('user'))
         {
-            $user_logado = Session::get('user');
 
             //verificar se user tem tickets
 
@@ -87,7 +86,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
             if ($tickets != null)
             {
-                $error = 'Utilizador tem tickets associados, nao pode apagar';
+                $error = 'User has associated ticket(s), deletion is not allowed';
                 Session::set('error_user',$error);
                 Redirect::toRoute('home/error');
             } else {

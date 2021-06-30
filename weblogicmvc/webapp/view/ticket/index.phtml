@@ -11,6 +11,7 @@ Layout::includeLayout('header') ?>
 <!-- container -->
 <div class="container">
 <?php if (!is_null($user_logado)){ ?>
+
     <ol class="breadcrumb">
         <li><a href="../home/index">Home</a></li>
         <li class="active">Ticket Index</li>
@@ -22,6 +23,7 @@ Layout::includeLayout('header') ?>
         <div class="col-sm-12">
             <table class="table table-striped"><thead><th><h3>ID</h3></th><th><h3>User ID</h3></th><th><h3>Departure Flight ID</h3></th><th><h3>Return Flight ID</h3></th><th><h3>Price</h3></th><th><h3>Date</h3></th><th><h3>Check-In</h3></th><th><h3>Check-In Return</h3></th></thead>
                 <tbody>
+
                 <?php foreach ($tickets as $ticket) { ?>
                         <tr>
             <?php if($user_logado->role == 'user' ) { ?>

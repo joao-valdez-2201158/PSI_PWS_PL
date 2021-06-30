@@ -100,9 +100,21 @@ class FlightController extends BaseController implements ResourceControllerInter
 
     public function destroy($id)
     {
-        $flight = Flight::find([$id]);
-        $flight->delete();
-        Redirect::toRoute('flight/index');
+            $stopovers = Stopover::find_by_id_flight($id);
+            $airplanes = Airplane::find_by_id_airplane($id);
+
+            if ($stopovers != null || $airplanes != null)
+            {
+                $error = 'User has airplane(s)/stopover(s) associated, deletion is not allowed, first delete stopovers';
+                Session::set('error_user',$error);
+                Redirect::toRoute('home/error');
+            } else {
+                $flight = Flight::find([$id]);
+                $flight->delete();
+                Redirect::toRoute('flight/index');
+            }
+
     }
 
 }
+

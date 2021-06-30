@@ -36,6 +36,7 @@ ErrMgr::attach($flight);
             <h2>Flight Travel Air<br></h2>
             <div class="row">
     <form method="post" action="<?=Url::toRoute('home/index')?>">
+
         <select name="flight">
             <option value="" <?php if($flight == '') echo 'selected' ?>>Select</option>
             <?php
@@ -46,21 +47,22 @@ ErrMgr::attach($flight);
             ?>
         </select>
 
-    <select name="destiny">
+        <select name="destiny">
         <option value="" <?php if($destiny == '') echo 'selected' ?>>Select</option>
         <?php
         foreach ($airports as $key=>$airport) {
             echo "<option>$airport->localization</option>";
         }
         ?>
-        ?>
-                </select>
-                <input type="date" name="date" <?php if($date != '')  echo 'value="'.$date.'"' ?>  required/>
-                <input type="date" name="date_return" <?php if($date_return != '')  echo 'value="'.$date_return.'"' ?>/>
-                <input type="submit" value="Search"/>
-                </form>
-            </div>
-            <br>
+         </select>
+
+    <input type="date" name="date" <?php if($date != '')  echo 'value="'.$date.'"' ?>  required/>
+    <input type="date" name="date_return" <?php if($date_return != '')  echo 'value="'.$date_return.'"' ?>/>
+
+        <input type="submit" value="Search"/>
+    </form>
+
+          </div>
         </div>
     </header>
 
