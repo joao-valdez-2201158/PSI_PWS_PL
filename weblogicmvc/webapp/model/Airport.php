@@ -12,4 +12,8 @@ class Airport extends Model
         array('email')
 
     );
+
+    static $has_many = array(
+        array('flights')
+    );
 }

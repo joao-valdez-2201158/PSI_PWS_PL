@@ -10,8 +10,8 @@ Layout::includeLayout('header') ?>
 <?php ErrMgr::attach($airplane) ?>
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <?php if ($user_logado->role == 'admin' ||$user_logado->role == 'gest' ){ ?>
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'gest') { ?>
         <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
@@ -21,25 +21,31 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('airplane/update', $airplane->id)?>">
+                        <form class="form-horizontal" method="post"
+                              action="<?= Url::toRoute('airplane/update', $airplane->id) ?>">
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Reference:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Reference:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$airplane->reference?>" class="form-control" name="reference" placeholder="Enter Airplane Nr">
+                                    <input type="text" required value="<?= $airplane->reference ?>" class="form-control"
+                                           name="reference" placeholder="Enter Airplane Nr">
                                     <?= ErrMgr::bind('reference') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Type:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$airplane->airplanetype?>" class="form-control" name="airplanetype" placeholder="Enter Airplane Price">
+                                    <input type="text" required value="<?= $airplane->airplanetype ?>"
+                                           class="form-control" name="airplanetype" placeholder="Enter Airplane Price">
                                     <?= ErrMgr::bind('airplanetype') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Lotation:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Lotation:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$airplane->lotation?>" class="form-control" name="lotation" placeholder="Enter Airplane Price">
+                                    <input type="number" required value="<?= $airplane->lotation ?>"
+                                           class="form-control" name="lotation" placeholder="Enter Airplane Price">
                                     <?= ErrMgr::bind('lotation') ?>
                                 </div>
                             </div>
@@ -54,8 +60,8 @@ Layout::includeLayout('header') ?>
         </div>
         </article>
         <!-- /Article -->
-    </div>
+        </div>
+    <?php } ?>
 <?php } ?>
-<?php } ?>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

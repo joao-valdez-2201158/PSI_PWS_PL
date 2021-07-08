@@ -7,12 +7,9 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\ErrMgr;
 
-Layout::includeLayout('header');
+Layout::includeLayout('usererrorheader');
 $error_message = Data::get('error_message');
-$user_logado = Data::get('user');
 ?>
-
-<?php if (!is_null($user_logado)) { ?>
 
     <div class="row">
         <div class="col-md-12">
@@ -24,13 +21,13 @@ $user_logado = Data::get('user');
     </div>
 
 
-<?php } ?>
 
-<div class="col-sm-6">
-    <p>
-        <a href="../home/start" class="btn btn-info" role="button">Return</a>
-    </p>
-</div>
+    <div class="col-sm-6">
+        <p>
+            <a href="../home/start" class="btn btn-info" role="button">Return</a>
+        </p>
+    </div>
 
 <?php Layout::includeLayout('footer') ?>
 
+<?php

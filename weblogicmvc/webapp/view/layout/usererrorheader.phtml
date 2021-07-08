@@ -17,7 +17,7 @@ $user = Data::get('user')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="PSI">
+    <meta name="author" content="Silvio Priem Mendes, PhD">
 
     <title>Flight Travel Air - Welcome Aboard</title>
 
@@ -52,16 +52,7 @@ $user = Data::get('user')
             <ul class="nav navbar-nav pull-right">
                 <li class="active"><a href="<?= URL::toRoute('home/index') ?>">Home</a></li>
                 <li><a href="<?= URL::toRoute('home/start') ?>">Start</a></li>
-                <?php if (is_null($user))
-                {
-                    echo('<li><a class="btn" href="' . URL::toRoute('user/login') . '">SIGN IN / SIGN UP</a></li>');
-                } else
-                {
-                    echo('<li><button class="btn">' . $user->name . '</button></li>');
-                    echo('<li><a class="btn" href="' . URL::toRoute('user/logout') . '">LOGOUT</a></li>');
-                }
-
-                ?>
+                <li><a class="btn" href="<?=URL::toRoute('user/login') ?>" >SIGN IN / SIGN UP</a></li>
             </ul>
         </div><!--/.nav-collapse -->
 

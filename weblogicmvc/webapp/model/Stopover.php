@@ -18,4 +18,12 @@ class Stopover extends Model
 
     );
 
+    static $belongs_to = array(
+        array('flight', 'class_name' => 'Flight', 'foreign_key' => 'id_flight'),
+        array('departure_airport', 'class_name' => 'Airport', 'foreign_key' => 'id_departure'),
+        array('arrival_airport', 'class_name' => 'Airport', 'foreign_key' => 'id_destination'),
+        array('airplane', 'class_name' => 'Airplane', 'foreign_key' => 'id_airplane'),
+    );
+
+
 }

@@ -2,12 +2,13 @@
 
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Data;
+
 $title = Data::get('title');
 ?>
 <div>
-<ol class="breadcrumb">
-        <li><a href="<?=URL::toRoute('home/index')?>">Home</a></li>
-        <li class="active"><?=$title?></li>
+    <ol class="breadcrumb">
+        <li><a href="<?= URL::toRoute('home/index') ?>">Home</a></li>
+        <li class="active"><?= $title ?></li>
     </ol>
 
     <div class="row">
@@ -15,7 +16,8 @@ $title = Data::get('title');
         <!-- Article main content -->
         <article class="col-md-8 maincontent">
             <header class="page-header">
-                <h1 class="page-title"><?=$title?></h1>
-            </header></div>
+                <h1 class="page-title"><?= $title ?></h1>
+            </header>
+    </div>
 
 </div>

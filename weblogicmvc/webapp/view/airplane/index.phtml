@@ -6,42 +6,53 @@ use ArmoredCore\WebObjects\Session;
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $airplanes = Data::get('airplanes') ?>
-<!-- container -->
-<div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <ol class="breadcrumb">
-        <li><a href="../home/index">Home</a></li>
-        <li class="active">Airplane Index</li>
-    </ol>
-    <h2 class="text-left top-space">Airplane Index</h2>
-    <h2 class="top-space"></h2>
-    <div class="row">
-        <div class="col-sm-12">
-            <table class="table table-striped"><thead><th><h3>ID</h3></th><th><h3>Reference</h3></th><th><h3>Type</h3></th><th><h3>Lotation</h3></th></thead>
-                <tbody>
-                <?php foreach ($airplanes as $airplane) { ?>
-                <tr>
-                    <td><?=$airplane->id_airplane?></td>
-                    <td><?=$airplane->reference?></td>
-                    <td><?=$airplane->airplanetype?></td>
-                    <td><?=$airplane->lotation?></td>
-                    <td>
-                        <a href="<?=Url::toRoute('airplane/show', $airplane->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('airplane/edit', $airplane->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('airplane/destroy', $airplane->id)?>" class="btn btn-warning" role="button">Delete</a>
-                    </td>
-                </tr>
-                <?php } ?>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-6">
-            <p>
-                <a href="<?=Url::toRoute('airplane/create')?>" class="btn btn-info" role="button">New</a>
-                <a href="../home/start" class="btn btn-info" role="button">Return</a>
-            </p>
-        </div>
-    </div> <!-- /row -->
-<?php } ?>
-</div>	<!-- /container -->
-<?php Layout::includeLayout('footer')?>
+    <!-- container -->
+    <div class="container">
+    <?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'gest') { ?>
+        <ol class="breadcrumb">
+                <li><a href="../home/index">Home</a></li>
+                <li class="active">Airplane Index</li>
+            </ol>
+            <h2 class="text-left top-space">Airplane Index</h2>
+            <h2 class="top-space"></h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <th><h3>ID</h3></th>
+                        <th><h3>Reference</h3></th>
+                        <th><h3>Type</h3></th>
+                        <th><h3>Lotation</h3></th>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($airplanes as $airplane) { ?>
+                            <tr>
+                                <td><?= $airplane->id_airplane ?></td>
+                                <td><?= $airplane->reference ?></td>
+                                <td><?= $airplane->airplanetype ?></td>
+                                <td><?= $airplane->lotation ?></td>
+                                <td>
+                                    <a href="<?= Url::toRoute('airplane/show', $airplane->id) ?>" class="btn btn-info"
+                                       role="button">Show</a>
+                                    <a href="<?= Url::toRoute('airplane/edit', $airplane->id) ?>" class="btn btn-info"
+                                       role="button">Edit</a>
+                                    <a href="<?= Url::toRoute('airplane/destroy', $airplane->id) ?>"
+                                       class="btn btn-warning" role="button">Delete</a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <p>
+                        <a href="<?= Url::toRoute('airplane/create') ?>" class="btn btn-info" role="button">New</a>
+                        <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                    </p>
+                </div>
+            </div> <!-- /row -->
+        <?php } ?>
+    <?php } ?>
+    </div>    <!-- /container -->
+<?php Layout::includeLayout('footer') ?>

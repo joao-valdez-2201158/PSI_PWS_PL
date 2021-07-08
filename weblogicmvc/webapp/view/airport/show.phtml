@@ -9,55 +9,61 @@ Layout::includeLayout('header') ?>
 
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'admin') { ?>
         <div class="row">
-            <!-- Article main content -->
-            <article class="col-xs-12 maincontent">
-                <header class="page-header">
-                    <h1 class="page-title">View Airport</h1>
-                </header>
-                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
+        <!-- Article main content -->
+        <article class="col-xs-12 maincontent">
+            <header class="page-header">
+                <h1 class="page-title">View Airport</h1>
+            </header>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+                        <form method="post" action="<?= Url::toRoute('airport/index') ?>">
+                            <div class="top-margin">
+                                <label>ID <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $airport->id_airport ?>"
+                                       name="id_airport" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Name <span class="text-danger">*</span></label>
+                                <input readonly="true" type="text" value="<?= $airport->name ?>" name="name"
+                                       class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Localization <span class="text-danger">*</span></label>
+                                <input readonly="true" type="text" value="<?= $airport->localization ?>"
+                                       name="localization" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Telephone <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $airport->telephone ?>" name="telephone"
+                                       class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Email <span class="text-danger">*</span></label>
+                                <input readonly="true" type="text" value="<?= $airport->email ?>" name="email"
+                                       class="form-control">
+                            </div>
                             <hr>
-                            <form method="post" action="<?=Url::toRoute('airport/index')?>">
-                                <div class="top-margin">
-                                    <label>ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$airport->id_airport?>" name="id_airport" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Name <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airport->name?>" name="name" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Localization <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airport->localization?>" name="localization" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Telephone <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$airport->telephone?>" name="telephone" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Email <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airport->email?>" name="email" class="form-control">
-                                </div>
-                                <hr>
-                                <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Return</button>
-                                </div>
-                        </div>
-                        </form>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-action" type="submit">Return</button>
+                            </div>
                     </div>
+                    </form>
                 </div>
+            </div>
 
-        </div>
+    </div>
 
-        </article>
-        <!-- /Article -->
+    </article>
+    <!-- /Article -->
 
     </div>
 <?php } ?>
-
-    </div>	<!-- /container -->
+<?php } ?>
+    </div>    <!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

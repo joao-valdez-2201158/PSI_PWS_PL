@@ -11,8 +11,8 @@ Layout::includeLayout('header') ?>
 
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <?php if ($user_logado->role == 'admin' ){ ?>
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'admin') { ?>
         <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
@@ -22,32 +22,40 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('airport/update', $airport->id)?>">
+                        <form class="form-horizontal" method="post"
+                              action="<?= Url::toRoute('airport/update', $airport->id) ?>">
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Name:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$airport->name?>" class="form-control" name="name" placeholder="Enter Airport Name">
+                                    <input type="text" required value="<?= $airport->name ?>" class="form-control"
+                                           name="name" placeholder="Enter Airport Name">
                                     <?= ErrMgr::bind('name') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Localization:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$airport->localization?>" class="form-control" name="localization" placeholder="Enter Airport Localization">
+                                    <input type="text" required value="<?= $airport->localization ?>"
+                                           class="form-control" name="localization"
+                                           placeholder="Enter Airport Localization">
                                     <?= ErrMgr::bind('localization') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Telephone:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Telephone:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$airport->telephone?>" class="form-control" name="telephone" placeholder="Enter Airport Telephone">
+                                    <input type="number" required value="<?= $airport->telephone ?>"
+                                           class="form-control" name="telephone" placeholder="Enter Airport Telephone">
                                     <?= ErrMgr::bind('telephone') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Email:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Email:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$airport->email?>" class="form-control" name="email" placeholder="Enter Email Address">
+                                    <input type="text" required value="<?= $airport->email ?>" class="form-control"
+                                           name="email" placeholder="Enter Email Address">
                                     <?= ErrMgr::bind('email') ?>
                                 </div>
                             </div>
@@ -62,8 +70,8 @@ Layout::includeLayout('header') ?>
         </div>
         </article>
         <!-- /Article -->
-    </div>
+        </div>
+    <?php } ?>
 <?php } ?>
-<?php } ?>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

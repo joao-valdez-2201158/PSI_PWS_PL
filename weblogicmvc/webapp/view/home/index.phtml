@@ -1,4 +1,5 @@
 <?php
+
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
@@ -17,82 +18,98 @@ $airports = Data::get('airports');
 ErrMgr::attach($flight);
 
 ?>
-<?php if (is_null($user_logado)){ ?>
+<?php if (is_null($user_logado)) { ?>
 
     <header id="head">
-    <div class="container">
-    <h2>Flight Travel Air<br></h2>
-    </div>
-    </div>
+        <div class="container">
+            <h2>Flight Travel Air<br></h2>
+        </div>
+        </div>
     </header>
 <?php } ?>
 
 
-<?php if (!is_null($user_logado)){ ?>
+<?php if (!is_null($user_logado)) { ?>
 
     <!-- Header -->
     <header id="head">
         <div class="container">
             <h2>Flight Travel Air<br></h2>
-            <div class="row">
-    <form method="post" action="<?=Url::toRoute('home/index')?>">
+            <form method="post" action="<?= Url::toRoute('home/index') ?>">
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <select class="form-control" name="flight">
+                            <option value="" <?php if ($flight == '') echo 'selected' ?>>Select</option>
+                            <?php
 
-        <select name="flight">
-            <option value="" <?php if($flight == '') echo 'selected' ?>>Select</option>
-            <?php
+                            foreach ($airports as $key => $airport)
+                            {
+                                echo "<option>$airport->localization</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" name="destiny">
+                            <option value="" <?php if ($destiny == '') echo 'selected' ?>>Select</option>
+                            <?php
+                            foreach ($airports as $key => $airport)
+                            {
+                                echo "<option>$airport->localization</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
 
-            foreach ($airports as $key=>$airport) {
-                echo "<option>$airport->localization</option>";
-            }
-            ?>
-        </select>
+                    <div class="col-md-3">
+                        <input class="form-control" type="date"
+                               name="date" <?php if ($date != '') echo 'value="' . $date . '"' ?> required/>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="date"
+                               name="date_return" <?php if ($date_return != '') echo 'value="' . $date_return . '"' ?>/>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 30px;">
+                    <div class="col-md-12">
+                        <input class="btn btn-warning" type="submit" value="Search"/>
+                    </div>
+                </div>
+            </form>
 
-        <select name="destiny">
-        <option value="" <?php if($destiny == '') echo 'selected' ?>>Select</option>
-        <?php
-        foreach ($airports as $key=>$airport) {
-            echo "<option>$airport->localization</option>";
-        }
-        ?>
-         </select>
 
-    <input type="date" name="date" <?php if($date != '')  echo 'value="'.$date.'"' ?>  required/>
-    <input type="date" name="date_return" <?php if($date_return != '')  echo 'value="'.$date_return.'"' ?>/>
-
-        <input type="submit" value="<Search>"/>
-    </form>
-
-          </div>
         </div>
     </header>
 
-    <form method="post" action="<?=Url::toRoute('home/buy')?>">
+    <form method="post" action="<?= Url::toRoute('home/buy') ?>">
         <div class="container">
             <div class="row" style="min-height: 200px;">
                 <div class="com-md-12">
-                  <h1>One Side</h1>
+                    <h1>One Side</h1>
                     <table class="table">
                         <thead>
-                            <th></th>
-                            <th></th>
-                            <th>Flight Ref.</th>
-                            <th>Origin</th>
-                            <th>Destination</th>
-                            <th>Departure Date</th>
-                            <th>Arrival Date</th>
-                            <th>Price</th>
+                        <th></th>
+                        <th></th>
+                        <th>Flight ID.</th>
+                        <th>Origin</th>
+                        <th>Destination</th>
+                        <th>Departure Date</th>
+                        <th>Arrival Date</th>
+                        <th>Price</th>
                         </thead>
                         <tbody>
                         <?php foreach ($result as $value) { ?>
                             <tr>
-                                <td><input type="radio" id="id_flight" name="id_flight" value="<?php echo $value->id_flight ?>"></td>
-                                <td><a href="<?php echo 'flightdetail/?idF='. $value->id_flight .'&or='. $value->origin_localization.'&dest='. $value->destination_localization .'' ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
-                                <td><?=$value->id_flight?></td>
-                                <td><?=$value->origin?></td>
-                                <td><?=$value->destination?></td>
-                                <td><?=$value->date_of_departure?> <?=$value->hour_of_departure?></td>
-                                <td><?=$value->date_of_arrival?> <?=$value->hour_of_arrival?></td>
-                                <td><?=$value->price?> €</td>
+                                <td><input type="radio" id="id_flight" name="id_flight"
+                                           value="<?php echo $value->id_flight ?>"></td>
+                                <td><a href="<?php echo 'flightdetail/?idF=' . $value->id_flight ?> "
+                                       class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
+                                <td><?= $value->id_flight ?></td>
+                                <td><?= $value->origin ?></td>
+                                <td><?= $value->destination ?></td>
+                                <td><?= $value->date_of_departure ?> <?= $value->hour_of_departure ?></td>
+                                <td><?= $value->date_of_arrival ?> <?= $value->hour_of_arrival ?></td>
+                                <td><?= $value->price ?> €</td>
                             </tr>
                         <?php } ?>
                         </tbody>
@@ -103,12 +120,12 @@ ErrMgr::attach($flight);
         <div class="container">
             <div class="row" style="min-height: 200px;">
                 <div class="com-md-12">
-                     <h1>Return</h1>
+                    <h1>Return</h1>
                     <table class="table">
                         <thead>
                         <th></th>
                         <th></th>
-                        <th>Flight Ref.</th>
+                        <th>Flight ID.</th>
                         <th>Origin</th>
                         <th>Destination</th>
                         <th>Departure Date</th>
@@ -118,14 +135,16 @@ ErrMgr::attach($flight);
                         <tbody>
                         <?php foreach ($result_return as $value) { ?>
                             <tr>
-                                <td><input type="radio" id="id_flight_return" name="id_flight_return" value="<?php echo $value->id_flight ?>"></td>
-                                <td><a href="<?php echo 'flightdetail/?idF='. $value->id_flight .'&or='. $value->origin_localization.'&dest='. $value->destination_localization .'' ?> " class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
-                                <td><?=$value->id_flight?></td>
-                                <td><?=$value->origin?></td>
-                                <td><?=$value->destination?></td>
-                                <td><?=$value->date_of_departure?> <?=$value->hour_of_departure?></td>
-                                <td><?=$value->date_of_arrival?> <?=$value->hour_of_arrival?></td>
-                                <td><?=$value->price?> €</td>
+                                <td><input type="radio" id="id_flight_return" name="id_flight_return"
+                                           value="<?php echo $value->id_flight ?>"></td>
+                                <td><a href="<?php echo 'flightdetail/?idF=' . $value->id_flight ?> "
+                                       class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
+                                <td><?= $value->id_flight ?></td>
+                                <td><?= $value->origin ?></td>
+                                <td><?= $value->destination ?></td>
+                                <td><?= $value->date_of_departure ?> <?= $value->hour_of_departure ?></td>
+                                <td><?= $value->date_of_arrival ?> <?= $value->hour_of_arrival ?></td>
+                                <td><?= $value->price ?> €</td>
                             </tr>
                         <?php } ?>
                         </tbody>
@@ -137,10 +156,10 @@ ErrMgr::attach($flight);
             <div class="row" style="min-height: 200px;">
                 <div class="com-md-12">
                     <label>Quantity</label>
-                    <input type="number" name="qtt"  placeholder="1" required/>
+                    <input type="number" class="form-control" name="qtt" placeholder="1" required/>
                 </div>
                 <div class="com-md-12" style="margin-top: 5vh;">
-                    
+
                     <input type="submit" value="Buy" class="btn btn-primary"/>
                 </div>
             </div>
@@ -150,4 +169,4 @@ ErrMgr::attach($flight);
     <!-- /Header -->
 <?php } ?>
 
-<?php Layout::includeLayout('footer')?>
+<?php Layout::includeLayout('footer') ?>

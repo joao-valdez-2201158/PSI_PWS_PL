@@ -68,24 +68,13 @@ Layout::includeLayout('newuserheader') ?>
                                            placeholder="Enter Email">
                                     <?= ErrMgr::bind('email') ?>
                                 </div>
-                                <div class="top-margin">
-                                    <label>Role <span class="text-danger"></span></label><br>
-                                    <select class="dropdown" name="role">
-                                        <option value="<?= $user->role ?>" selected><?= $user->role ?></option>
-                                        <option value='admin'>Administrador</option>
-                                        <option value='op'>Operador de Checkin</option>
-                                        <option value='gest'>Gestor de Voo</option>
-                                        <option value='mark'>Gestor de Marketing</option>
-                                    </select>
-                                    <?= ErrMgr::bind('role') ?>
-                                </div>
                                 <hr>
                                 <div class="col-lg-4 text-right">
                                     <button class="btn btn-action" type="submit">Register</button>
                                 </div>
                                 <div class="col-lg-4 text-left">
                                     <a button class="btn btn-action"
-                                       href="<?= Url::toRoute('user/index') ?>">Return</a></button>
+                                       href="<?= Url::toRoute('home/index') ?>">Return</a></button>
                                 </div>
                         </div>
                     </div>

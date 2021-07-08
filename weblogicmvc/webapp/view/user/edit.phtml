@@ -17,67 +17,83 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-                        <form class="form-horizontal" method="post" action="<?=Url::toRoute('user/update', $user->id)?>">
+                        <form class="form-horizontal" method="post"
+                              action="<?= Url::toRoute('user/update', $user->id) ?>">
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Name:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" value="<?=$user->name?>" class="form-control" required name="name" placeholder="Enter Username">
+                                    <input type="text" value="<?= $user->name ?>" class="form-control" required
+                                           name="name" placeholder="Enter Username">
                                     <?= ErrMgr::bind('name') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Birthday Date:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Birthday Date:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="date" required value="<?=$user->birthday_date?>" class="form-control" name="birthday_date" placeholder="Enter Birthday Date ">
+                                    <input type="date" required value="<?= $user->birthday_date ?>" class="form-control"
+                                           name="birthday_date" placeholder="Enter Birthday Date ">
                                     <?= ErrMgr::bind('birthday_date') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Nif:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$user->nif?>" class="form-control" name="nif" placeholder="Enter Nif">
+                                    <input type="number" required value="<?= $user->nif ?>" class="form-control"
+                                           name="nif" placeholder="Enter Nif">
                                     <?= ErrMgr::bind('nif') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Username:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Username:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$user->username?>" class="form-control" name="username" placeholder="Enter Username">
+                                    <input type="text" required value="<?= $user->username ?>" class="form-control"
+                                           name="username" placeholder="Enter Username">
                                     <?= ErrMgr::bind('username') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Password:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Password:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="password" required value="<?=$user->password?>" class="form-control" name="password" placeholder="Enter Password">
+                                    <input type="password" required value="<?= $user->password ?>" class="form-control"
+                                           name="password" placeholder="Enter Password">
                                     <?= ErrMgr::bind('password') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Address:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Address:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$user->address?>" class="form-control" name="address" placeholder="Enter Address">
+                                    <input type="text" required value="<?= $user->address ?>" class="form-control"
+                                           name="address" placeholder="Enter Address">
                                     <?= ErrMgr::bind('address') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Telephone:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Telephone:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$user->telephone?>" class="form-control" name="telephone" placeholder="Enter Telephone">
+                                    <input type="number" required value="<?= $user->telephone ?>" class="form-control"
+                                           name="telephone" placeholder="Enter Telephone">
                                     <?= ErrMgr::bind('telephone') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Email:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Email:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$user->email?>" class="form-control" name="email" placeholder="Enter Email">
+                                    <input type="text" required value="<?= $user->email ?>" class="form-control"
+                                           name="email" placeholder="Enter Email">
                                     <?= ErrMgr::bind('email') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Role:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="text" required value="<?=$user->role?>" class="form-control" name="role" placeholder="Enter Role">
+                                    <input type="text" required value="<?= $user->role ?>" class="form-control"
+                                           name="role" placeholder="Enter Role">
                                     <?= ErrMgr::bind('role') ?>
                                 </div>
                             </div>
@@ -92,5 +108,5 @@ Layout::includeLayout('header') ?>
         </div
         </article><!-- /Article -->
     </div>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

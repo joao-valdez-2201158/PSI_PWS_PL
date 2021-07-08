@@ -9,4 +9,8 @@ class Airplane extends Model
         array('airplanetype'),
         array('lotation')
     );
+
+    static $has_many = array(
+        array('stopovers', 'class_name' => 'Stopover', 'foreign_key' => 'id_airplane')
+    );
 }

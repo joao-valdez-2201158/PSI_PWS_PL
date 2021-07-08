@@ -6,94 +6,149 @@ use ArmoredCore\WebObjects\Session;
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $ticket = Data::get('ticket') ?>
+<?php $stopovers = Data::get('stopovers') ?>
+<?php $airports = Data::get('airports') ?>
+
+
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
+<?php if (!is_null($user_logado)) { ?>
     <div class="row">
-            <!-- Article main content -->
-            <article class="col-xs-12 maincontent">
-                <header class="page-header">
-                    <h1 class="page-title">View Ticket</h1>
-                </header>
-                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <hr>
-                            <form method="post" action="<?=Url::toRoute('ticket/index')?>">
+        <!-- Article main content -->
+        <article class="col-xs-12 maincontent">
+            <header class="page-header">
+                <h1 class="page-title">View Ticket</h1>
+            </header>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+                        <form method="post" action="<?= Url::toRoute('ticket/index') ?>">
                             <?php if ($user_logado->role == 'admin' || $user_logado->role == 'op') { ?>
                                 <div class="top-margin">
                                     <label>ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->id_ticket?>" name="id_ticket" class="form-control">
+                                    <input readonly="true" type="number" value="<?= $ticket->id_ticket ?>"
+                                           name="id_ticket" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>User ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->id_user?>" name="user" class="form-control">
+                                    <input readonly="true" type="number" value="<?= $ticket->id_user ?>" name="user"
+                                           class="form-control">
                                 </div>
                                 <div class="top-margin">
-                                    <label>Departure Flight ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control">
+                                    <label>User Name <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?= $ticket->user->name ?>" name="name"
+                                           class="form-control">
                                 </div>
                                 <div class="top-margin">
-                                    <label>Return Flight ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control">
-                                </div>
+                                <?php foreach ($stopovers as $stopover) { ?>
+                                    <?php foreach ($airports as $airport) { ?>
+                                        <?php if ($stopover->id_flight == $ticket->id_departure_flight && $airport->id_airport == $stopover->id_departure) { ?>
+                                            <label>Departure Flight<span class="text-danger">*</span></label>
+                                            <input readonly="true" type="text" value="<?= $airport->name ?>"
+                                                   name="id_departure_flight" class="form-control">
+                                            </div>
+                                        <?php } ?>
+                                    <?php } ?>
+                                <?php } ?>
+                                <div class="top-margin">
+                                <?php foreach ($stopovers as $stopover) { ?><?php foreach ($airports as $airport) { ?>
+                                    <?php if ($stopover->id_flight == $ticket->id_return_flight && $airport->id_airport == $stopover->id_departure) { ?>
+                                        <label>Return Flight<span class="text-danger">*</span></label>
+                                        <input readonly="true" type="text" value="<?= $airport->name ?>"
+                                               name="id_return_flight" class="form-control">
+                                        </div>
+                                    <?php } ?>
+                                <?php } ?>
+                                <?php } ?>
                                 <div class="top-margin">
                                     <label>Ticket Price <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->price?>" name="price" class="form-control">
+                                    <input readonly="true" type="number" value="<?= $ticket->price ?>" name="price"
+                                           class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="datetime-local" value="<?=$ticket->date?>" name="date" class="form-control">
+                                    <input readonly="true" type="datetime-local" value="<?= $ticket->date ?>"
+                                           name="date" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Check-In <span class="text-info"></span></label>
-                                    <td><?php if($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
+                                    <td class="form-control"
+                                        readonly="true"><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
                                 </div>
                                 <div class="top-margin">
                                     <label>Check-In Return <span class="text-info"></span></label>
-                                    <td><?php if($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
+                                    <td class="form-control"
+                                        readonly="true"><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
                                 </div>
                                 <hr>
-                                <?php }?>
+                            <?php } ?>
 
-                                <?php if ($user_logado->role == 'user') { ?>
+                            <?php if ($user_logado->role == 'user') { ?>
                                 <?php if ($ticket->id_user == $user_logado->id_user) { ?>
-                                <div class="top-margin">
-                                    <label>Departure Flight ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->id_departure_flight?>" name="id_departure_flight" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Return Flight ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->id_return_flight?>" name="id_return_flight" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Ticket Price <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->price?>" name="price" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="datetime-local" value="<?=$ticket->date?>" name="date" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Check-In Number <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$ticket->check_in?>" name="check_in" class="form-control">
-                                </div>
-                                <hr>
-                                    <?php }?>
-                                <?php }?>
+                                    <div class="top-margin">
+                                        <label>Passenger Name <span class="text-danger">*</span></label>
+                                        <input readonly="true" type="text" value="<?= $ticket->user->name ?>"
+                                               name="name" class="form-control">
+                                    </div>
+                                    <div class="top-margin">
+                                    <?php foreach ($stopovers as $stopover) { ?>
+                                        <?php foreach ($airports as $airport) { ?>
+                                            <?php if ($stopover->id_flight == $ticket->id_departure_flight && $airport->id_airport == $stopover->id_departure) { ?>
+                                                <label>Departure<span class="text-danger">*</span></label>
+                                                <input readonly="true" type="text" value="<?= $airport->name ?>"
+                                                       name="id_departure_flight" class="form-control">
+                                                </div>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    <?php } ?>
+                                    <div class="top-margin">
+                                    <?php foreach ($stopovers as $stopover) { ?>
+                                        <?php foreach ($airports as $airport) { ?>
+                                            <?php if ($stopover->id_flight == $ticket->id_return_flight && $airport->id_airport == $stopover->id_departure) { ?>
+                                                <label>Return<span class="text-danger">*</span></label>
+                                                <input readonly="true" type="text" value="<?= $airport->name ?>"
+                                                       name="id_return_flight" class="form-control">
+                                                </div>
+                                            <?php } ?>
+                                        <?php } ?>
+                                    <?php } ?>
+                                    <div class="top-margin">
+                                        <label>Ticket Price <span class="text-danger">*</span></label>
+                                        <input readonly="true" type="number" value="<?= $ticket->price ?>" name="price"
+                                               class="form-control">
+                                    </div>
+                                    <div class="top-margin">
+                                        <label>Date <span class="text-danger">*</span></label>
+                                        <input readonly="true" type="datetime-local" value="<?= $ticket->date ?>"
+                                               name="date" class="form-control">
+                                    </div>
+                                    <div class="top-margin">
+                                        <label>Check-In <span class="text-danger"></span></label>
+                                        <td class="form-control"
+                                            readonly="true"><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
+                                    </div>
+                                    <div class="top-margin">
+                                        <label>Check-In Return <span class="text-danger"></span></label>
+                                        <td class="form-control"
+                                            readonly="true"><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
+                                    </div>
+                                    <hr>
+                                <?php } ?>
+                            <?php } ?>
 
-                                <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Return</button>
-                                </div>
-                        </div>
-                        </form>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-action" type="submit">Return</button>
+                            </div>
                     </div>
+                    </form>
                 </div>
-        </div>
-        </article>
-        <!-- /Article -->
+            </div>
+    </div>
+    </article>
+    <!-- /Article -->
     </div>
 <?php } ?>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

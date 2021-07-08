@@ -25,6 +25,11 @@ class UserController extends BaseController implements ResourceControllerInterfa
         return View::make('user.create');
     }
 
+    public function createuser()
+    {
+        return View::make('user.createuser');
+    }
+
     public function store()
     {
 
@@ -32,6 +37,10 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         $user->password = md5($user->password, false);
 
+        if ($user->role == null ){
+
+            $user->role = 'user';
+        }
 
         if($user->is_valid()){
             $user->save();
@@ -43,13 +52,17 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function show($id)
     {
-        $user = User::find([$id]);
+        $user_logado = null;
 
+        if(Session::has('user')){
+            $user_logado = Session::get('user');
+        }
+        $user = User::find([$id]);
 
         if (is_null($user)) {
 
         } else {
-            return View::make('user.show', ['user' => $user]);
+            return View::make('user.show', ['user' => $user, 'user_logado' => $user_logado]);
         }
     }
 
@@ -126,4 +139,6 @@ class UserController extends BaseController implements ResourceControllerInterfa
         Session::destroy();
         Redirect::toRoute('home/start');
     }
+
+
 }

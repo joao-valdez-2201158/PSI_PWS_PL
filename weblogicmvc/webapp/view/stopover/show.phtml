@@ -7,75 +7,84 @@ Layout::includeLayout('header') ?>
 <?php $stopover = Data::get('stopover') ?>
 
     <!-- container -->
-    <div class="container">
-    <?php if (!is_null($user_logado)){ ?>
+<div class="container">
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'gest') { ?>
         <div class="row">
-            <!-- Article main content -->
-            <article class="col-xs-12 maincontent">
-                <header class="page-header">
-                    <h1 class="page-title">View Stopovers</h1>
-                </header>
-
-                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <hr>
-
-                            <form method="post" action="<?=Url::toRoute('stopover/index')?>">
+        <!-- Article main content -->
+        <article class="col-xs-12 maincontent">
+            <header class="page-header">
+                <h1 class="page-title">View Stopovers</h1>
+            </header>
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+                        <form method="post" action="<?= Url::toRoute('stopover/index') ?>">
+                            <div class="top-margin">
+                                <label>ID <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $stopover->id_stopover ?>"
+                                       name="id_stopover" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Flight ID <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $stopover->id_flight ?>"
+                                       name="id_flight" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Departure ID <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $stopover->id_departure ?>"
+                                       name="id_departure" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Destination ID <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $stopover->id_destination ?>"
+                                       name="id_destination" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Departure Date <span class="text-danger">*</span></label>
+                                <input readonly="true" type="date" value="<?= $stopover->date_of_departure ?>"
+                                       name="date_of_departure" class="form-control">
+                            </div>
+                            <div class="top-margin">
                                 <div class="top-margin">
-                                    <label>ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$stopover->id_stopover?>" name="id_stopover" class="form-control">
+                                    <label>Departure Hour <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="time" value="<?= $stopover->hour_of_departure ?>"
+                                           name="hour_of_departure" class="form-control">
                                 </div>
-                                <div class="top-margin">
-                                    <label>Flight ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$stopover->id_flight?>" name="id_flight" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Departure ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$stopover->id_departure?>" name="id_departure" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Destination ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$stopover->id_destination?>" name="id_destination" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Departure Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="date" value="<?=$stopover->date_of_departure?>" name="date_of_departure" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <div class="top-margin">
-                                        <label>Departure Hour <span class="text-danger">*</span></label>
-                                        <input readonly="true" type="time" value="<?=$stopover->hour_of_departure?>" name="hour_of_departure" class="form-control">
-                                    </div>
                                 <div class="top-margin">
                                     <label>Arrival Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="date" value="<?=$stopover->date_of_arrival?>" name="date_of_arrival" class="form-control">
+                                    <input readonly="true" type="date" value="<?= $stopover->date_of_arrival ?>"
+                                           name="date_of_arrival" class="form-control">
                                 </div>
-                                    <div class="top-margin">
-                                        <label>Arrival Hour <span class="text-danger">*</span></label>
-                                        <input readonly="true" type="time" value="<?=$stopover->hour_of_arrival?>" name="hour_of_arrival" class="form-control">
-                                    </div>
-                                    <div class="top-margin">
+                                <div class="top-margin">
+                                    <label>Arrival Hour <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="time" value="<?= $stopover->hour_of_arrival ?>"
+                                           name="hour_of_arrival" class="form-control">
+                                </div>
+                                <div class="top-margin">
                                     <label>Distance <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$stopover->distance?>" name="distance" class="form-control">
-                                    </div>
+                                    <input readonly="true" type="number" value="<?= $stopover->distance ?>"
+                                           name="distance" class="form-control">
                                 </div>
-                                <hr>
-                                <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Return</button>
-                                </div>
-                        </div>
-                        </form>
+                            </div>
+                            <hr>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-action" type="submit">Return</button>
+                            </div>
                     </div>
+                    </form>
                 </div>
+            </div>
 
-        </div>
+    </div>
 
-        </article>
-        <!-- /Article -->
+    </article>
+    <!-- /Article -->
 
     </div>
     <?php } ?>
-    </div>	<!-- /container -->
+<?php } ?>
+    </div>    <!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

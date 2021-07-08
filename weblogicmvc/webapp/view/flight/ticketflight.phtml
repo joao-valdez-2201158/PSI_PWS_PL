@@ -1,0 +1,99 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
+
+Layout::includeLayout('header') ?>
+<?php $user_logado = Data::get('user') ?>
+<?php $flights = Data::get('flights') ?>
+<?php $stopover = Data::get('stopover') ?>
+<?php $origin = Data::get('origin') ?>
+<?php $destination = Data::get('destination') ?>
+
+
+    <!-- container -->
+    <div class="container">
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'gest'|| $user_logado->role == 'op') { ?>
+        <div class="row">
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">View Flight</h1>
+                </header>
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <hr>
+                            <form method="post" action="<?= Url::toRoute('flight/index') ?>">
+                                <div class="top-margin">
+                                    <label>Flight ID<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?= $stopover->id_flight ?>" name="id_flight"
+                                           class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Ticket Origin ID<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?= $origin->id_ticket ?>" name="id_flight"
+                                           class="form-control">
+                                </div>
+                                 <?php if ($destination != null) { ?>
+                                <div class="top-margin">
+                                    <label>Ticket Destination ID<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?= $destination->id_ticket ?>" name="id_flight"
+                                           class="form-control">
+                                </div>
+                                 <?php } ?>
+                                <div class="top-margin">
+                                    <label>User Name<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?= $origin->user->name ?>" name="user_name"
+                                           class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Departure ID<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?= $stopover->id_departure ?>" name="stopover_id"
+                                           class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Departure Name<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?= $stopover->departure_airport->localization ?>" name="airport_name_departure"
+                                           class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Arrival ID<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?= $stopover->id_destination ?>" name="stopover_id"
+                                           class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Arrival Name<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="text" value="<?= $stopover->arrival_airport->localization ?>" name="airport_name_departure"
+                                           class="form-control">
+                                </div>
+                                <div class="top-margin">
+                                    <label>Check-In <span class="text-info"></span></label>
+                                    <td class="form-control"
+                                        readonly="true"><?php if ($origin->check_in) echo('<i class="fa fa-check"></i>') ?></td>
+                                </div>
+                                <?php if ($destination != null) { ?>
+                                <div class="top-margin">
+                                    <label>Check-In Return <span class="text-info"></span></label>
+                                    <td class="form-control"
+                                        readonly="true"><?php if ($destination->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
+                                </div>
+    <?php } ?>
+    <hr>
+                                <div class="col-lg-4 text-right">
+                                    <button class="btn btn-action" type="submit">Return</button>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+        </article>
+        <!-- /Article -->
+        </div>
+    <?php } ?>
+<?php } ?>
+    </div>    <!-- /container -->
+
+<?php Layout::includeLayout('footer') ?>

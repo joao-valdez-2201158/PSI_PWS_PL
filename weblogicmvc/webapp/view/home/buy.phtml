@@ -2,6 +2,7 @@
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
+
 Layout::includeLayout('header');
 
 $user_logado = Data::get('user');
@@ -13,15 +14,15 @@ $qtt = Data::get('qtt');
 ?>
     <!-- container -->
     <div class="container">
-        <?php if (!is_null($user_logado)){ ?>
+        <?php if (!is_null($user_logado)) { ?>
             <div class="container">
                 <div class="row">
                     <div class="com-md-12">
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">ID Ticket </th>
-                                <th scope="col">ID Voo de Ida </th>
+                                <th scope="col">ID Ticket</th>
+                                <th scope="col">ID Voo de Ida</th>
                                 <th scope="col">ID Voo de Volta</th>
                                 <th scope="col">Quantidade</th>
                                 <th scope="col">Preço</th>
@@ -29,11 +30,11 @@ $qtt = Data::get('qtt');
                             </thead>
                             <tbody>
                             <tr>
-                                <th><?php echo $id_ticket?></th>
-                                <th><?php echo $id_flight?></th>
-                                <th><?php echo $id_flight_return?></th>
-                                <th><?php echo $qtt?></th>
-                                <th><?php echo $price?></th>
+                                <th><?php echo $id_ticket ?></th>
+                                <th><?php echo $id_flight ?></th>
+                                <th><?php echo $id_flight_return ?></th>
+                                <th><?php echo $qtt ?></th>
+                                <th><?php echo $price ?></th>
                             </tr>
                             </tbody>
                         </table>
@@ -44,5 +45,5 @@ $qtt = Data::get('qtt');
                 <a href="index" class="btn btn-info" role="button">Return</a>
             </div>
         <?php } ?>
-    </div>	<!-- /container -->
-<?php Layout::includeLayout('footer')?>
+    </div>    <!-- /container -->
+<?php Layout::includeLayout('footer') ?>

@@ -16,7 +16,16 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        return View::make('ticket.index', ['tickets' => $tickets, 'user' => $user_logado]);
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+        else
+        {
+            return View::make('ticket.index', ['tickets' => $tickets, 'user' => $user_logado]);
+        }
     }
 
     public function create()
@@ -26,8 +35,14 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }else{
+            return View::make('ticket.create', ['user' => $user_logado]);
+        }
 
-        return View::make('ticket.create', ['user' => $user_logado]);
     }
 
     public function store()
@@ -38,13 +53,18 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if($ticket->is_valid()){
             $ticket->save();
-
             Redirect::toRoute('ticket/index');
-
-        } else {
+        }
+        else
+        {
             Redirect::flashToRoute('ticket/create', ['ticket' => $ticket, 'user' => $user_logado]);
         }
     }
@@ -52,19 +72,37 @@ class TicketController extends BaseController implements ResourceControllerInter
     public function show($id)
     {
 
-        $ticket= Ticket::find([$id]);
+        $ticket = Ticket::find([$id]);
+        $stopovers = Stopover::all();
+        $airports = Airport::all();
 
         $user_logado = null;
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if (is_null($ticket)) {
-
-        } else {
-            return View::make('ticket.show', ['ticket' => $ticket, 'user' => $user_logado]);
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
         }
+
+        if (is_null($ticket))
+        {
+            if(is_null($user_logado)){
+                $error = 'First Login';
+                Session::set('error',$error);
+                Redirect::toRoute('home/usererror');
+            }
+        }
+        else
+        {
+            return View::make('ticket.show', ['ticket' => $ticket, 'user' => $user_logado, 'stopovers' => $stopovers, 'airports' => $airports]);
+        }
+
     }
+
+
 
     public function edit($id)
     {
@@ -75,8 +113,18 @@ class TicketController extends BaseController implements ResourceControllerInter
         if (Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
         if (is_null($ticket))
         {
+            if(is_null($user_logado)){
+                $error = 'There is no ticket';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
         } else
         {
             return View::make('ticket.edit', ['ticket' => $ticket, 'user' => $user_logado]);
@@ -93,8 +141,14 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if($ticket->is_valid()){
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
 
+        }
+
+        if($ticket->is_valid()){
             $ticket->save();
             Redirect::toRoute('ticket/index');
         } else {
@@ -106,11 +160,24 @@ class TicketController extends BaseController implements ResourceControllerInter
 
     public function destroy($id)
 
-        {
-            $ticket = Ticket::find([$id]);
-            $ticket->delete();
-            Redirect::toRoute('ticket/index');
-        }
+        {  $user_logado = null;
 
+            if(Session::has('user'))
+                $user_logado = Session::get('user');
+
+            if(is_null($user_logado))
+            {
+                $error = 'First Login';
+                Session::set('error',$error);
+                Redirect::toRoute('home/usererror');
+            }
+            else
+            {
+                $ticket = Ticket::find([$id]);
+                $ticket->delete();
+                Redirect::toRoute('ticket/index');
+            }
+
+        }
 
 }

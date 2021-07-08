@@ -5,59 +5,65 @@ use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
-<?php $airport = Data::get('airport')?>
+<?php $airport = Data::get('airport') ?>
 <?php ErrMgr::attach($airport) ?>
-<!-- container -->
-<div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <?php if ($user_logado->role == 'admin' ){ ?>
+    <!-- container -->
+    <div class="container">
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'admin') { ?>
         <div class="row">
-        <!-- Article main content -->
-        <article class="col-xs-12 maincontent">
-            <header class="page-header">
-                <h1 class="page-title">New Airport</h1>
-            </header>
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <hr>
-                        <form method="post" action="<?=Url::toRoute('airport/store')?>">
-                            <div class="top-margin">
-                                <label>Name <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airport->name?>" name="name" class="form-control" placeholder="Enter Airport Name">
-                                <?= ErrMgr::bind('name') ?>
-                            </div>
-                            <div class="top-margin">
-                                <label>Localization <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airport->localization?>" name="localization" class="form-control" placeholder="Enter Airport Localization">
-                                <?= ErrMgr::bind('localization') ?>
-                            </div>
-                            <div class="top-margin">
-                                <label>Telephone <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$airport->telephone?>" name="telephone" class="form-control" placeholder="Enter Airport Telephone">
-                                <?= ErrMgr::bind('telephone') ?>
-                            </div>
-                            <div class="top-margin">
-                                <label>Email <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airport->email?>" name="email" class="form-control" placeholder="Enter Airport Email">
-                                <?= ErrMgr::bind('email') ?>
-                            </div>
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">New Airport</h1>
+                </header>
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
                             <hr>
-                            <div class="col-lg-4 text-right">
-                                <button class="btn btn-action" type="submit">Register</button>
-                            </div>
-                            <div class="col-lg-4 text-left">
-                                <a button class="btn btn-action" href="<?=Url::toRoute('airport/index')?>">Return</a></button>                            </div>
-                    </div>
+                            <form method="post" action="<?= Url::toRoute('airport/store') ?>">
+                                <div class="top-margin">
+                                    <label>Name <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $airport->name ?>" name="name" class="form-control"
+                                           placeholder="Enter Airport Name">
+                                    <?= ErrMgr::bind('name') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Localization <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $airport->localization ?>" name="localization"
+                                           class="form-control" placeholder="Enter Airport Localization">
+                                    <?= ErrMgr::bind('localization') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Telephone <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?= $airport->telephone ?>" name="telephone"
+                                           class="form-control" placeholder="Enter Airport Telephone">
+                                    <?= ErrMgr::bind('telephone') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Email <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $airport->email ?>" name="email" class="form-control"
+                                           placeholder="Enter Airport Email">
+                                    <?= ErrMgr::bind('email') ?>
+                                </div>
+                                <hr>
+                                <div class="col-lg-4 text-right">
+                                    <button class="btn btn-action" type="submit">Register</button>
+                                </div>
+                                <div class="col-lg-4 text-left">
+                                    <a button class="btn btn-action"
+                                       href="<?= Url::toRoute('airport/index') ?>">Return</a></button>
+                                </div>
+                        </div>
                     </div>
                     </form>
                 </div>
-            </div>
-    </div>
-    </article>
-    <!-- /Article -->
-</div>
+        </div>
+        </div>
+        </article>
+        <!-- /Article -->
+        </div>
+    <?php } ?>
 <?php } ?>
-<?php } ?>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

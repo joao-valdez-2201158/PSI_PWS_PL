@@ -10,87 +10,104 @@ Layout::includeLayout('header') ?>
 <?php ErrMgr::attach($stopover) ?>
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <?php if ($user_logado->role == 'admin' || $user_logado->role == 'gest' ){ ?>
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'gest') { ?>
         <div class="row">
-        <!-- Article main content -->
-        <article class="col-xs-12 maincontent">
-            <header class="page-header">
-                <h1 class="page-title">Edit Stopover</h1>
-            </header>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <hr>
-                    <form class="form-horizontal" method="post" action="<?=Url::toRoute('stopover/update', $stopover->id)?>">
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Edit Stopover</h1>
+                </header>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+                        <form class="form-horizontal" method="post"
+                              action="<?= Url::toRoute('stopover/update', $stopover->id) ?>">
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Flight ID:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Flight ID:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$stopover->id_flight?>" class="form-control" name="id_flight" placeholder="Enter Flight ID">
+                                    <input type="number" required value="<?= $stopover->id_flight ?>"
+                                           class="form-control" name="id_flight" placeholder="Enter Flight ID">
                                     <?= ErrMgr::bind('id_flight') ?>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Departure ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$stopover->id_departure?>" class="form-control" name="id_departure" placeholder="Enter Departure ID">
+                                    <input type="number" required value="<?= $stopover->id_departure ?>"
+                                           class="form-control" name="id_departure" placeholder="Enter Departure ID">
                                     <?= ErrMgr::bind('id_departure') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Destination ID:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Destination ID:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$stopover->id_destination?>" class="form-control" name="id_destination" placeholder="Enter Destination ID">
+                                    <input type="number" required value="<?= $stopover->id_destination ?>"
+                                           class="form-control" name="id_destination"
+                                           placeholder="Enter Destination ID">
                                     <?= ErrMgr::bind('id_destination') ?>
                                 </div>
                             </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Departure Date:<span class="text-danger">*</span></label>
-                            <div class="col-sm-6">
-                                <input type="date" required value="<?=$stopover->date_of_departure?>" class="form-control" name="date_of_departure" placeholder="Enter Departure Date">
-                                <?= ErrMgr::bind('date_of_departure') ?>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Departure Date:<span
+                                            class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="date" required value="<?= $stopover->date_of_departure ?>"
+                                           class="form-control" name="date_of_departure"
+                                           placeholder="Enter Departure Date">
+                                    <?= ErrMgr::bind('date_of_departure') ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Departure Hour:<span class="text-danger">*</span></label>
-                            <div class="col-sm-6">
-                                <input type="time" required value="<?=$stopover->hour_of_departure?>" class="form-control" name="hour_of_departure" placeholder="Enter Departure Hour">
-                                <?= ErrMgr::bind('hour_of_departure') ?>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Departure Hour:<span
+                                            class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="time" required value="<?= $stopover->hour_of_departure ?>"
+                                           class="form-control" name="hour_of_departure"
+                                           placeholder="Enter Departure Hour">
+                                    <?= ErrMgr::bind('hour_of_departure') ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Arrival Date:<span class="text-danger">*</span></label>
-                            <div class="col-sm-6">
-                                <input type="date" required value="<?=$stopover->date_of_arrival?>" class="form-control" name="date_of_arrival" placeholder="Enter Arrival Date">
-                                <?= ErrMgr::bind('date_of_arrival') ?>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Arrival Date:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="date" required value="<?= $stopover->date_of_arrival ?>"
+                                           class="form-control" name="date_of_arrival" placeholder="Enter Arrival Date">
+                                    <?= ErrMgr::bind('date_of_arrival') ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Arrival Hour:<span class="text-danger">*</span></label>
-                            <div class="col-sm-6">
-                                <input type="time" required value="<?=$stopover->hour_of_arrival?>" class="form-control" name="hour_of_arrival" placeholder="Enter Arrival Hour">
-                                <?= ErrMgr::bind('hour_of_arrival') ?>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Arrival Hour:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="time" required value="<?= $stopover->hour_of_arrival ?>"
+                                           class="form-control" name="hour_of_arrival" placeholder="Enter Arrival Hour">
+                                    <?= ErrMgr::bind('hour_of_arrival') ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Distance:<span class="text-danger">*</span></label>
-                            <div class="col-sm-6">
-                                <input type="number" required value="<?=$stopover->distance?>" class="form-control" name="distance" placeholder="Enter Distance">
-                                <?= ErrMgr::bind('distance') ?>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Distance:<span
+                                            class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="number" required value="<?= $stopover->distance ?>"
+                                           class="form-control" name="distance" placeholder="Enter Distance">
+                                    <?= ErrMgr::bind('distance') ?>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="col-lg-4 text-right">
-                            <button class="btn btn-default" type="submit">Save</button>
-                            <a href="../index" class="btn btn-default" role="button">Return</a>
-                        </div>
+                            <hr>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-default" type="submit">Save</button>
+                                <a href="../index" class="btn btn-default" role="button">Return</a>
+                            </div>
+                    </div>
+                    </form>
                 </div>
-                </form>
-            </div>
-    </div>
-    </article>
-    <!-- /Article -->
-    </div>
+        </div>
+        </article>
+        <!-- /Article -->
+        </div>
+    <?php } ?>
 <?php } ?>
-<?php } ?>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

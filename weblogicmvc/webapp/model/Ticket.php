@@ -14,6 +14,12 @@ class Ticket extends Model
 
     );
 
+    static $belongs_to = array(
+        array('user', 'class_name' => 'User', 'foreign_key' => 'id_user'),
+        array('departure_flight', 'class_name' => 'Flight', 'foreign_key' => 'id_departure_flight'),
+        array('return_flight', 'class_name' => 'Flight', 'foreign_key' => 'id_return_flight')
+    );
+
     public function update_attributes($attributes)
     {
         if($attributes['id_return_flight'] == '')

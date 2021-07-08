@@ -5,54 +5,59 @@ use ArmoredCore\WebObjects\URL;
 
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
-<?php $airplane = Data::get('airplane')?>
+<?php $airplane = Data::get('airplane') ?>
 <?php ErrMgr::attach($airplane) ?>
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <?php if ($user_logado->role == 'admin' ||$user_logado->role == 'gest' ){ ?>
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'gest') { ?>
         <div class="row">
-        <!-- Article main content -->
-        <article class="col-xs-12 maincontent">
-            <header class="page-header">
-                <h1 class="page-title">New Airplane</h1>
-            </header>
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <hr>
-                        <form method="post" action="<?=Url::toRoute('airplane/store')?>">
-                            <div class="top-margin">
-                                <label>Reference <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airplane->reference?>" name="reference" class="form-control" placeholder="Enter Airplane Reference">
-                                <?= ErrMgr::bind('reference') ?>
-                            </div>
-                            <div class="top-margin">
-                                <label>Type <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$airplane->airplanetype?>" name="airplanetype" class="form-control" placeholder="Enter Airplane Type">
-                                <?= ErrMgr::bind('airplanetype') ?>
-                            </div>
-                            <div class="top-margin">
-                                <label>Lotation <span class="text-danger">*</span></label>
-                                <input type="number" value="<?=$airplane->lotation?>" name="lotation" class="form-control" placeholder="Enter Airplane Lotation">
-                                <?= ErrMgr::bind('lotation') ?>
-                            </div>
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">New Airplane</h1>
+                </header>
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
                             <hr>
-                            <div class="col-lg-4 text-right">
-                                <button class="btn btn-action" type="submit">Register</button>
-                            </div>
-                            <div class="col-lg-4 text-left">
-                                <a button class="btn btn-action" href="<?=Url::toRoute('airplane/index')?>">Return</a></button>                            </div>
+                            <form method="post" action="<?= Url::toRoute('airplane/store') ?>">
+                                <div class="top-margin">
+                                    <label>Reference <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $airplane->reference ?>" name="reference"
+                                           class="form-control" placeholder="Enter Airplane Reference">
+                                    <?= ErrMgr::bind('reference') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Type <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $airplane->airplanetype ?>" name="airplanetype"
+                                           class="form-control" placeholder="Enter Airplane Type">
+                                    <?= ErrMgr::bind('airplanetype') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Lotation <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?= $airplane->lotation ?>" name="lotation"
+                                           class="form-control" placeholder="Enter Airplane Lotation">
+                                    <?= ErrMgr::bind('lotation') ?>
+                                </div>
+                                <hr>
+                                <div class="col-lg-4 text-right">
+                                    <button class="btn btn-action" type="submit">Register</button>
+                                </div>
+                                <div class="col-lg-4 text-left">
+                                    <a button class="btn btn-action"
+                                       href="<?= Url::toRoute('airplane/index') ?>">Return</a></button>
+                                </div>
+                        </div>
                     </div>
+                    </form>
                 </div>
-                </form>
-            </div>
-    </div>
-    </div>
-    </article>
-    <!-- /Article -->
-    </div>
+        </div>
+        </div>
+        </article>
+        <!-- /Article -->
+        </div>
+    <?php } ?>
 <?php } ?>
-<?php } ?>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

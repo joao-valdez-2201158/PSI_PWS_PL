@@ -9,57 +9,63 @@ Layout::includeLayout('header') ?>
 
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'gest') { ?>
 
         <div class="row">
 
-            <!-- Article main content -->
-            <article class="col-xs-12 maincontent">
-                <header class="page-header">
-                    <h1 class="page-title">View Airplane</h1>
-                </header>
+        <!-- Article main content -->
+        <article class="col-xs-12 maincontent">
+            <header class="page-header">
+                <h1 class="page-title">View Airplane</h1>
+            </header>
 
-                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+
+                        <form method="post" action="<?= Url::toRoute('airplane/index') ?>">
+                            <div class="top-margin">
+                                <label>ID <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $airplane->id_airplane ?>"
+                                       name="id_airplane" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Reference <span class="text-danger">*</span></label>
+                                <input readonly="true" type="text" value="<?= $airplane->reference ?>" name="reference"
+                                       class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Type <span class="text-danger">*</span></label>
+                                <input readonly="true" type="text" value="<?= $airplane->airplanetype ?>"
+                                       name="airplanetype" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Lotation <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $airplane->lotation ?>" name="lotation"
+                                       class="form-control">
+                            </div>
+
                             <hr>
 
-                            <form method="post" action="<?=Url::toRoute('airplane/index')?>">
-                                <div class="top-margin">
-                                    <label>ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$airplane->id_airplane?>" name="id_airplane" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Reference <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airplane->reference?>" name="reference" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Type <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$airplane->airplanetype?>" name="airplanetype" class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Lotation <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$airplane->lotation?>" name="lotation" class="form-control">
-                                </div>
-
-                                <hr>
-
-                                <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Return</button>
-                                </div>
-                        </div>
-                        </form>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-action" type="submit">Return</button>
+                            </div>
                     </div>
+                    </form>
                 </div>
+            </div>
 
-        </div>
+    </div>
 
-        </article>
-        <!-- /Article -->
+    </article>
+    <!-- /Article -->
 
     </div>
 <?php } ?>
+<?php } ?>
 
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

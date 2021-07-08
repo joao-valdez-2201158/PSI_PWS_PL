@@ -11,13 +11,24 @@ class AirportController extends BaseController implements ResourceControllerInte
 
     public function index()
     {
+        $airports = Airport::all();
+
         $user_logado = null;
         
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        $airports = Airport::all();
-        return View::make('airport.index', ['airports' => $airports, 'user' => $user_logado]);
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+        else
+        {
+            return View::make('airport.index', ['airports' => $airports, 'user' => $user_logado]);
+        }
+
     }
 
     public function create()
@@ -27,7 +38,15 @@ class AirportController extends BaseController implements ResourceControllerInte
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        return View::make('airport.create', ['user' => $user_logado]);
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }else{
+            return View::make('airport.create', ['user' => $user_logado]);
+        }
+
     }
 
     public function store()
@@ -39,6 +58,13 @@ class AirportController extends BaseController implements ResourceControllerInte
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if($airport->is_valid()){
             $airport->save();
@@ -57,9 +83,19 @@ class AirportController extends BaseController implements ResourceControllerInte
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
         if (is_null($airport)) {
+            $error = 'Invalid Airport';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
 
-        } else {
+        } else
+        {
             return View::make('airport.show', ['airport' => $airport, 'user' => $user_logado]);
         }
     }
@@ -73,7 +109,17 @@ class AirportController extends BaseController implements ResourceControllerInte
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+
         if (is_null($airport)) {
+            $error = 'Invalid Airport';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
         }
         else {
             return View::make('airport.edit', ['airport' => $airport, 'user' => $user_logado]);
@@ -91,6 +137,13 @@ class AirportController extends BaseController implements ResourceControllerInte
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+
         if($airport->is_valid()){
             $airport->save();
             Redirect::toRoute('airport/index');
@@ -101,9 +154,22 @@ class AirportController extends BaseController implements ResourceControllerInte
 
     public function destroy($id)
     {
-        $airport = Airport::find([$id]);
-        $airport->delete();
-        Redirect::toRoute('airport/index');
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }else{
+            $airport = Airport::find([$id]);
+            $airport->delete();
+            Redirect::toRoute('airport/index');
+        }
+
     }
 
 }

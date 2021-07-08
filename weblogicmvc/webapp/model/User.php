@@ -15,7 +15,10 @@ class User extends Model
         array('birthday_date'),
         array('nif'),
         array('role')
+    );
 
+    static $has_many = array(
+        array('tickets', 'class_name' => 'Ticket', 'foreign_key' => 'id_user')
     );
 
     /*static $validates_presence_of = array(

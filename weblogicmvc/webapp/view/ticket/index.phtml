@@ -8,79 +8,101 @@ Layout::includeLayout('header') ?>
 <?php $tickets = Data::get('tickets') ?>
 
 
-<!-- container -->
-<div class="container">
-<?php if (!is_null($user_logado)){ ?>
+    <!-- container -->
+    <div class="container">
+        <?php if (!is_null($user_logado)) { ?>
 
-    <ol class="breadcrumb">
-        <li><a href="../home/index">Home</a></li>
-        <li class="active">Ticket Index</li>
-    </ol>
+            <ol class="breadcrumb">
+                <li><a href="../home/index">Home</a></li>
+                <li class="active">Ticket Index</li>
+            </ol>
 
-    <h2 class="text-left top-space">Ticket Index</h2>
-    <h2 class="top-space"></h2>
-    <div class="row">
-        <div class="col-sm-12">
-            <table class="table table-striped"><thead><th><h3>ID</h3></th><th><h3>User ID</h3></th><th><h3>Departure Flight ID</h3></th><th><h3>Return Flight ID</h3></th><th><h3>Price</h3></th><th><h3>Date</h3></th><th><h3>Check-In</h3></th><th><h3>Check-In Return</h3></th></thead>
-                <tbody>
-
-                <?php foreach ($tickets as $ticket) { ?>
-                        <tr>
-            <?php if($user_logado->role == 'user' ) { ?>
-            <?php if($ticket->id_user == $user_logado->id_user) { ?>
-                        <td><?=$ticket->id_ticket?></td>
-                        <td><?=$ticket->id_user?></td>
-                        <td><?=$ticket->id_departure_flight?></td>
-                        <td><?=$ticket->id_return_flight?></td>
-                        <td><?=$ticket->price?></td>
-                        <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d')?> <?=$ticket->hour?></td>
-                        <td><?php if($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
-                        <td><?php if($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
-                         <td>
-                        <a href="<?=Url::toRoute('ticket/show', $ticket->id)?>" class="btn btn-info btn-block" role="button">Show</a>
-                        </td>
-                    <?php } ?>
-                        </tr>
-                <?php } ?>
-                <?php } ?>
-
-                <?php if($user_logado->role == 'admin' || $user_logado->role == 'op' ) { ?>
-                <?php foreach ($tickets as $ticket) { ?>
-            <tr>
-                        <td><?=$ticket->id_ticket?></td>
-                        <td><?=$ticket->id_user?></td>
-                        <td><?=$ticket->id_departure_flight?></td>
-                        <td><?=$ticket->id_return_flight?></td>
-                        <td><?=$ticket->price?></td>
-                <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d')?> <?=$ticket->hour?></td>
-                        <td><?php if($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
-                        <td><?php if($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
-                        <td>
-                            <a href="<?=Url::toRoute('ticket/show', $ticket->id)?>" class="btn btn-info btn-block" role="button">Show</a>
-                            <a href="<?=Url::toRoute('ticket/edit', $ticket->id)?>" class="btn btn-info btn-block" role="button">Edit</a>
-                            <?php if($user_logado->role == 'admin') { ?>
-                         <a href="<?=Url::toRoute('ticket/destroy', $ticket->id)?>" class="btn btn-warning btn-block" role="button">Delete</a>
+            <h2 class="text-left top-space">Ticket Index</h2>
+            <h2 class="top-space"></h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <?php if ($user_logado->role == 'op') { ?>
+                            <th><h3>Id Ticket</h3></th>
                         <?php } ?>
-                        </td>
-                    </tr>
-                <?php } ?>
-                <?php } ?>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-6">
-            <p>
-    <?php if($user_logado->role == 'admin') { ?>
-        <a href="<?=Url::toRoute('ticket/create')?>" class="btn btn-info " role="button">New</a>
-    <?php } ?>
-                <a href="../home/start" class="btn btn-info" role="button">Return</a>
-            </p>
-        </div>
-    </div> <!-- /row -->
-<?php } ?>
+                        <?php if ($user_logado->role == 'op') { ?>
+                            <th><h3>User ID</h3></th>
+                        <?php } ?>
+                        <?php if ($user_logado->role == 'user' || $user_logado->role == 'op') { ?>
+                            <th><h3>Passenger Name</h3></th>
+                        <?php } ?>
+                        <th><h3>Departure Flight Nr.</h3></th>
+                        <th><h3>Return Flight Nr.</h3></th>
+                        <th><h3>Price</h3></th>
+                        <th><h3>Date</h3></th>
+                        <th><h3>Check-In</h3></th>
+                        <th><h3>Check-In Return</h3></th>
+                        </thead>
 
-</div>	<!-- /container -->
+                        <tbody>
+
+                        <?php foreach ($tickets as $ticket) { ?>
+                            <tr>
+                            <?php if ($user_logado->role == 'user') { ?>
+                                <?php if ($ticket->id_user == $user_logado->id_user) { ?>
+                                    <td><?= $ticket->user->name ?></td>
+                                    <td><?= $ticket->id_departure_flight ?></td>
+                                    <td><?= $ticket->id_return_flight ?></td>
+                                    <td><?= $ticket->price ?></td>
+                                    <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
+                                    <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
+                                    <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
+                                    <td>
+                                        <a href="<?= Url::toRoute('ticket/show', $ticket->id) ?>"
+                                           class="btn btn-info btn-block" role="button">Show</a>
+                                    </td>
+                                <?php } ?>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
+
+                        <?php if ($user_logado->role == 'op') { ?>
+                            <?php foreach ($tickets as $ticket) { ?>
+                                <tr>
+                                    <td><?= $ticket->id_ticket ?></td>
+                                    <td><?= $ticket->id_user ?></td>
+                                    <td><?= $ticket->user->name ?></td>
+                                    <td><?= $ticket->id_departure_flight ?></td>
+                                    <td><?= $ticket->id_return_flight ?></td>
+                                    <td><?= $ticket->price ?></td>
+                                    <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
+                                    <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
+                                    <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
+                                    <td>
+                                        <a href="<?= Url::toRoute('ticket/show', $ticket->id) ?>"
+                                           class="btn btn-info btn-block" role="button">Show</a>
+                                        <a href="<?= Url::toRoute('ticket/edit', $ticket->id) ?>"
+                                           class="btn btn-info btn-block" role="button">Edit</a>
+                                        <?php if ($user_logado->role == 'admin') { ?>
+                                            <a href="<?= Url::toRoute('ticket/destroy', $ticket->id) ?>"
+                                               class="btn btn-warning btn-block" role="button">Delete</a>
+                                        <?php } ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <p>
+                        <?php if ($user_logado->role == 'op') { ?>
+                            <a href="<?= Url::toRoute('ticket/create') ?>" class="btn btn-info " role="button">New</a>
+                        <?php } ?>
+                        <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                    </p>
+                </div>
+            </div> <!-- /row -->
+        <?php } ?>
+
+    </div>    <!-- /container -->
 
 
-<?php Layout::includeLayout('footer')?>
+<?php Layout::includeLayout('footer') ?>

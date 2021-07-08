@@ -1,25 +1,27 @@
 <?php
+
 use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Asset;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\ErrMgr;
+
 Layout::includeLayout('header');
 $user_logado = Data::get('user')
 ?>
 
-<?php if (is_null($user_logado)){ ?>
-<header id="head">
-    <div class="container">
-        <div class="row">
-            <h1>No User Selected</h1><br>
+<?php if (is_null($user_logado)) { ?>
+    <header id="head">
+        <div class="container">
+            <div class="row">
+                <h1>No User Selected</h1><br>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
 <?php } ?>
 
-<?php if (!$user_logado == null){?>
+<?php if (!$user_logado == null) { ?>
 
     <header id="head">
         <div class="container">
@@ -29,70 +31,74 @@ $user_logado = Data::get('user')
         </div>
     </header>
 
-        <div class="container">
-         <div class="row">
+    <div class="container">
+        <div class="row">
             <div class="col-md-12">
                 <p>
-                    <?= !is_null($user_logado) ? 'NAME: <b>' .$user_logado->name.'</b><br><br> ROLE:  <b>'. $user_logado->role : '</b>' ?>
+                    <?= !is_null($user_logado) ? 'NAME: <b>' . $user_logado->name . '</b><br><br> ROLE:  <b>' . $user_logado->role : '</b>' ?>
                 </p>
             </div>
-            <?php if ($user_logado->role == 'admin' ){ ?>
+            <?php if ($user_logado->role == 'admin') { ?>
                 <div class="col-md-2">
-                    <td><p><a href="../user/index" class="btn btn-warning text-primary btn-block">User Index</a></p></td>
+                    <td><p><a href="../user/index" class="btn btn-warning text-primary btn-block">User Index</a></p>
+                    </td>
                 </div>
                 <div class="col-md-2">
-                    <td><p><a href="../ticket/index" class="btn btn-warning text-primary btn-block">Ticket Index</a></p></td>
-                </div>
-                <div class="col-md-2">
-                    <td><p><a href="../flight/index" class="btn btn-warning text-primary btn-block">Flight Index</a></p></td>
-                </div>
-                <div class="col-md-2">
-                    <td><p><a href="../stopover/index" class="btn btn-warning text-primary btn-block">Stopover Index</a></p></td>
-                </div>
-                <div class="col-md-2">
-                    <td><p><a href="../airport/index" class="btn btn-warning text-primary btn-block">Airport Index</a></p></td>
-                </div>
-                <div class="col-md-2">
-                    <td><p><a href="../airplane/index" class="btn btn-warning text-primary btn-block">Airplane Index</a></p></td>
+                    <td><p><a href="../airport/index" class="btn btn-warning text-primary btn-block">Airport Index</a>
+                        </p></td>
                 </div>
             <?php } ?>
+        </div>
+
+        <?php if ($user_logado->role == 'user') { ?>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="../ticket/index" class="btn btn-warning text-primary">Purchases</a>
+                    <a href="../user/index" class="btn btn-warning text-primary">Details</a>
+                </div>
+            </div>
+        <?php } ?>
+
+        <?php if ($user_logado->role == 'op') { ?>
+
+            <div class="btn-warning">
+                <div class="col-md-6">
+                    <a href="../ticket/index" class="btn btn-warning text-primary">Tickets</a>
+                    <a href="../flight/index" class="btn btn-warning text-primary">Flights</a>
+                </div>
             </div>
 
-            <?php if ($user_logado->role == 'user' ){ ?>
 
-               <div class="row">
-                   <div class="col-md-6">
-                       <a href="../ticket/index" class="btn btn-warning text-primary">Purchases</a>
-                       <a href="../user/index" class="btn btn-warning text-primary">Details</a>
-                   </div>
-               </div>
-            <?php } ?>
+        <?php } ?>
 
-            <?php if ($user_logado->role == 'op' ){ ?>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <a href="../ticket/index" class="btn btn-warning text-primary">Tickets</a>
-                    </div>
+        <?php if ($user_logado->role == 'gest') { ?>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="../flight/index" class="btn btn-warning text-primary">Flights</a>
+                    <a href="../stopover/index" class="btn btn-warning text-primary">Stopovers</a>
+                    <a href="../airplane/index" class="btn btn-warning text-primary">Airplanes</a>
                 </div>
-            <?php } ?>
+            </div>
+        <?php } ?>
 
+        <?php if ($user_logado->role == 'mark') { ?>
 
-            <?php if ($user_logado->role == 'gest' ){ ?>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <a href="../flight/index" class="btn btn-warning text-primary">Flights</a>
-                        <a href="../stopover/index" class="btn btn-warning text-primary">Stopovers</a>
-                        <a href="../airplane/index" class="btn btn-warning text-primary">Airplanes</a>
-                    </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="../flight/index" class="btn btn-warning text-primary">Flights</a>
+                    <a href="../stopover/index" class="btn btn-warning text-primary">Stopovers</a>
                 </div>
-            <?php } ?>
+            </div>
+        <?php } ?>
 
-        </div>
+    </div>
 
 <?php } ?>
 
 <?php Layout::includeLayout('footer') ?>
 
-"<td><a href='http://yourlink'>delete</a></td>";
+"
+<td><a href='http://yourlink'>delete</a></td>";

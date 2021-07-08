@@ -24,6 +24,8 @@ Router::post('home/buy',	'HomeController/buy');
 Router::get('home/buy',	'HomeController/buy');
 
 Router::get('home/error',	'HomeController/error');
+Router::get('home/usererror',	'HomeController/usererror');
+
 
 
 //Router::get('home/start',	'UserController/start');

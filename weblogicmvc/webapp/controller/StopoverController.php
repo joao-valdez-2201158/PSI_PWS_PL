@@ -18,20 +18,65 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if (is_null($stopovers)) {
-        } else {
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+
+        }
+        if (is_null($stopovers))
+        {
+            $error = 'First no stopovers';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
+
+        } else
+        {
             return View::make('stopover.index', ['stopovers' => $stopovers, 'user' => $user_logado ]);
         }
     }
 
     public function create()
     {
+        $airports = Airport::all();
+        $flights = Flight::all();
+        $airplanes = Airplane::all();
+
         $user_logado = null;
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        return View::make('stopover.create',  ['user' => $user_logado]);
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+        else
+        {
+            return View::make('stopover.create',  ['user' => $user_logado, 'airports' => $airports, 'flights' => $flights, 'airplanes' => $airplanes]);
+        }
+
+    }
+
+    public function stopovercreate($id)
+    {
+        $airports = Airport::all();
+        $flights = Flight::all();
+        $airplanes = Airplane::all();
+        $user_logado = null;
+
+        if (Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }else
+        {
+            return View::make('stopover.stopovercreate', ['user' => $user_logado, 'airports' => $airports, 'flights' => $flights, 'airplanes' => $airplanes, 'id' => $id]);
+        }
     }
 
     public function store()
@@ -42,6 +87,12 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
+
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if($stopover->is_valid()){
             $stopover->save();
@@ -59,9 +110,17 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if (is_null($stopover)) {
-
+            $error = 'There is no stopover';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
         } else {
             return View::make('stopover.show', ['stopover' => $stopover, 'user' => $user_logado]);
         }
@@ -76,10 +135,24 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+
         if (is_null($stopover)) {
-        } else {
+            $error = 'There is no stopover';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
+        }
+        else
+        {
             return View::make('stopover.edit', ['stopover' => $stopover, 'user' => $user_logado ]);
-        }    }
+        }
+
+    }
 
     public function update($id)
     {
@@ -90,6 +163,13 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if($stopover->is_valid()){
             $stopover->save();
@@ -106,6 +186,17 @@ class StopoverController extends BaseController implements ResourceControllerInt
         $airplanestopovers = AirplaneStopover::find_by_id_stopover($id);
         $flights = Flight::find_by_id_flight($id);
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
         if ($airports != null || $airplanestopovers != null || $flights != null)
         {
             $error = 'User has airport(s)/stopover(s)/flight(s) associated, deletion is not allowed, first delete the other items';

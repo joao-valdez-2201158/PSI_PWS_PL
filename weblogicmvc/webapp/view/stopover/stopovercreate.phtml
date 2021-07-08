@@ -11,6 +11,7 @@ Layout::includeLayout('header') ?>
 <?php $airports = Data::get('airports') ?>
 <?php $flights = Data::get('flights') ?>
 <?php $airplanes = Data::get('airplanes') ?>
+<?php $id = Data::get('id') ?>
 
 <?php ErrMgr::attach($stopover) ?>
 
@@ -24,23 +25,15 @@ Layout::includeLayout('header') ?>
                 <header class="page-header">
                     <h1 class="page-title">New Stopover</h1>
                 </header>
-
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <hr>
                             <form method="post" action="<?= Url::toRoute('stopover/store') ?>">
                                 <div class="top-margin">
-                                    <label>Flight ID <span class="text-danger">*</span></label>
-                                    <select class="form-control" name="id_flight">
-                                        <option value="">Select</option>
-                                        <?php
-                                        foreach ($flights as $key => $flight)
-                                        {
-                                            echo "<option value='" . $flight->id_flight . "'>" . $flight->id_flight . ' (' . $flight->price . '€)' . "</option>";
-                                        }
-                                        ?>
-                                    </select>
+                                    <label>Flight<span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?= $stopover->id_flight ?>"
+                                           name="id_flight" class="form-control" placeholder=<?= $id ?>>
                                     <?= ErrMgr::bind('id_flight') ?>
                                 </div>
                                 <div class="top-margin">
@@ -72,7 +65,7 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_destination') ?>
                                 </div>
                                 <div class="top-margin">
-                                    <label>Airplane <span class="text-danger">*</span></label>
+                                    <label>Airplane<span class="text-danger">*</span></label>
                                     <select class="form-control" name="id_airplane">
                                         <option value="">Select</option>
                                         <?php

@@ -5,6 +5,8 @@ use ArmoredCore\WebObjects\URL;
 Layout::includeLayout('header') ?>
 
 <?php $user = Data::get('user') ?>
+<?php $user_logado = Data::get('user_logado') ?>
+
     <!-- container -->
     <div class="container">
         <div class="row">
@@ -17,46 +19,58 @@ Layout::includeLayout('header') ?>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <hr>
-                            <form method="post" action="<?=Url::toRoute('user/index')?>">
-                                <div class="top-margin">
-                                    <label>ID <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->id_user?>" name="id_user" class="form-control">
-                                </div>
+                            <form method="post" action="<?= Url::toRoute('user/index') ?>">
+                                <?php if ($user_logado->role == 'admin' || $user_logado->role == 'gest') { ?>
+                                    <div class="top-margin">
+                                        <label>ID <span class="text-danger">*</span></label>
+                                        <input readonly="true" type="text" value="<?= $user->id_user ?>" name="id_user"
+                                               class="form-control">
+                                    </div>
+                                <?php } ?>
                                 <div class="top-margin">
                                     <label>Name <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->name?>" name="name" class="form-control">
+                                    <input readonly="true" type="text" value="<?= $user->name ?>" name="name"
+                                           class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Birthday Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="date" value="<?=$user->birthday_date?>" name="birthday_date" class="form-control">
+                                    <input readonly="true" type="date" value="<?= $user->birthday_date ?>"
+                                           name="birthday_date" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Nif <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$user->nif?>" name="nif" class="form-control">
+                                    <input readonly="true" type="number" value="<?= $user->nif ?>" name="nif"
+                                           class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Username <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->username?>" name="username" class="form-control">
+                                    <input readonly="true" type="text" value="<?= $user->username ?>" name="username"
+                                           class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Password <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="password" value="<?=$user->password?>" name="password" class="form-control">
+                                    <input readonly="true" type="password" value="<?= $user->password ?>"
+                                           name="password" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Address <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->address?>" name="address" class="form-control">
+                                    <input readonly="true" type="text" value="<?= $user->address ?>" name="address"
+                                           class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Telephone <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?=$user->telephone?>" name="telephone" class="form-control">
+                                    <input readonly="true" type="number" value="<?= $user->telephone ?>"
+                                           name="telephone" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Email <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->email?>" name="email" class="form-control">
+                                    <input readonly="true" type="text" value="<?= $user->email ?>" name="email"
+                                           class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Role <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?=$user->role?>" name="role" class="form-control">
+                                    <input readonly="true" type="text" value="<?= $user->role ?>" name="role"
+                                           class="form-control">
                                 </div>
                                 <hr>
                                 <div class="col-lg-4 text-right">
@@ -70,5 +84,5 @@ Layout::includeLayout('header') ?>
         </article>
         <!-- /Article -->
     </div>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

@@ -7,44 +7,56 @@ Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $airports = Data::get('airports') ?>
 
-<!-- container -->
-<div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <ol class="breadcrumb">
-        <li><a href="../home/index">Home</a></li>
-        <li class="active">Airport Index</li>
-    </ol>
-    <h2 class="text-left top-space">Airport Index</h2>
-    <h2 class="top-space"></h2>
-    <div class="row">
-        <div class="col-sm-12">
-            <table class="table table-striped"><thead><th><h3>ID</h3></th><th><h3>Airport Name</h3></th><th><h3>Localization</h3></th><th><h3>Telephone</h3></th><th><h3>Email</h3></th></thead>
-                <tbody>
-                <?php foreach ($airports as $airport) { ?>
-                <tr>
-                    <td><?=$airport->id_airport?></td>
-                    <td><?=$airport->name?></td>
-                    <td><?=$airport->localization?></td>
-                    <td><?=$airport->telephone?></td>
-                    <td><?=$airport->email?></td>
-                    <td>
-                        <a href="<?=Url::toRoute('airport/show', $airport->id)?>" class="btn btn-info" role="button">Show</a>
-                        <a href="<?=Url::toRoute('airport/edit', $airport->id)?>" class="btn btn-info" role="button">Edit</a>
-                        <a href="<?=Url::toRoute('airport/destroy', $airport->id)?>" class="btn btn-warning" role="button">Delete</a>
-                    </td>
-                </tr>
-                <?php } ?>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-sm-6">
-                <p>
-                    <a href="<?=Url::toRoute('airport/create')?>" class="btn btn-info" role="button">New</a>
-                    <a href="../home/start" class="btn btn-info" role="button">Return</a>
-                </p>
+    <!-- container -->
+    <div class="container">
+        <?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'admin') { ?>
+        <ol class="breadcrumb">
+                <li><a href="../home/index">Home</a></li>
+                <li class="active">Airport Index</li>
+            </ol>
+            <h2 class="text-left top-space">Airport Index</h2>
+            <h2 class="top-space"></h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <th><h3>ID</h3></th>
+                        <th><h3>Airport Name</h3></th>
+                        <th><h3>Localization</h3></th>
+                        <th><h3>Telephone</h3></th>
+                        <th><h3>Email</h3></th>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($airports as $airport) { ?>
+                            <tr>
+                                <td><?= $airport->id_airport ?></td>
+                                <td><?= $airport->name ?></td>
+                                <td><?= $airport->localization ?></td>
+                                <td><?= $airport->telephone ?></td>
+                                <td><?= $airport->email ?></td>
+                                <td>
+                                    <a href="<?= Url::toRoute('airport/show', $airport->id) ?>" class="btn btn-info"
+                                       role="button">Show</a>
+                                    <a href="<?= Url::toRoute('airport/edit', $airport->id) ?>" class="btn btn-info"
+                                       role="button">Edit</a>
+                                    <a href="<?= Url::toRoute('airport/destroy', $airport->id) ?>"
+                                       class="btn btn-warning" role="button">Delete</a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-6">
+                    <p>
+                        <a href="<?= Url::toRoute('airport/create') ?>" class="btn btn-info" role="button">New</a>
+                        <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                    </p>
 
-        </div>
-    </div> <!-- /row -->
-<?php } ?>
-</div>	<!-- /container -->
-<?php Layout::includeLayout('footer')?>
+                </div>
+            </div> <!-- /row -->
+        <?php } ?>
+        <?php } ?>
+    </div>    <!-- /container -->
+<?php Layout::includeLayout('footer') ?>

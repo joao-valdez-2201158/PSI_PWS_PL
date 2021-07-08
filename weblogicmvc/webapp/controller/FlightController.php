@@ -18,7 +18,16 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        return View::make('flight.index', ['flights' => $flights, 'user' => $user_logado]);
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+        else
+        {
+            return View::make('flight.index', ['flights' => $flights, 'user' => $user_logado]);
+        }
     }
 
     public function create()
@@ -26,9 +35,19 @@ class FlightController extends BaseController implements ResourceControllerInter
         $user_logado = null;
 
         if(Session::has('user'))
-            $user_logado = Session::get('user');
+        $user_logado = Session::get('user');
 
-        return View::make('flight.create', ['user' => $user_logado]);
+        if(is_null($user_logado))
+
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+        else
+        {
+            return View::make('flight.create', ['user' => $user_logado]);
+        }
     }
 
     public function store()
@@ -40,6 +59,13 @@ class FlightController extends BaseController implements ResourceControllerInter
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if($flight->is_valid()){
             $flight->save();
@@ -57,8 +83,19 @@ class FlightController extends BaseController implements ResourceControllerInter
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
+        if(is_null($user_logado))
+
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if (is_null($flight)) {
+
+            $error = 'Invalid Flight';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
 
         } else {
             return View::make('flight.show', ['flight' => $flight, 'user' => $user_logado]);
@@ -74,10 +111,22 @@ class FlightController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+
         if (is_null($flight)) {
+            $error = 'Invalid Flight';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
         } else {
             return View::make('flight.edit', ['flight' => $flight, 'user' => $user_logado]);
-        }    }
+        }
+
+    }
 
     public function update($id)
     {
@@ -88,6 +137,13 @@ class FlightController extends BaseController implements ResourceControllerInter
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if($flight->is_valid()){
             $flight->save();
@@ -103,6 +159,17 @@ class FlightController extends BaseController implements ResourceControllerInter
             $stopovers = Stopover::find_by_id_flight($id);
             $airplanes = Airplane::find_by_id_airplane($id);
 
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
             if ($stopovers != null || $airplanes != null)
             {
                 $error = 'User has airplane(s)/stopover(s) associated, deletion is not allowed, first delete stopovers';
@@ -113,6 +180,38 @@ class FlightController extends BaseController implements ResourceControllerInter
                 $flight->delete();
                 Redirect::toRoute('flight/index');
             }
+
+    }
+
+
+    public function ticketflight($id)
+    {
+
+        $flights = Flight::all();
+        $stopover = Stopover::find_by_id_flight($id);
+        $origin = Ticket::find_by_id_departure_flight($id);
+        $destination = Ticket::find_by_id_return_flight($id);
+
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if (is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error', $error);
+            Redirect::toRoute('home/usererror');
+        }
+        if (is_null($flights))
+        {
+            $error = 'Invalid Flight';
+            Session::set('error', $error);
+            Redirect::toRoute('home/error');
+        } else
+        {
+            return View::make('flight.ticketflight', ['user' => $user_logado, 'flights'=> $flights, 'stopover'=>$stopover, 'origin'=> $origin, 'destination' => $destination]);
+        }
 
     }
 

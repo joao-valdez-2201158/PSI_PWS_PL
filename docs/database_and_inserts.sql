@@ -107,11 +107,11 @@ DROP TABLE IF EXISTS `flights`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `flights` (
   `id_flight` int(11) NOT NULL AUTO_INCREMENT,
-  `id_airplane` int(45) NOT NULL,
+  `id_airport` int(45) NOT NULL,
   `price` float NOT NULL,
   PRIMARY KEY (`id_flight`),
-  KEY `id_airplane_fk` (`id_airplane`),
-  CONSTRAINT `id_airplane_fk` FOREIGN KEY (`id_airplane`) REFERENCES `airplanes` (`id_airplane`)
+  KEY `id_airport_fk` (`id_airport`),
+  CONSTRAINT `id_airport_fk` FOREIGN KEY (`id_airport`) REFERENCES `airports` (`id_airport`)
 ) ENGINE=InnoDB AUTO_INCREMENT=233341 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,7 +121,7 @@ CREATE TABLE `flights` (
 
 LOCK TABLES `flights` WRITE;
 /*!40000 ALTER TABLE `flights` DISABLE KEYS */;
-INSERT INTO `flights` VALUES (233337,25,1200),(233338,26,1000),(233339,25,50),(233340,25,70);
+INSERT INTO `flights` VALUES (233337,6,1200),(233338,8,1000),(233339,5,50),(233340,9,70);
 /*!40000 ALTER TABLE `flights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,4 +240,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-29 23:24:42
+-- Dump completed on 2021-07-06 15:38:14

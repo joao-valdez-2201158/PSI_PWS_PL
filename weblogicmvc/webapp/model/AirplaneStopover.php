@@ -10,6 +10,7 @@ class AirplaneStopover extends Model
 
     static $validates_presence_of = array(
         array('id_stopover'),
+        array('id_airplane'),
         array('passengers_quantity')
     );
 

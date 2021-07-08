@@ -10,94 +10,113 @@ Layout::includeLayout('header') ?>
 <?php ErrMgr::attach($ticket) ?>
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)){ ?>
-    <?php if ($user_logado->role == 'admin' || $user_logado->role == 'op' ){ ?>
+<?php if (!is_null($user_logado)) { ?>
+    <?php if ($user_logado->role == 'op') { ?>
         <div class="row">
-        <!-- Article main content -->
-        <article class="col-xs-12 maincontent">
-            <header class="page-header">
-                <h1 class="page-title">Edit Ticket</h1>
-            </header>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <hr>
-                    <form class="form-horizontal" method="post" action="<?=Url::toRoute('ticket/update', $ticket->id)?>">
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Edit Ticket</h1>
+                </header>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <hr>
+                        <form class="form-horizontal" method="post"
+                              action="<?= Url::toRoute('ticket/update', $ticket->id) ?>">
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">User ID:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">User ID:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" value="<?=$ticket->id_user?>" class="form-control" required name="id_user" placeholder="Enter User ID">
+                                    <input type="number" value="<?= $ticket->id_user ?>" class="form-control" required
+                                           name="id_user" placeholder="Enter User ID">
                                     <?= ErrMgr::bind('id_user') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Departure Flight ID:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Departure Flight ID:<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?=$ticket->id_departure_flight?>" class="form-control" name="id_departure_flight" placeholder="Enter Departure Flight ID">
+                                    <input type="number" required value="<?= $ticket->id_departure_flight ?>"
+                                           class="form-control" name="id_departure_flight"
+                                           placeholder="Enter Departure Flight ID">
                                     <?= ErrMgr::bind('id_departure_flight') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Return Flight ID:<span class="text-danger"></span></label>
+                                <label class="control-label col-sm-2" for="name">Return Flight ID:<span
+                                            class="text-danger"></span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" value="<?=$ticket->id_return_flight?>" class="form-control" name="id_return_flight" placeholder="Enter Return Flight ID">
+                                    <input type="number" value="<?= $ticket->id_return_flight ?>" class="form-control"
+                                           name="id_return_flight" placeholder="Enter Return Flight ID">
                                     <?= ErrMgr::bind('id_return_flight') ?>
                                 </div>
                             </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
-                            <div class="col-sm-6">
-                                <input type="number" required value="<?=$ticket->price?>" class="form-control" name="price" placeholder="Enter Ticket Price">
-                                <?= ErrMgr::bind('price') ?>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Ticket Price:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="number" required value="<?= $ticket->price ?>" class="form-control"
+                                           name="price" placeholder="Enter Ticket Price">
+                                    <?= ErrMgr::bind('price') ?>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Date:<span class="text-danger">*</span></label>
-                            <div class="col-sm-6">
-                                <input type="date" required value="<?=$ticket->date?>" class="form-control" name="date" placeholder="Enter Date">
-                                <?= ErrMgr::bind('date') ?>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Date:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="date" required value="<?= $ticket->date ?>" class="form-control"
+                                           name="date" placeholder="Enter Date">
+                                    <?= ErrMgr::bind('date') ?>
+                                </div>
                             </div>
-                        </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="name">Hour:<span class="text-danger">*</span></label>
-                        <div class="col-sm-6">
-                            <input type="text" required value="<?=$ticket->hour?>" class="form-control" name="hour" placeholder="Enter Hour">
-                            <?= ErrMgr::bind('hour') ?>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Hour:<span class="text-danger">*</span></label>
+                                <div class="col-sm-6">
+                                    <input type="text" required value="<?= $ticket->hour ?>" class="form-control"
+                                           name="hour" placeholder="Enter Hour">
+                                    <?= ErrMgr::bind('hour') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Check-In:<span
+                                            class="form-check-label"></span></label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="check_in">
+                                        <option></option>
+                                        <option value="1" <?php if ($ticket->check_in == 1) echo('selected'); ?>>Yes
+                                        </option>
+                                        <option value="0" <?php if ($ticket->check_in == 0) echo('selected'); ?>>No
+                                        </option>
+                                    </select>
+                                    <?= ErrMgr::bind('check_in') ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="name">Check-In Return:<span
+                                            class="form-check-label"></span></label>
+                                <div class="col-sm-6">
+                                    <select class="form-control" name="check_in_return">
+                                        <option></option>
+                                        <option value="1" <?php if ($ticket->check_in_return == 1) echo('selected'); ?>>
+                                            Yes
+                                        </option>
+                                        <option value="0" <?php if ($ticket->check_in_return == 0) echo('selected'); ?>>
+                                            No
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="col-lg-4 text-right">
+                                <button class="btn btn-default" type="submit">Save</button>
+                                <a href="../index" class="btn btn-default" role="button">Return</a>
+                            </div>
                     </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="name">Check-In:<span class="form-check-label"></span></label>
-                            <div class="col-sm-6">
-                                <select class="form-control" name="check_in">
-                                    <option></option>
-                                    <option value="1" <?php if($ticket->check_in == 1) echo('selected'); ?>>Yes</option>
-                                    <option value="0" <?php if($ticket->check_in == 0) echo('selected'); ?>>No</option>
-                                </select>
-                                <?= ErrMgr::bind('check_in') ?>
-                            </div>
-                        </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="name">Check-In Return:<span class="form-check-label"></span></label>
-                        <div class="col-sm-6">
-                            <select class="form-control" name="check_in_return">
-                                <option></option>
-                                <option value="1" <?php if($ticket->check_in_return == 1) echo('selected'); ?>>Yes</option>
-                                <option value="0" <?php if($ticket->check_in_return == 0) echo('selected'); ?>>No</option>
-                            </select>
-                        </div>
-                    </div>
-                        <hr>
-                        <div class="col-lg-4 text-right">
-                            <button class="btn btn-default" type="submit">Save</button>
-                            <a href="../index" class="btn btn-default" role="button">Return</a>
-                        </div>
+                    </form>
                 </div>
-                </form>
-            </div>
-    </div>
-    </article>
-    <!-- /Article -->
-    </div>
+        </div>
+        </article>
+        <!-- /Article -->
+        </div>
+    <?php } ?>
 <?php } ?>
-<?php } ?>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

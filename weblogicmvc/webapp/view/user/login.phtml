@@ -6,53 +6,57 @@ use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('loginheader') ?>
 
-<?php $user = Data::get('user')?>
+<?php $user = Data::get('user') ?>
 <?php ErrMgr::attach($user) ?>
-<!-- container -->
-<div class="container">
-    <div class="row">
-        <!-- Article main content -->
-        <article class="col-xs-12 maincontent">
-            <header class="page-header">
-                <h1 class="page-title">Login</h1>
-            </header>
-            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <hr>
-                        <form method="post" action="<?=Url::toRoute('user/makelogin')?>">
-                            <div class="top-margin">
-                                <label>Username <span class="text-danger">*</span></label>
-                                <input type="text" value="<?=$user->username?>" name="username" class="form-control" placeholder="Enter Username">
-                                <?= ErrMgr::bind('username') ?>
-                            </div>
-                            <div class="top-margin">
-                                <label>Password <span class="text-danger">*</span></label>
-                                <input type="password" value="<?=$user->password?>" name="password" class="form-control" placeholder="Enter Password">
-                                <?= ErrMgr::bind('password') ?>
-                            </div>
+    <!-- container -->
+    <div class="container">
+        <div class="row">
+            <!-- Article main content -->
+            <article class="col-xs-12 maincontent">
+                <header class="page-header">
+                    <h1 class="page-title">Login</h1>
+                </header>
+                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
                             <hr>
-                            <div class="row">
-                                <div class="col-lg-6 p-2 text-center">
-                                    <button class="btn btn-action" type="submit">Login</button>
+                            <form method="post" action="<?= Url::toRoute('user/makelogin') ?>">
+                                <div class="top-margin">
+                                    <label>Username <span class="text-danger">*</span></label>
+                                    <input type="text" value="<?= $user->username ?>" name="username"
+                                           class="form-control" placeholder="Enter Username">
+                                    <?= ErrMgr::bind('username') ?>
                                 </div>
-                                <div class="col-lg-6 p-2 text-center">
-                                    <a href="<?=Url::toRoute('user/create')?>" class="btn btn-action">Register</a>
+                                <div class="top-margin">
+                                    <label>Password <span class="text-danger">*</span></label>
+                                    <input type="password" value="<?= $user->password ?>" name="password"
+                                           class="form-control" placeholder="Enter Password">
+                                    <?= ErrMgr::bind('password') ?>
                                 </div>
-                            </div>
-                            <br>
-                            <div class="col-lg-15 text-center">
-                                <br><b><br><a href="">Forgot password?</a><br></b>
-                            </div>
-                            <br>
-                    </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-6 p-2 text-center">
+                                        <button class="btn btn-action" type="submit">Login</button>
+                                    </div>
+                                    <div class="col-lg-6 p-2 text-center">
+                                        <?php if (!is_null($user)) { ?>
+                                            <a href="<?= Url::toRoute('user/createuser') ?>" class="btn btn-action">Register</a>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="col-lg-15 text-center">
+                                    <br><b><br><a href="">Forgot password?</a><br></b>
+                                </div>
+                                <br>
+                        </div>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
+        </div>
+        </article>
+        <!-- /Article -->
     </div>
-    </article>
-    <!-- /Article -->
-</div>
-    </div>	<!-- /container -->
+    </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

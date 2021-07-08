@@ -11,13 +11,24 @@ class AirplaneController extends BaseController implements ResourceControllerInt
 
     public function index()
     {
+        $airplanes = Airplane::all();
+
         $user_logado = null;
 
         if(Session::has('user'))
         $user_logado = Session::get('user');
 
-        $airplanes = Airplane::all();
-        return View::make('airplane.index', ['airplanes' => $airplanes, 'user' => $user_logado]);
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+        else
+        {
+            return View::make('airplane.index', ['airplanes' => $airplanes, 'user' => $user_logado]);
+        }
+
     }
 
     public function create()
@@ -27,7 +38,15 @@ class AirplaneController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
         $user_logado = Session::get('user');
 
-        return View::make('airplane.create', ['user' => $user_logado]);
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }else{
+            return View::make('airplane.create', ['user' => $user_logado]);
+        }
+
     }
 
     public function store()
@@ -39,6 +58,13 @@ class AirplaneController extends BaseController implements ResourceControllerInt
 
         if(Session::has('user'))
         $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
         if($airplane->is_valid()){
             $airplane->save();
@@ -57,9 +83,21 @@ class AirplaneController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if (is_null($airplane)) {
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
 
-        } else {
+        if (is_null($airplane)) {
+            $error = 'Invalid Airplane';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
+
+        }
+        else
+        {
             return View::make('airplane.show', ['airplane' => $airplane, 'user' => $user_logado]);
         }
     }
@@ -73,8 +111,21 @@ class AirplaneController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if (is_null($airplane)) {
-        } else {
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+
+        if (is_null($airplane))
+        {
+            $error = 'Invalid Airplane';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
+        }
+        else
+        {
             return View::make('airplane.edit', ['airplane' => $airplane, 'user' => $user_logado]);
         }
     }
@@ -89,19 +140,42 @@ class AirplaneController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+
         if($airplane->is_valid()){
             $airplane->save();
             Redirect::toRoute('airplane/index');
         } else {
             //redirect to form with data and errors
             Redirect::flashToRoute('airplane/edit', ['airplane' => $airplane, 'user' => $user_logado]);
-        }    }
+        }
+    }
 
     public function destroy($id)
     {
-        $airplane = Airplane::find([$id]);
-        $airplane->delete();
-        Redirect::toRoute('airplane/index');
+        $user_logado = null;
+
+        if(Session::has('user'))
+        $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+        else
+        {
+            $airplane = Airplane::find([$id]);
+            $airplane->delete();
+            Redirect::toRoute('airplane/index');
+        }
+
     }
 
 

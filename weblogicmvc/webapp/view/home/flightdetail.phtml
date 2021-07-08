@@ -1,39 +1,48 @@
-<?php use ArmoredCore\WebObjects\Data;
+<?php
+
+use Carbon\Carbon;
+use ArmoredCore\WebObjects\Data;
 use ArmoredCore\WebObjects\Layout;
 use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
+
 Layout::includeLayout('header');
 $user_logado = Data::get('user');
 $flight = Data::get('flight');
-$stopovers = Data::get('stopovers');
-$origin = Data::get('origin');
-$destination = Data::get('destination');
+
 ?>
 <!-- container -->
 <div class="container">
-    <?php if (!is_null($user_logado)){ ?>
+    <?php if (!is_null($user_logado)) { ?>
         <div class="container">
+            <div class="row">
+                <div class="col-md-12 label-info">
+                    <p><b>Flight Price</b> <?= $flight->price ?> €</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="com-md-12">
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">Flight Ref.</th>
+                            <th scope="col">Air Plane</th>
                             <th scope="col">Origin</th>
+                            <th scope="col">Date of Departure</th>
                             <th scope="col">Destination</th>
-                            <th scope="col">Price</th>
-
+                            <th scope="col">Date of Arrival</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th><?php echo $flight->id_flight?></th>
-                            <th><?php echo $origin->name?></th>
-                            <?php if(!is_null($destination)) { ?>
-                            <th><?php echo $destination->name?></th>
-                            <?php } ?>
-                            <th><?php echo $flight->price?></th>
-                        </tr>
+                        <?php foreach ($flight->stopovers as $stopover) { ?>
+                            <tr>
+                                <td><?= $stopover->airplane->reference ?></td>
+                                <td><?= $stopover->departure_airport->localization ?></td>
+                                <td><?= date_format($stopover->date_of_departure, 'Y-m-d') . ' ' . $stopover->hour_of_departure ?></td>
+                                <td><?= $stopover->arrival_airport->localization ?></td>
+                                <td><?= date_format($stopover->date_of_arrival, 'Y-m-d') . ' ' . $stopover->hour_of_arrival ?></td>
+
+                            </tr>
+                        <?php } ?>
                         </tbody>
                     </table>
                 </div>
@@ -43,7 +52,7 @@ $destination = Data::get('destination');
             <a href="../index" class="btn btn-info" role="button">Return</a>
         </div>
     <?php } ?>
-</div>	<!-- /container -->
-<?php Layout::includeLayout('footer')?>
+</div>    <!-- /container -->
+<?php Layout::includeLayout('footer') ?>
 
 
