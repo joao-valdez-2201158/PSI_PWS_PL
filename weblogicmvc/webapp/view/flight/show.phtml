@@ -9,7 +9,7 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)) { ?>
-<?php if ($user_logado->role == 'gest'|| $user_logado->role == 'op') { ?>
+<?php if ($user_logado->role == 'gest'|| $user_logado->role == 'op' || $user_logado->role == 'mark') { ?>
         <div class="row">
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">

@@ -14,4 +14,8 @@ class AirplaneStopover extends Model
         array('passengers_quantity')
     );
 
+    static $belongs_to = array(
+        array('airplane', 'class_name' => 'Airplane', 'foreign_key' => 'id_airplane'),
+        array('stopover', 'class_name' => 'Stopover', 'foreign_key' => 'id_stopover')
+    );
 }

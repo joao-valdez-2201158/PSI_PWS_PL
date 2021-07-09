@@ -180,4 +180,25 @@ class TicketController extends BaseController implements ResourceControllerInter
 
         }
 
+        public function ticketdiscount($id){
+
+        $ticket = Ticket::find_by_id_ticket($id);
+
+            $user_logado = null;
+
+            if(Session::has('user'))
+                $user_logado = Session::get('user');
+
+            if(is_null($user_logado))
+            {
+                $error = 'First Login';
+                Session::set('error',$error);
+                Redirect::toRoute('home/usererror');
+            }else{
+                return View::make('ticket.ticketdiscount', ['ticket' => $ticket, 'user' => $user_logado]);
+
+            }
+
+        }
+
 }

@@ -14,6 +14,9 @@ class Airport extends Model
     );
 
     static $has_many = array(
-        array('flights')
+        array('departure_airport', 'class_name' => 'Stopover', 'foreign_key' => 'id_airport'),
+        array('destination_airport', 'class_name' => 'Stopover', 'foreign_key' => 'id_airport')
+
     );
+
 }

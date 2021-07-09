@@ -5,95 +5,77 @@ use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
+<?php $tickets = Data::get('tickets') ?>
 <?php $flights = Data::get('flights') ?>
 <?php $stopover = Data::get('stopover') ?>
 <?php $origin = Data::get('origin') ?>
+<?php $id = Data::get('id') ?>
 <?php $destination = Data::get('destination') ?>
+
 
 
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)) { ?>
-    <?php if ($user_logado->role == 'gest'|| $user_logado->role == 'op') { ?>
-        <div class="row">
-            <!-- Article main content -->
-            <article class="col-xs-12 maincontent">
-                <header class="page-header">
-                    <h1 class="page-title">View Flight</h1>
-                </header>
-                <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <hr>
-                            <form method="post" action="<?= Url::toRoute('flight/index') ?>">
-                                <div class="top-margin">
-                                    <label>Flight ID<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?= $stopover->id_flight ?>" name="id_flight"
-                                           class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Ticket Origin ID<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?= $origin->id_ticket ?>" name="id_flight"
-                                           class="form-control">
-                                </div>
-                                 <?php if ($destination != null) { ?>
-                                <div class="top-margin">
-                                    <label>Ticket Destination ID<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?= $destination->id_ticket ?>" name="id_flight"
-                                           class="form-control">
-                                </div>
-                                 <?php } ?>
-                                <div class="top-margin">
-                                    <label>User Name<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?= $origin->user->name ?>" name="user_name"
-                                           class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Departure ID<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?= $stopover->id_departure ?>" name="stopover_id"
-                                           class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Departure Name<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?= $stopover->departure_airport->localization ?>" name="airport_name_departure"
-                                           class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Arrival ID<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?= $stopover->id_destination ?>" name="stopover_id"
-                                           class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Arrival Name<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?= $stopover->arrival_airport->localization ?>" name="airport_name_departure"
-                                           class="form-control">
-                                </div>
-                                <div class="top-margin">
-                                    <label>Check-In <span class="text-info"></span></label>
-                                    <td class="form-control"
-                                        readonly="true"><?php if ($origin->check_in) echo('<i class="fa fa-check"></i>') ?></td>
-                                </div>
-                                <?php if ($destination != null) { ?>
-                                <div class="top-margin">
-                                    <label>Check-In Return <span class="text-info"></span></label>
-                                    <td class="form-control"
-                                        readonly="true"><?php if ($destination->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
-                                </div>
-    <?php } ?>
-    <hr>
-                                <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Return</button>
-                                </div>
-                        </div>
-                        </form>
-                    </div>
+        <?php if (!is_null($user_logado)) { ?>
+
+            <ol class="breadcrumb">
+                <li><a href="../home/index">Home</a></li>
+                <li class="active">Ticket Index</li>
+            </ol>
+            <h2 class="text-left top-space">Ticket Index</h2>
+            <h2 class="top-space"></h2>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-striped">
+                        <thead>
+                        <th><h3>Id Ticket</h3></th>
+                        <th><h3>User ID</h3></th>
+                        <th><h3>Passenger Name</h3></th>
+                        <th><h3>Departure Flight Nr.</h3></th>
+                        <th><h3>Return Flight Nr.</h3></th>
+                        <th><h3>Price</h3></th>
+                        <th><h3>Date</h3></th>
+                        <th><h3>Check-In</h3></th>
+                        <th><h3>Check-In Return</h3></th>
+                        </thead>
+                        <tbody>
+                        <?php if ($user_logado->role == 'op') { ?>
+                            <?php foreach ($tickets as $ticket) { ?>
+                         <?php foreach ($flights as $flight) { ?>
+                         <?php if ($flight->id_flight == $id)  { ?>
+                                <tr>
+                                    <td><?= $ticket->id_ticket ?></td>
+                                    <td><?= $ticket->id_user ?></td>
+                                    <td><?= $ticket->user->name ?></td>
+                                    <td><?= $ticket->id_departure_flight ?></td>
+                                    <td><?= $ticket->id_return_flight ?></td>
+                                    <td><?= $ticket->price ?></td>
+                                    <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
+                                    <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
+                                    <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
+                                    <td>
+                                        <a href="<?= Url::toRoute('ticket/show', $ticket->id) ?>"
+                                           class="btn btn-info btn-block" role="button">Show</a>
+                                        <a href="<?= Url::toRoute('ticket/edit', $ticket->id) ?>"
+                                           class="btn btn-info btn-block" role="button">Edit</a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-        </div>
-        </article>
-        <!-- /Article -->
-        </div>
-    <?php } ?>
-<?php } ?>
+                <div class="col-sm-6">
+                    <p>
+                        <a href="../index" class="btn btn-info" role="button">Return</a>
+                    </p>
+                </div>
+            </div> <!-- /row -->
+        <?php } ?>
+
     </div>    <!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

@@ -12,7 +12,7 @@ Layout::includeLayout('header') ?>
 
     <!-- container -->
     <div class="container">
-<?php if (!is_null($user_logado)) { ?>
+        <?php if (!is_null($user_logado)) { ?>
     <div class="row">
         <!-- Article main content -->
         <article class="col-xs-12 maincontent">
@@ -24,7 +24,7 @@ Layout::includeLayout('header') ?>
                     <div class="panel-body">
                         <hr>
                         <form method="post" action="<?= Url::toRoute('ticket/index') ?>">
-                            <?php if ($user_logado->role == 'admin' || $user_logado->role == 'op') { ?>
+                            <?php if ($user_logado->role == 'op') { ?>
                                 <div class="top-margin">
                                     <label>ID <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?= $ticket->id_ticket ?>"
@@ -40,7 +40,7 @@ Layout::includeLayout('header') ?>
                                     <input readonly="true" type="text" value="<?= $ticket->user->name ?>" name="name"
                                            class="form-control">
                                 </div>
-                                <div class="top-margin">
+                                <div class="top-margin text-danger">
                                 <?php foreach ($stopovers as $stopover) { ?>
                                     <?php foreach ($airports as $airport) { ?>
                                         <?php if ($stopover->id_flight == $ticket->id_departure_flight && $airport->id_airport == $stopover->id_departure) { ?>
@@ -68,7 +68,7 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="datetime-local" value="<?= $ticket->date ?>"
+                                    <input readonly="true" type="date" value="<?= $ticket->date ?>"
                                            name="date" class="form-control">
                                 </div>
                                 <div class="top-margin">
@@ -148,7 +148,7 @@ Layout::includeLayout('header') ?>
     </article>
     <!-- /Article -->
     </div>
-<?php } ?>
+    <?php } ?>
     </div>    <!-- /container -->
 
 <?php Layout::includeLayout('footer') ?>

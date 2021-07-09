@@ -8,62 +8,65 @@ Layout::includeLayout('header') ?>
 
     <!-- container -->
     <div class="container">
-      <?php if (!is_null($user_logado)) { ?>
-    <?php if ($user_logado->role == 'gest') { ?>
-        <ol class="breadcrumb">
-                <li><a href="../home/index">Home</a></li>
-                <li class="active">Stopover Index</li>
-            </ol>
-            <h2 class="text-left top-space">Stopover Index</h2>
-            <h2 class="top-space"></h2>
-            <div class="row">
-                <div class="col-sm-12">
-                    <table class="table table-striped">
-                        <thead>
-                        <th><h3>ID</h3></th>
-                        <th><h3>Flight</h3></th>
-                        <th><h3>Departure</h3></th>
-                        <th><h3>Destination</h3></th>
-                        <th><h3>Airplane</h3></th>
-                        <th><h3>Departure Date</h3></th>
-                        <th><h3>Arrival Date</h3></th>
-                        <th><h3>Distance</h3></th>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($stopovers as $stopover) { ?>
-                            <tr>
-                                <td><?= $stopover->id_stopover ?></td>
-                                <td><?= $stopover->id_flight ?></td>
-                                <td><?= $stopover->departure_airport->localization ?></td>
-                                <td><?= $stopover->arrival_airport->localization ?></td>
-                                <td><?= $stopover->airplane->reference ?></td>
-                                <td><?= \Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d') ?> <?= $stopover->hour_of_departure ?></td>
-                                <td><?= \Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d') ?> <?= $stopover->hour_of_arrival ?></td>
-                                <td><?= $stopover->distance ?></td>
-                                <td>
-                                    <a href="<?= Url::toRoute('stopover/show', $stopover->id) ?>"
-                                       class="btn btn-info btn-block" role="button">Show</a>
-                                    <a href="<?= Url::toRoute('stopover/edit', $stopover->id) ?>"
-                                       class="btn btn-info btn-block" role="button">Edit</a>
-                                    <a href="<?= Url::toRoute('stopover/destroy', $stopover->id) ?>"
-                                       class="btn btn-warning btn-block" role="button">Delete</a>
-                                </td>
-                            </tr>
-                        <?php } ?>
+        <?php if (!is_null($user_logado)) { ?>
+            <?php if ($user_logado->role == 'gest' || $user_logado->role == 'mark') { ?>
+                <ol class="breadcrumb">
+                    <li><a href="../home/index">Home</a></li>
+                    <li class="active">Stopover Index</li>
+                </ol>
+                <h2 class="text-left top-space">Stopover Index</h2>
+                <h2 class="top-space"></h2>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-striped">
+                            <thead>
+                            <th><h3>ID</h3></th>
+                            <th><h3>Flight</h3></th>
+                            <th><h3>Departure</h3></th>
+                            <th><h3>Destination</h3></th>
+                            <th><h3>Airplane</h3></th>
+                            <th><h3>Departure Date</h3></th>
+                            <th><h3>Arrival Date</h3></th>
+                            <th><h3>Distance</h3></th>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($stopovers as $stopover) { ?>
+                                <tr>
+                                    <td><?= $stopover->id_stopover ?></td>
+                                    <td><?= $stopover->id_flight ?></td>
+                                    <td><?= $stopover->departure_airport->localization ?></td>
+                                    <td><?= $stopover->arrival_airport->localization ?></td>
+                                    <td><?= $stopover->airplane->reference ?></td>
+                                    <td><?= \Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d') ?> <?= $stopover->hour_of_departure ?></td>
+                                    <td><?= \Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d') ?> <?= $stopover->hour_of_arrival ?></td>
+                                    <td><?= $stopover->distance ?></td>
+                                    <td>
+                                        <a href="<?= Url::toRoute('stopover/show', $stopover->id) ?>"
+                                           class="btn btn-info btn-block" role="button">Show</a>
+                                        <?php if ($user_logado->role == 'gest') { ?>
+                                            <a href="<?= Url::toRoute('stopover/edit', $stopover->id) ?>"
+                                               class="btn btn-info btn-block" role="button">Edit</a>
+                                            <a href="<?= Url::toRoute('stopover/destroy', $stopover->id) ?>"
+                                               class="btn btn-warning btn-block" role="button">Delete</a>
+                                        <?php } ?>
 
-                        </tbody>
+                                    </td>
+                                </tr>
+                            <?php } ?>
 
-                    </table>
+                            </tbody>
 
-                </div>
-                <div class="col-sm-6">
-                    <p>
-                        <a href="<?= Url::toRoute('stopover/create') ?>" class="btn btn-info" role="button">New</a>
-                        <a href="../home/start" class="btn btn-info" role="button">Return</a>
-                    </p>
-                </div>
-            </div> <!-- /row -->
+                        </table>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <p>
+                            <a href="<?= Url::toRoute('stopover/create') ?>" class="btn btn-info" role="button">New</a>
+                            <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                        </p>
+                    </div>
+                </div> <!-- /row -->
+            <?php } ?>
         <?php } ?>
-      <?php } ?>
     </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

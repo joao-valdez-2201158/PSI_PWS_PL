@@ -11,6 +11,7 @@ class Airplane extends Model
     );
 
     static $has_many = array(
-        array('stopovers', 'class_name' => 'Stopover', 'foreign_key' => 'id_airplane')
+        array('stopovers', 'class_name' => 'Stopover', 'foreign_key' => 'id_airplane'),
+        array('airplanes_stopovers', 'class_name' => 'AirplaneStopover', 'foreign_key' => 'id_airplane')
     );
 }
