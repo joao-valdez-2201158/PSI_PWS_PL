@@ -35,8 +35,8 @@ Layout::includeLayout('header') ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Departure ID:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?= $stopover->id_departure ?>"
-                                           class="form-control" name="id_departure" placeholder="Enter Departure ID">
+                                    <input type="number" required value="<?= $stopover->id_departure_airport ?>"
+                                           class="form-control" name="id_departure_airport" placeholder="Enter Departure ID">
                                     <?= ErrMgr::bind('id_departure') ?>
                                 </div>
                             </div>
@@ -44,8 +44,8 @@ Layout::includeLayout('header') ?>
                                 <label class="control-label col-sm-2" for="name">Destination ID:<span
                                             class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" required value="<?= $stopover->id_destination ?>"
-                                           class="form-control" name="id_destination"
+                                    <input type="number" required value="<?= $stopover->id_destination_airport ?>"
+                                           class="form-control" name="id_destination_airport"
                                            placeholder="Enter Destination ID">
                                     <?= ErrMgr::bind('id_destination') ?>
                                 </div>

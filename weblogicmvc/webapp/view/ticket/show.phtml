@@ -23,8 +23,7 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-                        <form method="post" action="<?= Url::toRoute('ticket/index') ?>">
-                            <?php if ($user_logado->role == 'op') { ?>
+                            <?php if ($user_logado->role == 'op' || $user_logado->role == 'gest') { ?>
                                 <div class="top-margin">
                                     <label>ID <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?= $ticket->id_ticket ?>"
@@ -40,28 +39,46 @@ Layout::includeLayout('header') ?>
                                     <input readonly="true" type="text" value="<?= $ticket->user->name ?>" name="name"
                                     class="form-control">
                                 </div>
-                                <?php foreach ($stopovers as $stopover) { ?>
-                                    <?php foreach ($airports as $airport) { ?>
-                                        <?php if ($stopover->id_flight == $ticket->id_departure_flight && $airport->id_airport == $stopover->id_departure) { ?>
-                                            <div class="top-margin text-danger">
-                                            <label>Departure Flight<span class="text-danger">*</span></label>
-                                            <input readonly="true" type="text" value="<?= $airport->name ?>"
-                                             name="id_departure_flight" class="form-control">
-                                            </div>
-                                        <?php } ?>
-                                    <?php } ?>
-                                <?php } ?>
-                                <?php foreach ($stopovers as $stopover) {
-                                    ?><?php foreach ($airports as $airport) { ?>
-                                    <?php if ($stopover->id_flight == $ticket->id_return_flight && $airport->id_airport == $stopover->id_departure) { ?>
-                                            <div class="top-margin">
-                                            <label>Return Flight<span class="text-danger">*</span></label>
-                                        <input readonly="true" type="text" value="<?= $airport->name ?>"
-                                               name="id_return_flight" class="form-control">
-                                        </div>
-                                    <?php } ?>
-                                <?php } ?>
-                                <?php } ?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>Departure</th>
+                                                <th>Return</th>
+                                                <th>Departure Date</th>
+                                                <th>Return Date</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td colspan="4"><b>Departure Flight(s)</b></td>
+                                            </tr>
+                                                <?php foreach ($ticket->departure_flight->stopovers as $stopover) { ?>
+                                                    <?= '<tr>' ?>
+                                                        <?= '<td>'.$stopover->departure_airport->localization.'</td>' ?>
+                                                        <?= '<td>'.$stopover->arrival_airport->localization.'</td>' ?>
+                                                        <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d').' '.$stopover->hour_of_departure.'</td>' ?>
+                                                        <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d').' '.$stopover->hour_of_arrival.'</td>' ?>
+                                                    <?='</tr>' ?>
+                                                <?php } ?>
+                                                <?php if($ticket->return_flight != null) { ?>
+                                                    <tr>
+                                                        <td colspan="4"><b>Arrival Flight(s)</b></td>
+                                                    </tr>
+                                                    <?php foreach ($ticket->return_flight->stopovers as $stopover) { ?>
+                                                        <?= '<tr>' ?>
+                                                        <?= '<td>'.$stopover->departure_airport->localization.'</td>' ?>
+                                                        <?= '<td>'.$stopover->arrival_airport->localization.'</td>' ?>
+                                                        <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d').' '.$stopover->hour_of_departure.'</td>' ?>
+                                                        <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d').' '.$stopover->hour_of_arrival.'</td>' ?>
+                                                        <?='</tr>' ?>
+                                                        <?php } ?>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                                 <div class="top-margin">
                                     <label>Ticket Price <span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?= $ticket->price ?>" name="price"
@@ -69,7 +86,7 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="date" value="<?= $ticket->date ?>"
+                                    <input readonly="true" type="text" value="<?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?>"
                                      name="date" class="form-control">
                                 </div>
                                 <div class="top-margin">
@@ -92,28 +109,46 @@ Layout::includeLayout('header') ?>
                                         <input readonly="true" type="text" value="<?= $ticket->user->name ?>"
                                          name="name" class="form-control">
                                     </div>
-                                    <div class="top-margin">
-                                    <?php foreach ($stopovers as $stopover) { ?>
-                                        <?php foreach ($airports as $airport) { ?>
-                                            <?php if ($stopover->id_flight == $ticket->id_departure_flight && $airport->id_airport == $stopover->id_departure) { ?>
-                                                <label>Departure<span class="text-danger">*</span></label>
-                                                <input readonly="true" type="text" value="<?= $airport->name ?>"
-                                                  name="id_departure_flight" class="form-control">
-                                                </div>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    <?php } ?>
-                                    <div class="top-margin">
-                                    <?php foreach ($stopovers as $stopover) { ?>
-                                        <?php foreach ($airports as $airport) { ?>
-                                            <?php if ($stopover->id_flight == $ticket->id_return_flight && $airport->id_airport == $stopover->id_departure) { ?>
-                                                <label>Return<span class="text-danger">*</span></label>
-                                                <input readonly="true" type="text" value="<?= $airport->name ?>"
-                                                name="id_return_flight" class="form-control">
-                                                </div>
-                                            <?php } ?>
-                                        <?php } ?>
-                                    <?php } ?>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Departure</th>
+                                                    <th>Return</th>
+                                                    <th>Departure Date</th>
+                                                    <th>Return Date</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td colspan="4"><b>Departure Flight(s)</b></td>
+                                                </tr>
+                                                <?php foreach ($ticket->departure_flight->stopovers as $stopover) { ?>
+                                                    <?= '<tr>' ?>
+                                                    <?= '<td>'.$stopover->departure_airport->localization.'</td>' ?>
+                                                    <?= '<td>'.$stopover->arrival_airport->localization.'</td>' ?>
+                                                    <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d').' '.$stopover->hour_of_departure.'</td>' ?>
+                                                    <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d').' '.$stopover->hour_of_arrival.'</td>' ?>
+                                                    <?='</tr>' ?>
+                                                <?php } ?>
+                                                <?php if($ticket->return_flight != null) { ?>
+                                                    <tr>
+                                                        <td colspan="4"><b>Arrival Flight(s)</b></td>
+                                                    </tr>
+                                                    <?php foreach ($ticket->return_flight->stopovers as $stopover) { ?>
+                                                        <?= '<tr>' ?>
+                                                        <?= '<td>'.$stopover->departure_airport->localization.'</td>' ?>
+                                                        <?= '<td>'.$stopover->arrival_airport->localization.'</td>' ?>
+                                                        <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d').' '.$stopover->hour_of_departure.'</td>' ?>
+                                                        <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d').' '.$stopover->hour_of_arrival.'</td>' ?>
+                                                        <?='</tr>' ?>
+                                                    <?php } ?>
+                                                <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <div class="top-margin">
                                         <label>Ticket Price <span class="text-danger">*</span></label>
                                         <input readonly="true" type="number" value="<?= $ticket->price ?>" name="price"
@@ -139,10 +174,10 @@ Layout::includeLayout('header') ?>
                             <?php } ?>
 
                             <div class="col-lg-4 text-right">
-                                <button class="btn btn-action" type="submit">Return</button>
+<!--                                <a class="btn btn-action" href="--><?//= Url::toRoute('ticket/index') ?><!--">Return</a>-->
+                                <button onclick="window.history.back()" class="btn btn-info" type="button">Return</button>
                             </div>
                     </div>
-                    </form>
                 </div>
             </div>
     </div>

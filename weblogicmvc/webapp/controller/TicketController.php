@@ -148,6 +148,13 @@ class TicketController extends BaseController implements ResourceControllerInter
 
         }
 
+        $points = 0;
+        //se check in == true
+        //calcular pontos do $user_logado
+        //points = somatorio das distancias dos stopovers desse ticket
+        //foreach dos ticket->stopovers e soma a distancia
+        //$user_logado->points = $points;
+
         if($ticket->is_valid()){
             $ticket->save();
             Redirect::toRoute('ticket/index');

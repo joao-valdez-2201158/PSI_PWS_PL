@@ -94,6 +94,7 @@ ErrMgr::attach($flight);
                         <th>Departure Date</th>
                         <th>Arrival Date</th>
                         <th>Price</th>
+                        <th>Discount</th>
                         </thead>
                         <tbody>
                         <?php foreach ($result as $value) { ?>
@@ -108,6 +109,7 @@ ErrMgr::attach($flight);
                                 <td><?= $value->date_of_departure ?> <?= $value->hour_of_departure ?></td>
                                 <td><?= $value->date_of_arrival ?> <?= $value->hour_of_arrival ?></td>
                                 <td><?= $value->price ?> €</td>
+                                <td><?= $value->discount ?> %</td>
                             </tr>
                         <?php } ?>
                         </tbody>
@@ -129,6 +131,7 @@ ErrMgr::attach($flight);
                         <th>Departure Date</th>
                         <th>Arrival Date</th>
                         <th>Price</th>
+                        <th>Discount</th>
                         </thead>
                         <tbody>
                         <?php foreach ($result_return as $value) { ?>
@@ -143,6 +146,7 @@ ErrMgr::attach($flight);
                                 <td><?= $value->date_of_departure ?> <?= $value->hour_of_departure ?></td>
                                 <td><?= $value->date_of_arrival ?> <?= $value->hour_of_arrival ?></td>
                                 <td><?= $value->price ?> €</td>
+                                <td><?= $value->discount ?> %</td>
                             </tr>
                         <?php } ?>
                         </tbody>

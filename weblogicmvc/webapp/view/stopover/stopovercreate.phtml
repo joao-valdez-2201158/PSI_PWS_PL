@@ -32,13 +32,13 @@ Layout::includeLayout('header') ?>
                             <form method="post" action="<?= Url::toRoute('stopover/store') ?>">
                                 <div class="top-margin">
                                     <label>Flight<span class="text-danger">*</span></label>
-                                    <input readonly="true" type="number" value="<?= $stopover->id_flight ?>"
+                                    <input readonly="true" type="number" value="<?= $id ?>"
                                            name="id_flight" class="form-control" placeholder=<?= $id ?>>
                                     <?= ErrMgr::bind('id_flight') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Departure<span class="text-danger">*</span></label>
-                                    <select class="form-control" name="id_departure">
+                                    <select class="form-control" name="id_departure_airport">
                                         <option value="">Select</option>
                                         <?php
                                         foreach ($airports as $key => $airport)
@@ -48,11 +48,11 @@ Layout::includeLayout('header') ?>
                                         }
                                         ?>
                                     </select>
-                                    <?= ErrMgr::bind('id_departure') ?>
+                                    <?= ErrMgr::bind('id_departure_airport') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Destination<span class="text-danger">*</span></label>
-                                    <select class="form-control" name="id_destination">
+                                    <select class="form-control" name="id_destination_airport">
                                         <option value="">Select</option>
                                         <?php
 
@@ -62,7 +62,7 @@ Layout::includeLayout('header') ?>
                                         }
                                         ?>
                                     </select>
-                                    <?= ErrMgr::bind('id_destination') ?>
+                                    <?= ErrMgr::bind('id_destination_airport') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Airplane<span class="text-danger">*</span></label>

@@ -12,8 +12,7 @@ class Flight extends Model
 
     static $has_many = array(
         array('stopovers', 'class_name' => 'Stopover', 'foreign_key' => 'id_flight'),
-        array('departure_flight', 'class_name' => 'Ticket', 'foreign_key' => 'id_flight'),
-        array('return_flight', 'class_name' => 'Ticket', 'foreign_key' => 'id_flight')
-
+        array('departure_flight', 'class_name' => 'Ticket', 'foreign_key' => 'id_departure_flight'),
+        array('return_flight', 'class_name' => 'Ticket', 'foreign_key' => 'id_return_flight')
     );
 }

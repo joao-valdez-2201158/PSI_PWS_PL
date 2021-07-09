@@ -35,27 +35,52 @@ Layout::includeLayout('header') ?>
                         <th><h3>Check-In Return</h3></th>
                         </thead>
                         <tbody>
-                        <?php if ($user_logado->role == 'op' || $user_logado->role == 'mark') { ?>
+                        <?php if ($user_logado->role == 'op' || $user_logado->role == 'mark' || $user_logado->role == 'gest') { ?>
                             <?php foreach ($tickets as $ticket) { ?>
-                         <?php if ($ticket->departure_flight->id_flight == $id || $ticket->return_flight->id_flight == $id)  { ?>
-                                <tr>
-                                    <td><?= $ticket->id_departure_flight ?></td>
-                                    <td><?= $ticket->id_return_flight ?></td>
-                                    <td><?= $ticket->id_ticket ?></td>
-                                    <td><?= $ticket->id_user ?></td>
-                                    <td><?= $ticket->user->name ?></td>
-                                    <td><?= $ticket->price ?></td>
-                                    <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
-                                    <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
-                                    <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
-                                    <td>
-                                        <a href="<?= Url::toRoute('ticket/show', $ticket->id) ?>"
-                                           class="btn btn-info btn-block" role="button">Show</a>
-                                        <a href="<?= Url::toRoute('ticket/edit', $ticket->id) ?>"
-                                           class="btn btn-info btn-block" role="button">Edit</a>
-                                    </td>
-                                </tr>
+                                <?php if ($ticket->departure_flight != null)  { ?>
+                                    <?php if ($ticket->departure_flight->id_flight == $id)  { ?>
+                                    <tr>
+                                        <td><?= $ticket->id_departure_flight ?></td>
+                                        <td><?= $ticket->id_return_flight ?></td>
+                                        <td><?= $ticket->id_ticket ?></td>
+                                        <td><?= $ticket->id_user ?></td>
+                                        <td><?= $ticket->user->name ?></td>
+                                        <td><?= $ticket->price ?></td>
+                                        <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
+                                        <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
+                                        <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
+                                        <td>
+                                            <a href="<?= Url::toRoute('ticket/show', $ticket->id) ?>"
+                                               class="btn btn-info btn-block" role="button">Show</a>
+                                            <a href="<?= Url::toRoute('ticket/edit', $ticket->id) ?>"
+                                               class="btn btn-info btn-block" role="button">Edit</a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                             <?php } ?>
+                            <?php } ?>
+                            <?php foreach ($tickets as $ticket) { ?>
+                                <?php if ($ticket->return_flight != null)  { ?>
+                                    <?php if ($ticket->return_flight->id_flight == $id)  { ?>
+                                        <tr>
+                                            <td><?= $ticket->id_departure_flight ?></td>
+                                            <td><?= $ticket->id_return_flight ?></td>
+                                            <td><?= $ticket->id_ticket ?></td>
+                                            <td><?= $ticket->id_user ?></td>
+                                            <td><?= $ticket->user->name ?></td>
+                                            <td><?= $ticket->price ?></td>
+                                            <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
+                                            <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
+                                            <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
+                                            <td>
+                                                <a href="<?= Url::toRoute('ticket/show', $ticket->id) ?>"
+                                                   class="btn btn-info btn-block" role="button">Show</a>
+                                                <a href="<?= Url::toRoute('ticket/edit', $ticket->id) ?>"
+                                                   class="btn btn-info btn-block" role="button">Edit</a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } ?>
                             <?php } ?>
                         <?php } ?>
                         </tr>
@@ -64,7 +89,8 @@ Layout::includeLayout('header') ?>
                 </div>
                 <div class="col-sm-6">
                     <p>
-                        <a href="../index" class="btn btn-info" role="button">Return</a>
+<!--                        <a onclick="window.history.back()" href="../index" class="btn btn-info" role="button">Return</a>-->
+                        <button onclick="window.history.back()" class="btn btn-info" type="button">Return</button>
                     </p>
                 </div>
             </div> <!-- /row -->

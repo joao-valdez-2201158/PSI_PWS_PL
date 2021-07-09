@@ -31,10 +31,40 @@ Layout::includeLayout('header') ?>
                                 <input readonly="true" type="number" value="<?= $flight->price ?>" name="price"
                                        class="form-control">
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>Departure</th>
+                                            <th>Return</th>
+                                            <th>Departure Date</th>
+                                            <th>Return Date</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($flight->stopovers as $stopover) { ?>
+                                            <?= '<tr>' ?>
+                                            <?= '<td>'.$stopover->departure_airport->localization.'</td>' ?>
+                                            <?= '<td>'.$stopover->arrival_airport->localization.'</td>' ?>
+                                            <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d').' '.$stopover->hour_of_departure.'</td>' ?>
+                                            <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d').' '.$stopover->hour_of_arrival.'</td>' ?>
+                                            <?='</tr>' ?>
+                                        <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                             <hr>
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-action" type="submit">Return</button>
                             </div>
+                            <?php if ($user_logado->role == 'gest') { ?>
+                            <div class="col-lg-4 text-left">
+                                <a href="<?= Url::toRoute('stopover/stopovercreate', $flight->id) ?>"
+                                   class="btn btn-action" role="button">Create Stopover</a>
+                            </div>
+                            <?php } ?>
                     </div>
                     </form>
                 </div>

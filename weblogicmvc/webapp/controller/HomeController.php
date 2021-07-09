@@ -28,7 +28,7 @@ class HomeController extends BaseController
         $date = Post::has('date') ?  Post::get('date') : '';
         $date_return = Post::has('date_return') ?  Post::get('date_return') : '';
        
-$query = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, 
+$query = 'select flights.id_flight, airplanes.reference, flights.price,flights.discount, stopovers.distance, 
                 departure.name as origin, arrival.name as destination,
                 departure.localization as origin_localization, arrival.localization as destination_localization,
                 stopovers.date_of_departure, stopovers.date_of_arrival,
@@ -36,8 +36,8 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
                 from flights 
                 left join stopovers on flights.id_flight = stopovers.id_flight
                 left join airplanes on stopovers.id_airplane = airplanes.id_airplane
-                left join airports as departure on stopovers.id_departure = departure.id_airport
-                left join airports as arrival on stopovers.id_destination = arrival.id_airport                
+                left join airports as departure on stopovers.id_departure_airport = departure.id_airport
+                left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport                
 				where departure.localization like "%'.$flight.'%"
                 and stopovers.date_of_departure >= "'.$date.'"
                 and stopovers.date_of_departure <= "'.$date_return.'"
@@ -54,7 +54,7 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
         $result_return = array();
         //Return Flights
         if ($date_return != ''){
-            $query_return = 'select flights.id_flight, airplanes.reference, flights.price, stopovers.distance, 
+            $query_return = 'select flights.id_flight, airplanes.reference, flights.price,flights.discount, stopovers.distance, 
                             departure.name as origin, arrival.name as destination,
                             departure.localization as origin_localization, arrival.localization as destination_localization,
                             stopovers.date_of_departure, stopovers.date_of_arrival,
@@ -62,8 +62,8 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
                             from flights 
                             left join stopovers on flights.id_flight = stopovers.id_flight
                             left join airplanes on stopovers.id_airplane = airplanes.id_airplane                                
-                            left join airports as departure on stopovers.id_departure = departure.id_airport
-                            left join airports as arrival on stopovers.id_destination = arrival.id_airport                
+                            left join airports as departure on stopovers.id_departure_airport = departure.id_airport
+                            left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport                
                             where arrival.localization like "%'.$destiny.'%"
                             and stopovers.date_of_departure >= "'.$date.'"
                             and stopovers.date_of_departure <= "'.$date_return.'"
@@ -186,7 +186,10 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
                 $ticket->id_user = $user_logado->id_user;
                 $ticket->id_departure_flight = $id_flight;
                 $ticket->id_return_flight = $id_flight_return;
+                //calcular descontos que estao no stopover e no fligth
+                $discount_value = 0;
                 $ticket->price = $price;
+                $ticket->discount_value = $discount_value;
                 $ticket->date = date("Y-m-d");
                 $ticket->hour = date("h:i:s");
                 $ticket->save(false);

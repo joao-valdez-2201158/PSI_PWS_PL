@@ -38,7 +38,7 @@ Layout::includeLayout('header') ?>
                                 <td>
                                     <a href="<?= Url::toRoute('flight/show', $flight->id) ?>" class="btn btn-info"
                                        role="button">Show</a>
-                                    <?php if ($user_logado->role == 'op') { ?>
+                                    <?php if ($user_logado->role == 'op' || $user_logado->role == 'gest') { ?>
                                         <a href="<?= Url::toRoute('flight/ticketflight', $flight->id) ?>"
                                            class="btn btn-info"
                                            role="button">Show Tickets</a>

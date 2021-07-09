@@ -83,6 +83,7 @@ class StopoverController extends BaseController implements ResourceControllerInt
     {
 
         $stopover = new Stopover(Post::getAll());
+
         $user_logado = null;
 
         if(Session::has('user'))
@@ -96,6 +97,7 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
         if($stopover->is_valid()){
             $stopover->save();
+
             Redirect::toRoute('stopover/index');
         } else {
             Redirect::flashToRoute('stopover/create', ['stopover' => $stopover, 'user' => $user_logado]);
