@@ -128,14 +128,12 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
         Redirect::toRoute('home/worksheet');
     }
 
-    public function flightdetail()
+    public function flightdetail($id)
     {
-        $user_logado = null;
+        $id_flight = $id;
 
         if(Session::has('user'))
-            $user_logado = Session::get('user');
-
-        $id_flight = $_GET['idF'];
+        $user_logado = Session::get('user');
 
 
         $flight = Flight::find([$id_flight]);
@@ -216,15 +214,13 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price, stopover
         if(Session::has('user'))
         $user_logado = Session::get('user');
 
-        $error = Session::get('error_user');
+        $error = Session::get('error');
 
         return View::make('home.error',['error_message' => $error, 'user' => $user_logado]);
     }
 
     public function usererror()
     {
-        $user_logado = null;
-
         $error = Session::get('error');
 
         return View::make('home.usererror',['error_message' => $error]);

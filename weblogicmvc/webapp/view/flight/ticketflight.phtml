@@ -6,11 +6,7 @@ use ArmoredCore\WebObjects\Session;
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $tickets = Data::get('tickets') ?>
-<?php $flights = Data::get('flights') ?>
-<?php $stopover = Data::get('stopover') ?>
-<?php $origin = Data::get('origin') ?>
 <?php $id = Data::get('id') ?>
-<?php $destination = Data::get('destination') ?>
 
 
 
@@ -28,27 +24,26 @@ Layout::includeLayout('header') ?>
                 <div class="col-sm-12">
                     <table class="table table-striped">
                         <thead>
+                        <th><h3>Flight Nr.</h3></th>
+                        <th><h3>Return Flight Nr.</h3></th>
                         <th><h3>Id Ticket</h3></th>
                         <th><h3>User ID</h3></th>
                         <th><h3>Passenger Name</h3></th>
-                        <th><h3>Departure Flight Nr.</h3></th>
-                        <th><h3>Return Flight Nr.</h3></th>
                         <th><h3>Price</h3></th>
                         <th><h3>Date</h3></th>
-                        <th><h3>Check-In</h3></th>
+                        <th><h3>Check-In Departure</h3></th>
                         <th><h3>Check-In Return</h3></th>
                         </thead>
                         <tbody>
-                        <?php if ($user_logado->role == 'op') { ?>
+                        <?php if ($user_logado->role == 'op' || $user_logado->role == 'mark') { ?>
                             <?php foreach ($tickets as $ticket) { ?>
-                         <?php foreach ($flights as $flight) { ?>
-                         <?php if ($flight->id_flight == $id)  { ?>
+                         <?php if ($ticket->departure_flight->id_flight == $id || $ticket->return_flight->id_flight == $id)  { ?>
                                 <tr>
+                                    <td><?= $ticket->id_departure_flight ?></td>
+                                    <td><?= $ticket->id_return_flight ?></td>
                                     <td><?= $ticket->id_ticket ?></td>
                                     <td><?= $ticket->id_user ?></td>
                                     <td><?= $ticket->user->name ?></td>
-                                    <td><?= $ticket->id_departure_flight ?></td>
-                                    <td><?= $ticket->id_return_flight ?></td>
                                     <td><?= $ticket->price ?></td>
                                     <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
                                     <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
@@ -60,7 +55,6 @@ Layout::includeLayout('header') ?>
                                            class="btn btn-info btn-block" role="button">Edit</a>
                                     </td>
                                 </tr>
-                            <?php } ?>
                             <?php } ?>
                             <?php } ?>
                         <?php } ?>

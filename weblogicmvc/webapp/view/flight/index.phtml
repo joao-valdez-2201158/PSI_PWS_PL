@@ -6,7 +6,6 @@ use ArmoredCore\WebObjects\Session;
 Layout::includeLayout('header') ?>
 <?php $user_logado = Data::get('user') ?>
 <?php $flights = Data::get('flights') ?>
-<?php $tickets = Data::get('tickets') ?>
 
 
     <!-- container -->
@@ -15,7 +14,7 @@ Layout::includeLayout('header') ?>
             <?php if ($user_logado->role == 'gest' || $user_logado->role == 'op' || $user_logado->role == 'mark') { ?>
                 <ol class="breadcrumb">
                     <li><a href="../home/index">Home</a></li>
-                    <li class="active">Flight Index</li>
+                    <li class="active">Flight Index</li>?>
                 </ol>
                 <h2 class="text-left top-space">Flight Index</h2>
                 <h2 class="top-space"></h2>
@@ -24,56 +23,56 @@ Layout::includeLayout('header') ?>
                         <table class="table table-striped">
                             <thead>
                             <th><h3>ID</h3></th>
-                            <th><h3>Ticket ID</h3></th>
-                            <th><h3>Ticket Price</h3></th>
+                            <th><h3>Price</h3></th>
 
                             </thead>
+
                             <tbody>
-                            <?php foreach ($flights as $flight) { ?>
-                            <?php foreach ($tickets as $ticket) { ?>
+                            <?php foreach ($flights
+                            as $flight) { ?>
+
                             <tr>
-                                    <td><?= $flight->id_flight ?></td>
-                                <td><?= $ticket->id_ticket ?></td>
+                                <td><?= $flight->id_flight ?></td>
                                 <td><?= $flight->price ?></td>
 
-
                                 <td>
-                                        <a href="<?= Url::toRoute('flight/show', $flight->id) ?>" class="btn btn-info"
-                                           role="button">Show</a>
-                <?php if ($user_logado->role == 'gest') { ?>
-                    <a href="<?= Url::toRoute('flight/ticketflight', $flight->id) ?>" class="btn btn-info"
-                   role="button">Show Tickets</a>
-                <?php } ?>
-
-                                        <?php if ($user_logado->role == 'mark') { ?>
-                                        <a href="<?= Url::toRoute('ticket/ticketdiscount', $ticket->id) ?>" class="btn btn-info"
+                                    <a href="<?= Url::toRoute('flight/show', $flight->id) ?>" class="btn btn-info"
+                                       role="button">Show</a>
+                                    <?php if ($user_logado->role == 'op') { ?>
+                                        <a href="<?= Url::toRoute('flight/ticketflight', $flight->id) ?>"
+                                           class="btn btn-info"
+                                           role="button">Show Tickets</a>
+                                    <?php } ?>
+                                    <?php if ($user_logado->role == 'mark') { ?>
+                                        <a href="<?= Url::toRoute('ticket/ticketdiscount', $flight->id) ?>"
+                                           class="btn btn-info"
                                            role="button">Add Discount</a>
-                                        <?php } ?>
-                                        <?php if ($user_logado->role == 'gest') { ?>
-                                            <a href="<?= Url::toRoute('flight/edit', $flight->id) ?>"
-                                               class="btn btn-info"
-                                               role="button">Edit</a>
-                                            <a href="<?= Url::toRoute('flight/destroy', $flight->id) ?>"
-                                               class="btn btn-warning"
-                                               role="button">Delete</a>
-                                        <?php } ?>
-                                        <?php if ($user_logado->role == 'gest') { ?>
-                                            <a href="<?= Url::toRoute('stopover/stopovercreate', $flight->id) ?>"
-                                               class="btn btn-info" role="button">Create Stopover</a>
-                                        <?php } ?>
-                                      <?php } ?>
-                                        <?php } ?>
+                                    <?php } ?>
+                                    <?php if ($user_logado->role == 'gest') { ?>
+                                        <a href="<?= Url::toRoute('flight/edit', $flight->id) ?>"
+                                           class="btn btn-info"
+                                           role="button">Edit</a>
+                                        <a href="<?= Url::toRoute('flight/destroy', $flight->id) ?>"
+                                           class="btn btn-warning"
+                                           role="button">Delete</a>
+                                    <?php } ?>
+                                    <?php if ($user_logado->role == 'gest') { ?>
+                                        <a href="<?= Url::toRoute('stopover/stopovercreate', $flight->id) ?>"
+                                           class="btn btn-info" role="button">Create Stopover</a>
+                                    <?php } ?>
+                                    <?php } ?>
 
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-sm-6">
                         <p>
-        <?php if ($user_logado->role == 'gest') { ?>
-            <a href="<?= Url::toRoute('flight/create') ?>" class="btn btn-info" role="button">New</a>
-        <?php } ?>
+                            <?php if ($user_logado->role == 'gest') { ?>
+                                <a href="<?= Url::toRoute('flight/create') ?>" class="btn btn-info"
+                                   role="button">New</a>
+                            <?php } ?>
                             <a href="../home/start" class="btn btn-info" role="button">Return</a>
                         </p>
                     </div>

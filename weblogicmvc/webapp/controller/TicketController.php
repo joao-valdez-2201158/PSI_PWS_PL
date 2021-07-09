@@ -182,7 +182,7 @@ class TicketController extends BaseController implements ResourceControllerInter
 
         public function ticketdiscount($id){
 
-        $ticket = Ticket::find_by_id_ticket($id);
+        $ticket = Ticket::find_by_id_departure_flight($id);
 
             $user_logado = null;
 

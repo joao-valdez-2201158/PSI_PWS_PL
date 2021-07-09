@@ -12,7 +12,6 @@ class FlightController extends BaseController implements ResourceControllerInter
     public function index()
     {
         $flights = Flight::all();
-        $tickets = Ticket::all();
 
         $user_logado = null;
 
@@ -27,7 +26,7 @@ class FlightController extends BaseController implements ResourceControllerInter
         }
         else
         {
-            return View::make('flight.index', ['flights' => $flights,  'tickets' => $tickets, 'user' => $user_logado]);
+            return View::make('flight.index', ['flights' => $flights, 'user' => $user_logado]);
         }
     }
 
@@ -188,16 +187,15 @@ class FlightController extends BaseController implements ResourceControllerInter
     public function ticketflight($id)
     {
 
-        $flights = Flight::all();
-        $stopover = Stopover::find_by_id_flight($id);
-        $origin = Ticket::find_by_id_departure_flight($id);
-        $destination = Ticket::find_by_id_return_flight($id);
         $tickets = Ticket::all();
+        $ticket_departure = Ticket::find_by_id_departure_flight($id);
+        $ticket_return = Ticket::find_by_id_return_flight($id);
+
 
         $user_logado = null;
 
         if(Session::has('user'))
-            $user_logado = Session::get('user');
+        $user_logado = Session::get('user');
 
         if (is_null($user_logado))
         {
@@ -205,44 +203,20 @@ class FlightController extends BaseController implements ResourceControllerInter
             Session::set('error', $error);
             Redirect::toRoute('home/usererror');
         }
-        if (is_null($flights))
+
+        if (is_null($ticket_departure) && is_null($ticket_return))
         {
-            $error = 'Invalid Flight';
+            $error = 'No Tickets Associated';
             Session::set('error', $error);
             Redirect::toRoute('home/error');
         } else
         {
-            return View::make('flight.ticketflight', ['user' => $user_logado, 'flights'=> $flights, 'tickets' => $tickets, 'stopover'=>$stopover, 'origin'=> $origin, 'destination' => $destination, 'id' => $id]);
+            return View::make('flight.ticketflight', ['user' => $user_logado, 'tickets' => $tickets, 'id' => $id]);
         }
 
     }
 
-    public function ticketflightedit($id)
-    {
-        $ticket = Ticket::find([$id]);
 
-        $user_logado = null;
-
-        if (Session::has('user'))
-            $user_logado = Session::get('user');
-
-        if(is_null($user_logado)){
-            $error = 'First Login';
-            Session::set('error',$error);
-            Redirect::toRoute('home/usererror');
-        }
-        if (is_null($ticket))
-        {
-            if(is_null($user_logado)){
-                $error = 'There is no ticket';
-                Session::set('error',$error);
-                Redirect::toRoute('home/error');
-            }
-        } else
-        {
-            return View::make('flight.tickeflightedit', ['ticket' => $ticket, 'user' => $user_logado]);
-        }
-    }
 
 }
 
