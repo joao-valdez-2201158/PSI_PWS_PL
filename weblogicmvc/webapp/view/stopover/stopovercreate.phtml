@@ -79,6 +79,20 @@ Layout::includeLayout('header') ?>
                                     <?= ErrMgr::bind('id_airplane') ?>
                                 </div>
                                 <div class="top-margin">
+                                    <label>Price <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?= $stopover->price ?>"
+                                           name="price" class="form-control"
+                                           placeholder="Price">
+                                    <?= ErrMgr::bind('price') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Discount <span class="text-danger">*</span></label>
+                                    <input type="number" value="<?= $stopover->discount ?>"
+                                           name="discount" class="form-control"
+                                           placeholder="Discount">
+                                    <?= ErrMgr::bind('date_of_departure') ?>
+                                </div>
+                                <div class="top-margin">
                                     <label>Departure Date <span class="text-danger">*</span></label>
                                     <input type="date" value="<?= $stopover->date_of_departure ?>"
                                            name="date_of_departure" class="form-control"
@@ -112,10 +126,10 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <hr>
                                 <div class="col-lg-6 text-right">
-                                    <button class="btn btn-action" type="submit">Register</button>
+                                    <button class="btn btn-default" type="submit">Register</button>
                                 </div>
                                 <div class="col-lg-6 text-left">
-                                    <a button class="btn btn-action"
+                                    <a button class="btn btn-default"
                                        href="<?= Url::toRoute('stopover/index') ?>">Return</a></button>
                                 </div>
                         </div>

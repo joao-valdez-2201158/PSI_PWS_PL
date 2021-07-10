@@ -4,6 +4,7 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
+
 <?php $user_logado = Data::get('user') ?>
 <?php $tickets = Data::get('tickets') ?>
 
@@ -35,6 +36,7 @@ Layout::includeLayout('header') ?>
                         <th><h3>Departure Flight Nr.</h3></th>
                         <th><h3>Return Flight Nr.</h3></th>
                         <th><h3>Price</h3></th>
+                        <th><h3>Discount</h3></th>
                         <th><h3>Date</h3></th>
                         <th><h3>Check-In</h3></th>
                         <th><h3>Check-In Return</h3></th>
@@ -50,6 +52,7 @@ Layout::includeLayout('header') ?>
                                     <td><?= $ticket->id_departure_flight ?></td>
                                     <td><?= $ticket->id_return_flight ?></td>
                                     <td><?= $ticket->price ?></td>
+                                    <td><?= $ticket->discount_value ?></td>
                                     <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
                                     <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
                                     <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
@@ -62,7 +65,7 @@ Layout::includeLayout('header') ?>
                             <?php } ?>
                         <?php } ?>
 
-                        <?php if ($user_logado->role == 'op') { ?>
+                        <?php if ($user_logado->role == 'op' ||$user_logado->role == 'gest' ) { ?>
                             <?php foreach ($tickets as $ticket) { ?>
                                 <tr>
                                     <td><?= $ticket->id_ticket ?></td>
@@ -71,6 +74,7 @@ Layout::includeLayout('header') ?>
                                     <td><?= $ticket->id_departure_flight ?></td>
                                     <td><?= $ticket->id_return_flight ?></td>
                                     <td><?= $ticket->price ?></td>
+                                    <td><?= $ticket->discount_value ?></td>
                                     <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
                                     <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
                                     <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
@@ -96,7 +100,7 @@ Layout::includeLayout('header') ?>
                         <?php if ($user_logado->role == 'op') { ?>
                             <a href="<?= Url::toRoute('ticket/create') ?>" class="btn btn-info " role="button">New</a>
                         <?php } ?>
-                        <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                        <button onclick="window.history.back()" class="btn btn-info " type="button">Return</button>
                     </p>
                 </div>
             </div> <!-- /row -->

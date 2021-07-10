@@ -19,7 +19,6 @@ Layout::includeLayout('header') ?>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <hr>
-                            <form method="post" action="<?= Url::toRoute('user/index') ?>">
                                 <?php if ($user_logado->role == 'admin' || $user_logado->role == 'gest') { ?>
                                     <div class="top-margin">
                                         <label>ID <span class="text-danger">*</span></label>
@@ -34,7 +33,7 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Birthday Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="date" value="<?= $user->birthday_date ?>"
+                                    <input readonly="true" type="text" value="<?= \Carbon\Carbon::parse($user->birthday_date)->format('Y-m-d') ?>"
                                            name="birthday_date" class="form-control">
                                 </div>
                                 <div class="top-margin">
@@ -74,10 +73,9 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <hr>
                                 <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Return</button>
+                                    <button onclick="window.history.back()" class="btn btn-default " type="button">Return</button>
                                 </div>
                         </div>
-                        </form>
                     </div>
                 </div>
         </div>

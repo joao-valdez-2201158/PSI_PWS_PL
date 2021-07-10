@@ -6,8 +6,8 @@ use ActiveRecord\Model;
 class Flight extends Model
 {
     static $validates_presence_of = array(
-        array('price')
-
+        array('price'),
+        array('discount')
     );
 
     static $has_many = array(

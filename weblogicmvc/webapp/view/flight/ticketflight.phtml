@@ -8,12 +8,9 @@ Layout::includeLayout('header') ?>
 <?php $tickets = Data::get('tickets') ?>
 <?php $id = Data::get('id') ?>
 
-
-
     <!-- container -->
     <div class="container">
         <?php if (!is_null($user_logado)) { ?>
-
             <ol class="breadcrumb">
                 <li><a href="../home/index">Home</a></li>
                 <li class="active">Ticket Index</li>
@@ -30,6 +27,7 @@ Layout::includeLayout('header') ?>
                         <th><h3>User ID</h3></th>
                         <th><h3>Passenger Name</h3></th>
                         <th><h3>Price</h3></th>
+                        <th><h3>Discount</h3></th>
                         <th><h3>Date</h3></th>
                         <th><h3>Check-In Departure</h3></th>
                         <th><h3>Check-In Return</h3></th>
@@ -46,14 +44,17 @@ Layout::includeLayout('header') ?>
                                         <td><?= $ticket->id_user ?></td>
                                         <td><?= $ticket->user->name ?></td>
                                         <td><?= $ticket->price ?></td>
+                                        <td><?= $ticket->discount_value ?></td>
                                         <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
                                         <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
                                         <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
                                         <td>
                                             <a href="<?= Url::toRoute('ticket/show', $ticket->id) ?>"
                                                class="btn btn-info btn-block" role="button">Show</a>
+                                            <?php if ($user_logado->role == 'op' || $user_logado->role == 'mark') {?>
                                             <a href="<?= Url::toRoute('ticket/edit', $ticket->id) ?>"
                                                class="btn btn-info btn-block" role="button">Edit</a>
+                                               <?php }?>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -69,6 +70,7 @@ Layout::includeLayout('header') ?>
                                             <td><?= $ticket->id_user ?></td>
                                             <td><?= $ticket->user->name ?></td>
                                             <td><?= $ticket->price ?></td>
+                                            <td><?= $ticket->discount_value ?></td>
                                             <td><?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?></td>
                                             <td><?php if ($ticket->check_in) echo('<i class="fa fa-check"></i>') ?></td>
                                             <td><?php if ($ticket->check_in_return) echo('<i class="fa fa-check"></i>') ?></td>
@@ -89,13 +91,11 @@ Layout::includeLayout('header') ?>
                 </div>
                 <div class="col-sm-6">
                     <p>
-<!--                        <a onclick="window.history.back()" href="../index" class="btn btn-info" role="button">Return</a>-->
-                        <button onclick="window.history.back()" class="btn btn-info" type="button">Return</button>
+                        <button onclick="window.history.back()" class="btn btn-info " type="button">Return</button>
                     </p>
                 </div>
             </div> <!-- /row -->
         <?php } ?>
 
     </div>    <!-- /container -->
-
 <?php Layout::includeLayout('footer') ?>

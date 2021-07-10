@@ -31,7 +31,7 @@ Layout::includeLayout('header') ?>
                                 <label class="control-label col-sm-2" for="name">Birthday Date:<span
                                             class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="date" required value="<?= $user->birthday_date ?>" class="form-control"
+                                    <input type="date" required value="<?= \Carbon\Carbon::parse($user->birthday_date)->format('Y-m-d') ?>" class="form-control"
                                            name="birthday_date" placeholder="Enter Birthday Date ">
                                     <?= ErrMgr::bind('birthday_date') ?>
                                 </div>
@@ -100,7 +100,7 @@ Layout::includeLayout('header') ?>
                             <hr>
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-default" type="submit">Save</button>
-                                <a href="../index" class="btn btn-default" role="button">Return</a>
+                                <button onclick="window.history.back()" class="btn btn-default " type="button">Return</button>
                             </div>
                     </div>
                     </form>

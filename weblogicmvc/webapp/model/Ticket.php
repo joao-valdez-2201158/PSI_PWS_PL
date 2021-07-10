@@ -10,7 +10,8 @@ class Ticket extends Model
         array('id_departure_flight'),
         array('price'),
         array('date'),
-        array('hour')
+        array('hour'),
+        array('discount_value')
 
     );
 

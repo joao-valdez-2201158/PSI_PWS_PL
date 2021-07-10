@@ -26,16 +26,22 @@ Layout::includeLayout('header') ?>
                             <hr>
                             <form method="post" action="<?= Url::toRoute('flight/store') ?>">
                                 <div class="top-margin">
-                                    <label>Ticket Price <span class="text-danger">*</span></label>
-                                    <input type="number" value="<?= $flight->price ?>" name="price" class="form-control"
-                                           placeholder="Enter Ticket Price">
+                                    <label>Price <span class="text-danger">*</span></label>
+                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"  value="<?= $flight->price ?>" name="price" class="form-control"
+                                           placeholder="Enter Price">
                                     <?= ErrMgr::bind('price') ?>
                                 </div>
+                                <div class="top-margin">
+                                    <label>Discount<span class="text-danger">*</span></label>
+                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01  value="<?= $flight->discount ?>" name="discount" class="form-control"
+                                           placeholder="Enter Discount">
+                                    <?= ErrMgr::bind('discount') ?>
+                                </div>
                                 <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Register</button>
+                                    <button class="btn btn-default" type="submit">Register</button>
                                 </div>
                                 <div class="col-lg-4 text-left">
-                                    <a button class="btn btn-action"
+                                    <a button class="btn btn-default"
                                        href="<?= Url::toRoute('flight/index') ?>">Return</a></button>
                                 </div>
                         </div>

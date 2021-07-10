@@ -186,12 +186,10 @@ class FlightController extends BaseController implements ResourceControllerInter
 
     public function ticketflight($id)
     {
-
         $tickets = Ticket::all();
         $ticket_departure = Ticket::find_by_id_departure_flight($id);
         $ticket_return = Ticket::find_by_id_return_flight($id);
-
-
+        
         $user_logado = null;
 
         if(Session::has('user'))
@@ -212,6 +210,55 @@ class FlightController extends BaseController implements ResourceControllerInter
         } else
         {
             return View::make('flight.ticketflight', ['user' => $user_logado, 'tickets' => $tickets, 'id' => $id]);
+        }
+
+    }
+
+
+    public function givediscount($id){
+
+        $flight = Flight::find_by_id_flight($id);
+
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error', $error);
+            Redirect::toRoute('home/usererror');
+        }
+        else
+        {
+            return View::make('flight.ticketdiscount',[ 'user' => $user_logado, 'flight' => $flight]);
+        }
+
+    }
+
+    public function savediscount($id){
+
+        $flight = Flight::find([$id]);
+        $flight->update_attributes(Post::getAll());
+
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }
+
+        if($flight->is_valid()){
+            $flight->save();
+            Redirect::toRoute('flight/index');
+        } else {
+            //obs: redirect to form with data and errors
+            Redirect::flashToRoute('flight/edit', ['flight' => $flight, 'user' => $user_logado]);
         }
 
     }

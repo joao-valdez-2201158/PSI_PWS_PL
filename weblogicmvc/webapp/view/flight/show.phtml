@@ -20,15 +20,19 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-                        <form method="post" action="<?= Url::toRoute('flight/index') ?>">
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
                                 <input readonly="true" type="number" value="<?= $flight->id_flight ?>" name="id_flight"
                                        class="form-control">
                             </div>
                             <div class="top-margin">
-                                <label>Ticket Price <span class="text-danger">*</span></label>
+                                <label>Price <span class="text-danger">*</span></label>
                                 <input readonly="true" type="number" value="<?= $flight->price ?>" name="price"
+                                       class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Discount <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $flight->discount ?>" name="discount"
                                        class="form-control">
                             </div>
                             <div class="row">
@@ -57,16 +61,15 @@ Layout::includeLayout('header') ?>
                             </div>
                             <hr>
                             <div class="col-lg-4 text-right">
-                                <button class="btn btn-action" type="submit">Return</button>
+                                <button onclick="window.history.back()" class="btn btn-default " type="button">Return</button>
                             </div>
                             <?php if ($user_logado->role == 'gest') { ?>
                             <div class="col-lg-4 text-left">
                                 <a href="<?= Url::toRoute('stopover/stopovercreate', $flight->id) ?>"
-                                   class="btn btn-action" role="button">Create Stopover</a>
+                                   class="btn btn-default" role="button">Create Stopover</a>
                             </div>
                             <?php } ?>
                     </div>
-                    </form>
                 </div>
             </div>
     </div>

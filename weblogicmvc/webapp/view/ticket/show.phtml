@@ -64,7 +64,7 @@ Layout::includeLayout('header') ?>
                                                 <?php } ?>
                                                 <?php if($ticket->return_flight != null) { ?>
                                                     <tr>
-                                                        <td colspan="4"><b>Arrival Flight(s)</b></td>
+                                                        <td colspan="4"><b>Return Flight(s)</b></td>
                                                     </tr>
                                                     <?php foreach ($ticket->return_flight->stopovers as $stopover) { ?>
                                                         <?= '<tr>' ?>
@@ -85,8 +85,13 @@ Layout::includeLayout('header') ?>
                                      class="form-control">
                                 </div>
                                 <div class="top-margin">
+                                    <label>Discount Value <span class="text-danger">*</span></label>
+                                    <input readonly="true" type="number" value="<?= $ticket->discount_value ?>" name="discount_value"
+                                           class="form-control">
+                                </div>
+                                <div class="top-margin">
                                     <label>Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="text" value="<?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?>"
+                                    <input readonly="true" type="text" value="<?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?> <?= $ticket->hour ?>"
                                      name="date" class="form-control">
                                 </div>
                                 <div class="top-margin">
@@ -156,7 +161,7 @@ Layout::includeLayout('header') ?>
                                     </div>
                                     <div class="top-margin">
                                         <label>Date <span class="text-danger">*</span></label>
-                                        <input readonly="true" type="datetime-local" value="<?= $ticket->date ?>"
+                                        <input readonly="true" type="text" value="<?= \Carbon\Carbon::parse($ticket->date)->format('Y-m-d') ?>"
                                          name="date" class="form-control">
                                     </div>
                                     <div class="top-margin">
@@ -174,8 +179,7 @@ Layout::includeLayout('header') ?>
                             <?php } ?>
 
                             <div class="col-lg-4 text-right">
-<!--                                <a class="btn btn-action" href="--><?//= Url::toRoute('ticket/index') ?><!--">Return</a>-->
-                                <button onclick="window.history.back()" class="btn btn-info" type="button">Return</button>
+                                <button onclick="window.history.back()" class="btn btn-default " type="button">Return</button>
                             </div>
                     </div>
                 </div>

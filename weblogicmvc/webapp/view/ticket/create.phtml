@@ -11,7 +11,7 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)) { ?>
-    <?php if ($user_logado->role == 'op') { ?>
+    <?php if ($user_logado->role == 'op' || $user_logado == 'mark') { ?>
         <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
@@ -45,9 +45,15 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Price <span class="text-danger">*</span></label>
-                                    <input type="number" value="<?= $ticket->price ?>" name="price" class="form-control"
+                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"  value="<?= $ticket->price ?>" name="price" class="form-control"
                                            placeholder="Enter Ticket Price">
                                     <?= ErrMgr::bind('price') ?>
+                                </div>
+                                <div class="top-margin">
+                                    <label>Hour <span class="text-danger">*</span></label>
+                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"  value="<?= $ticket->discount_value ?>" name="discount_value" class="form-control"
+                                           placeholder="Enter Discount Value">
+                                    <?= ErrMgr::bind('discount_value') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Date <span class="text-danger">*</span></label>
@@ -63,10 +69,10 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <hr>
                                 <div class="col-lg-4 text-right">
-                                    <button class="btn btn-action" type="submit">Register</button>
+                                    <button class="btn btn-default" type="submit">Register</button>
                                 </div>
                                 <div class="col-lg-4 text-left">
-                                    <a button class="btn btn-action"
+                                    <a button class="btn btn-default"
                                        href="<?= Url::toRoute('ticket/index') ?>">Return</a></button>
                                 </div>
                         </div>

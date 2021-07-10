@@ -8,13 +8,13 @@ use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\ErrMgr;
 
 Layout::includeLayout('usererrorheader');
-$error_message = Data::get('error_message');
+$error = Data::get('error');
 ?>
 
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-danger" role="alert">
-                <?php echo($error_message); ?>
+                <?php echo($error); ?>
             </div>
         </div>
 
@@ -24,7 +24,7 @@ $error_message = Data::get('error_message');
 
     <div class="col-sm-6">
         <p>
-            <a href="../home/start" class="btn btn-info" role="button">Return</a>
+            <button onclick="window.history.back()" class="btn btn-info " type="button">Return</button>
         </p>
     </div>
 

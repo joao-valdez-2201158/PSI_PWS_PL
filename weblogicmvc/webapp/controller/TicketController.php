@@ -120,11 +120,9 @@ class TicketController extends BaseController implements ResourceControllerInter
         }
         if (is_null($ticket))
         {
-            if(is_null($user_logado)){
-                $error = 'There is no ticket';
-                Session::set('error',$error);
-                Redirect::toRoute('home/error');
-            }
+            $error = 'There is no ticket';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
         } else
         {
             return View::make('ticket.edit', ['ticket' => $ticket, 'user' => $user_logado]);
@@ -145,7 +143,6 @@ class TicketController extends BaseController implements ResourceControllerInter
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
-
         }
 
         $points = 0;
@@ -187,25 +184,6 @@ class TicketController extends BaseController implements ResourceControllerInter
 
         }
 
-        public function ticketdiscount($id){
 
-        $ticket = Ticket::find_by_id_departure_flight($id);
-
-            $user_logado = null;
-
-            if(Session::has('user'))
-                $user_logado = Session::get('user');
-
-            if(is_null($user_logado))
-            {
-                $error = 'First Login';
-                Session::set('error',$error);
-                Redirect::toRoute('home/usererror');
-            }else{
-                return View::make('ticket.ticketdiscount', ['ticket' => $ticket, 'user' => $user_logado]);
-
-            }
-
-        }
 
 }

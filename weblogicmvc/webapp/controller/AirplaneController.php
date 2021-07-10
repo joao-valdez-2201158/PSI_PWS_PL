@@ -94,7 +94,6 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             $error = 'Invalid Airplane';
             Session::set('error',$error);
             Redirect::toRoute('home/error');
-
         }
         else
         {
@@ -117,7 +116,6 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
         }
-
         if (is_null($airplane))
         {
             $error = 'Invalid Airplane';

@@ -95,9 +95,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
         if(Session::has('user'))
         {
             //verificar se user tem tickets
-
             $tickets = Ticket::find_by_id_user($id);
-
             if ($tickets != null)
             {
                 $error = 'User has associated ticket(s), deletion is not allowed';

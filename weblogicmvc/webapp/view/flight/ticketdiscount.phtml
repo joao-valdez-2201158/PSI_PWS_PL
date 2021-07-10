@@ -5,37 +5,39 @@ use ArmoredCore\WebObjects\URL;
 use ArmoredCore\WebObjects\Session;
 
 Layout::includeLayout('header') ?>
+
+<?php $flight= Data::get('flight') ?>
 <?php $user_logado = Data::get('user') ?>
-<?php $flight = Data::get('flight') ?>
 <?php ErrMgr::attach($flight) ?>
-    <!-- container -->
+
     <div class="container">
 <?php if (!is_null($user_logado)) { ?>
-    <?php if ($user_logado->role == 'gest') { ?>
+    <?php if ($user_logado->role == 'mark') { ?>
         <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
                 <header class="page-header">
-                    <h1 class="page-title">Edit Flight</h1>
+                    <h1 class="page-title">Edit Airplane</h1>
                 </header>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
                         <form class="form-horizontal" method="post"
-                              action="<?= Url::toRoute('flight/update', $flight->id) ?>">
+                              action="<?= Url::toRoute('flight/savediscount', $flight->id) ?>">
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Price:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Price<span
+                                            class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01 required value="<?= $flight->price ?>" class="form-control"
+                                    <input type="text" required value="<?= $flight->price ?>" class="form-control"
                                            name="price" placeholder="Enter Price">
                                     <?= ErrMgr::bind('price') ?>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="name">Discount:<span class="text-danger">*</span></label>
+                                <label class="control-label col-sm-2" for="name">Discount<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number"onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01 required value="<?= $flight->discount ?>" class="form-control"
-                                           name="discount" placeholder="Enter Discount">
+                                    <input type="text" required value="<?= $flight->discount ?>"
+                                           class="form-control" name="discount" placeholder="Enter Discount">
                                     <?= ErrMgr::bind('discount') ?>
                                 </div>
                             </div>
@@ -54,4 +56,7 @@ Layout::includeLayout('header') ?>
     <?php } ?>
 <?php } ?>
     </div>    <!-- /container -->
+
+
+
 <?php Layout::includeLayout('footer') ?>

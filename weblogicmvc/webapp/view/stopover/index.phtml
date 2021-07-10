@@ -25,6 +25,8 @@ Layout::includeLayout('header') ?>
                             <th><h3>Departure</h3></th>
                             <th><h3>Destination</h3></th>
                             <th><h3>Airplane</h3></th>
+                            <th><h3>Price</h3></th>
+                            <th><h3>Discount</h3></th>
                             <th><h3>Departure Date</h3></th>
                             <th><h3>Arrival Date</h3></th>
                             <th><h3>Distance</h3></th>
@@ -37,6 +39,8 @@ Layout::includeLayout('header') ?>
                                     <td><?= $stopover->departure_airport->localization ?></td>
                                     <td><?= $stopover->arrival_airport->localization ?></td>
                                     <td><?= $stopover->airplane->reference ?></td>
+                                    <td><?= $stopover->discount ?></td>
+                                    <td><?= $stopover->price ?></td>
                                     <td><?= \Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d') ?> <?= $stopover->hour_of_departure ?></td>
                                     <td><?= \Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d') ?> <?= $stopover->hour_of_arrival ?></td>
                                     <td><?= $stopover->distance ?></td>
@@ -62,7 +66,7 @@ Layout::includeLayout('header') ?>
                     <div class="col-sm-6">
                         <p>
                             <a href="<?= Url::toRoute('stopover/create') ?>" class="btn btn-info" role="button">New</a>
-                            <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                            <button onclick="window.history.back()" class="btn btn-info " type="button">Return</button>
                         </p>
                     </div>
                 </div> <!-- /row -->

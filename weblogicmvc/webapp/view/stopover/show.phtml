@@ -20,7 +20,6 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-                        <form method="post" action="<?= Url::toRoute('stopover/index') ?>">
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
                                 <input readonly="true" type="number" value="<?= $stopover->id_stopover ?>"
@@ -42,24 +41,34 @@ Layout::includeLayout('header') ?>
                                        name="id_destination_airport" class="form-control">
                             </div>
                             <div class="top-margin">
+                                <label>Price <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $stopover->price ?>"
+                                       name="price" class="form-control">
+                            </div>
+                            <div class="top-margin">
+                                <label>Discount <span class="text-danger">*</span></label>
+                                <input readonly="true" type="number" value="<?= $stopover->discount ?>"
+                                       name="discount" class="form-control">
+                            </div>
+                            <div class="top-margin">
                                 <label>Departure Date <span class="text-danger">*</span></label>
-                                <input readonly="true" type="date" value="<?= $stopover->date_of_departure ?>"
+                                <input readonly="true" type="text" value="<?= \Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d') ?>"
                                        name="date_of_departure" class="form-control">
                             </div>
                             <div class="top-margin">
                                 <div class="top-margin">
                                     <label>Departure Hour <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="time" value="<?= $stopover->hour_of_departure ?>"
+                                    <input readonly="true" type="text" value="<?= $stopover->hour_of_departure ?>"
                                            name="hour_of_departure" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Arrival Date <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="date" value="<?= $stopover->date_of_arrival ?>"
+                                    <input readonly="true" type="text" value="<?= \Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d') ?>"
                                            name="date_of_arrival" class="form-control">
                                 </div>
                                 <div class="top-margin">
                                     <label>Arrival Hour <span class="text-danger">*</span></label>
-                                    <input readonly="true" type="time" value="<?= $stopover->hour_of_arrival ?>"
+                                    <input readonly="true" type="text" value="<?= $stopover->hour_of_arrival ?>"
                                            name="hour_of_arrival" class="form-control">
                                 </div>
                                 <div class="top-margin">
@@ -70,10 +79,9 @@ Layout::includeLayout('header') ?>
                             </div>
                             <hr>
                             <div class="col-lg-4 text-right">
-                                <button class="btn btn-action" type="submit">Return</button>
+                                <button onclick="window.history.back()" class="btn btn-default " type="button">Return</button>
                             </div>
                     </div>
-                    </form>
                 </div>
             </div>
 

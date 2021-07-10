@@ -24,8 +24,6 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-
-                        <form method="post" action="<?= Url::toRoute('airplane/index') ?>">
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
                                 <input readonly="true" type="number" value="<?= $airplane->id_airplane ?>"
@@ -46,17 +44,13 @@ Layout::includeLayout('header') ?>
                                 <input readonly="true" type="number" value="<?= $airplane->lotation ?>" name="lotation"
                                        class="form-control">
                             </div>
-
                             <hr>
-
                             <div class="col-lg-4 text-right">
-                                <button class="btn btn-action" type="submit">Return</button>
+                                <button onclick="window.history.back()" class="btn btn-default " type="button">Return</button>
                             </div>
                     </div>
-                    </form>
                 </div>
             </div>
-
     </div>
 
     </article>

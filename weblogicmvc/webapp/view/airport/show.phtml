@@ -21,7 +21,6 @@ Layout::includeLayout('header') ?>
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <hr>
-                        <form method="post" action="<?= Url::toRoute('airport/index') ?>">
                             <div class="top-margin">
                                 <label>ID <span class="text-danger">*</span></label>
                                 <input readonly="true" type="number" value="<?= $airport->id_airport ?>"
@@ -49,10 +48,9 @@ Layout::includeLayout('header') ?>
                             </div>
                             <hr>
                             <div class="col-lg-4 text-right">
-                                <button class="btn btn-action" type="submit">Return</button>
+                                <button onclick="window.history.back()" class="btn btn-default " type="button">Return</button>
                             </div>
                     </div>
-                    </form>
                 </div>
             </div>
 

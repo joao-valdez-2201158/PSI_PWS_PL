@@ -48,7 +48,7 @@ Layout::includeLayout('header') ?>
                 <div class="col-sm-6">
                     <p>
                         <a href="<?= Url::toRoute('airplane/create') ?>" class="btn btn-info" role="button">New</a>
-                        <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                        <button onclick="window.history.back()" class="btn btn-info " type="button">Return</button>
                     </p>
                 </div>
             </div> <!-- /row -->

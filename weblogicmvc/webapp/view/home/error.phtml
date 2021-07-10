@@ -8,7 +8,7 @@ use ArmoredCore\WebObjects\Session;
 use ArmoredCore\WebObjects\ErrMgr;
 
 Layout::includeLayout('header');
-$error_message = Data::get('error_message');
+$error = Data::get('error');
 $user_logado = Data::get('user');
 ?>
 
@@ -17,11 +17,12 @@ $user_logado = Data::get('user');
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-danger" role="alert">
-                <?php echo($error_message); ?>
+                <?php echo($error); ?>
             </div>
         </div>
 
     </div>
+
 
 
 <?php } ?>

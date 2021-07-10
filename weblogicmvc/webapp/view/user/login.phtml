@@ -34,23 +34,18 @@ Layout::includeLayout('loginheader') ?>
                                     <?= ErrMgr::bind('password') ?>
                                 </div>
                                 <hr>
-                                <div class="row">
-                                    <div class="col-lg-6 p-2 text-center">
-                                        <button class="btn btn-action" type="submit">Login</button>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <button class="btn btn-action" type="submit">Login</button>
+                                            <?php if (!is_null($user)) { ?>
+                                                <a href="<?= Url::toRoute('user/createuser') ?>" class="btn btn-action ">Register</a>
+                                            <?php } ?>
+                                            <button onclick="window.history.back()" class="btn btn-action " type="button">Return</button>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6 p-2 text-center">
-                                        <?php if (!is_null($user)) { ?>
-                                            <a href="<?= Url::toRoute('user/createuser') ?>" class="btn btn-action">Register</a>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="col-lg-15 text-center">
-                                    <br><b><br><a href="">Forgot password?</a><br></b>
-                                </div>
-                                <br>
                         </div>
-
+                        <div class="col-lg-6 p-2 text-center">
+                        </div>
                         </form>
                     </div>
                 </div>

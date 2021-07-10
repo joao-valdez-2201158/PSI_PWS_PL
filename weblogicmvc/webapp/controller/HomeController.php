@@ -152,11 +152,6 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price,flights.d
 
     public function buy()
     {
-        $qtt = Post::has('qtt') ? Post::get('qtt') : 1;
-        $id_flight = Post::has('id_flight') ? Post::get('id_flight') : null;
-        $id_flight_return = Post::has('id_flight_return') ? Post::get('id_flight_return') : null;
-
-
         $user_logado = null;
 
         if(Session::has('user'))
@@ -170,30 +165,57 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price,flights.d
         }
         else
         {
-            $user_logado = Session::get('user');
+            $qtt = Post::has('qtt') ? Post::get('qtt') : 1;
+            $id_flight = Post::has('id_flight') ? Post::get('id_flight') : null;
+            $id_flight_return = Post::has('id_flight_return') ? Post::get('id_flight_return') : null;
+
+            //$discount_departure = Post::has('discount_departure') ? Post::get('discount_departure') : null;
+            //$discount_return = Post::has('discount_return') ? Post::get('discount_return') : null;
+
+
             $flight = Flight::find_by_id_flight($id_flight);
             $flight_return = Flight::find_by_id_flight($id_flight_return);
             $price = $flight->price;
+
 
             if ($id_flight_return != null)
             {
                 $price += $flight_return->price;
             }
 
-            for ($i = 0; $i < $qtt; $i++)
-            {
+            for ($i = 0; $i < $qtt; $i++){
+
                 $ticket = new Ticket();
                 $ticket->id_user = $user_logado->id_user;
                 $ticket->id_departure_flight = $id_flight;
                 $ticket->id_return_flight = $id_flight_return;
                 //calcular descontos que estao no stopover e no fligth
-                $discount_value = 0;
-                $ticket->price = $price;
-                $ticket->discount_value = $discount_value;
+                $discount_value = 0.05;
+                $ticket->discount_value = $price * $discount_value;
+                $ticket->price = $price - $discount_value;
                 $ticket->date = date("Y-m-d");
                 $ticket->hour = date("h:i:s");
                 $ticket->save(false);
             }
+
+          //  $tickets = Ticket::all();
+
+            //foreach($tickets->departure_flight->stopovers as $stopover){
+              //  $value = 0;
+                //$value += 100 *  count($stopover);
+                //$ticket->discount_value += (0.05 * $value);
+                //$ticket->price -= $ticket->discount_value;
+                //$ticket->save(false);
+
+            //}
+
+           // foreach($tickets->return_flight->stopovers as $stopover){
+              //  $value = 0;
+              //  $value += 100 *  count($stopover);
+              //  $ticket->discount_value += (0.05 * $value);
+              //  $ticket->price -= $ticket->discount_value;
+              //  $ticket->save(false);
+         //   }
 
             $stopover = Stopover::find_by_id_flight($id_flight);
 
@@ -219,13 +241,13 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price,flights.d
 
         $error = Session::get('error');
 
-        return View::make('home.error',['error_message' => $error, 'user' => $user_logado]);
+        return View::make('home.error',['error' => $error, 'user' => $user_logado]);
     }
 
     public function usererror()
     {
         $error = Session::get('error');
 
-        return View::make('home.usererror',['error_message' => $error]);
+        return View::make('home.usererror',['error' => $error]);
     }
 }

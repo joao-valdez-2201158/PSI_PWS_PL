@@ -24,6 +24,7 @@ Layout::includeLayout('header') ?>
                             <thead>
                             <th><h3>ID</h3></th>
                             <th><h3>Price</h3></th>
+                            <th><h3>Discount</h3></th>
 
                             </thead>
 
@@ -34,6 +35,7 @@ Layout::includeLayout('header') ?>
                             <tr>
                                 <td><?= $flight->id_flight ?></td>
                                 <td><?= $flight->price ?></td>
+                                <td><?= $flight->discount ?></td>
 
                                 <td>
                                     <a href="<?= Url::toRoute('flight/show', $flight->id) ?>" class="btn btn-info"
@@ -44,7 +46,7 @@ Layout::includeLayout('header') ?>
                                            role="button">Show Tickets</a>
                                     <?php } ?>
                                     <?php if ($user_logado->role == 'mark') { ?>
-                                        <a href="<?= Url::toRoute('ticket/ticketdiscount', $flight->id) ?>"
+                                        <a href="<?= Url::toRoute('flight/givediscount', $flight->id) ?>"
                                            class="btn btn-info"
                                            role="button">Add Discount</a>
                                     <?php } ?>
@@ -73,7 +75,7 @@ Layout::includeLayout('header') ?>
                                 <a href="<?= Url::toRoute('flight/create') ?>" class="btn btn-info"
                                    role="button">New</a>
                             <?php } ?>
-                            <a href="../home/start" class="btn btn-info" role="button">Return</a>
+                            <button onclick="window.history.back()" class="btn btn-info " type="button">Return</button>
                         </p>
                     </div>
                 </div> <!-- /row -->
