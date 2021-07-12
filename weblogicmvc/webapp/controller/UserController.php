@@ -97,7 +97,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
         Session::set('error',$error);
         Redirect::toRoute('home/error');
     }else{
-        if($user_logado->id_user == $id){
+        if($user_logado->id_user == $id || $user_logado->role == 'admin'){
             return View::make('user.show', ['user' => $user, 'user_logado' => $user_logado]);
 
         }else {
