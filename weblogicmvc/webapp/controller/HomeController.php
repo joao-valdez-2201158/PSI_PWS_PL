@@ -38,19 +38,30 @@ class HomeController extends BaseController
                     (
                         select stopovers.id_flight
                         from stopovers 
-                         left join airports as departure on stopovers.id_departure_airport = departure.id_airport   
+                         left join airports as departure on stopovers.id_departure_airport = departure.id_airport  
+                         left join airplanes on stopovers.id_airplane  = airplanes.id_airplane
                         where departure.localization = '$flight'
                         and stopovers.date_of_departure >= '$date'
+                        and  (
+                            select ifnull( sum(passengers_quantity),0) from airplanesstopovers
+                            where id_stopover = stopovers.id_stopover
+                            
+                            ) < airplanes.lotation                        
                     ) 
                     
                     and id_flight in 
                     (
-                    
                         select stopovers.id_flight
                         from stopovers 
-                        left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport   
+                        left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport  
+                        left join airplanes on stopovers.id_airplane  = airplanes.id_airplane
                         where arrival.localization = '$destiny'
                         #and stopovers.arrival <= '$date_return'
+                        and  (
+                            select ifnull( sum(passengers_quantity),0) from airplanesstopovers
+                            where id_stopover = stopovers.id_stopover
+                            
+                            ) < airplanes.lotation 
                     )";
 
         $result = Flight::find_by_sql($query);
@@ -70,18 +81,29 @@ class HomeController extends BaseController
                         select stopovers.id_flight
                         from stopovers 
                          left join airports as departure on stopovers.id_departure_airport = departure.id_airport   
+                         left join airplanes on stopovers.id_airplane  = airplanes.id_airplane                                                
                         where departure.localization = '$destiny'
                         and stopovers.date_of_departure >= '$date'
+                          and  (
+                                select ifnull( sum(passengers_quantity),0) from airplanesstopovers
+                                where id_stopover = stopovers.id_stopover
+                                
+                                ) < airplanes.lotation 
                     ) 
                     
                     and id_flight in 
                     (
-                    
                         select stopovers.id_flight
                         from stopovers 
                         left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport   
+                        left join airplanes on stopovers.id_airplane  = airplanes.id_airplane
                         where arrival.localization = '$flight'
                         #and stopovers.arrival <= '$date_return'
+                          and  (
+                                select ifnull( sum(passengers_quantity),0) from airplanesstopovers
+                                where id_stopover = stopovers.id_stopover
+                                
+                                ) < airplanes.lotation                         
                     )";
             $result_return = Flight::find_by_sql($query_return);
         }
@@ -178,9 +200,6 @@ class HomeController extends BaseController
             $id_flight = Post::has('id_flight') ? Post::get('id_flight') : null;
             $id_flight_return = Post::has('id_flight_return') ? Post::get('id_flight_return') : null;
 
-            //$discount_departure = Post::has('discount_departure') ? Post::get('discount_departure') : null;
-            //$discount_return = Post::has('discount_return') ? Post::get('discount_return') : null;
-
 
             $flight = Flight::find_by_id_flight($id_flight);
             $flight_return = Flight::find_by_id_flight($id_flight_return);
@@ -216,8 +235,6 @@ class HomeController extends BaseController
                 $ticket->id_user = $user_logado->id_user;
                 $ticket->id_departure_flight = $id_flight;
                 $ticket->id_return_flight = $id_flight_return;
-                //calcular descontos que estao no stopover e no fligth
-
                 $ticket->discount_value = $discount_value;
                 $ticket->price = $price - $discount_value;
                 $ticket->date = date("Y-m-d");

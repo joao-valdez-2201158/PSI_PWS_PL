@@ -28,7 +28,7 @@ CREATE TABLE `airplanes` (
   `airplanetype` varchar(45) NOT NULL,
   `lotation` int(11) NOT NULL,
   PRIMARY KEY (`id_airplane`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,7 +58,7 @@ CREATE TABLE `airplanesstopovers` (
   KEY `id_stopover_fk_idx` (`id_stopover`),
   CONSTRAINT `id_airplanesstopovers_airplane_fk` FOREIGN KEY (`id_airplane`) REFERENCES `airplanes` (`id_airplane`),
   CONSTRAINT `id_airplanesstopovers_stopover_fk` FOREIGN KEY (`id_stopover`) REFERENCES `stopovers` (`id_stopover`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +67,7 @@ CREATE TABLE `airplanesstopovers` (
 
 LOCK TABLES `airplanesstopovers` WRITE;
 /*!40000 ALTER TABLE `airplanesstopovers` DISABLE KEYS */;
-INSERT INTO `airplanesstopovers` VALUES (38,25,29,1);
+INSERT INTO `airplanesstopovers` VALUES (38,25,29,1),(39,25,29,1),(40,25,29,3);
 /*!40000 ALTER TABLE `airplanesstopovers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +119,7 @@ CREATE TABLE `flights` (
 
 LOCK TABLES `flights` WRITE;
 /*!40000 ALTER TABLE `flights` DISABLE KEYS */;
-INSERT INTO `flights` VALUES (233346,2200,0),(233347,2600,0),(233348,500,10),(233349,1000,0),(233350,2000,0);
+INSERT INTO `flights` VALUES (233346,2200,0),(233347,2600,0),(233348,500,0),(233349,1000,0),(233350,2000,0);
 /*!40000 ALTER TABLE `flights` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,7 +190,7 @@ CREATE TABLE `tickets` (
   CONSTRAINT `fk_tickets_flights1` FOREIGN KEY (`id_departure_flight`) REFERENCES `flights` (`id_flight`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tickets_flights2` FOREIGN KEY (`id_return_flight`) REFERENCES `flights` (`id_flight`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `id_user_fk` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=517 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=521 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +199,7 @@ CREATE TABLE `tickets` (
 
 LOCK TABLES `tickets` WRITE;
 /*!40000 ALTER TABLE `tickets` DISABLE KEYS */;
-INSERT INTO `tickets` VALUES (516,16,2600,'2021-07-11','11:57:04',1,0,233347,NULL,0);
+INSERT INTO `tickets` VALUES (516,16,2600,'2021-07-11','11:57:04',1,0,233347,NULL,0),(517,36,2600,'2021-07-12','09:26:22',NULL,NULL,233347,NULL,0),(518,16,2600,'2021-07-12','09:45:54',NULL,NULL,233347,NULL,0),(519,16,2600,'2021-07-12','09:45:54',1,0,233347,NULL,0),(520,16,2600,'2021-07-12','09:45:54',NULL,NULL,233347,NULL,0);
 /*!40000 ALTER TABLE `tickets` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +224,7 @@ CREATE TABLE `users` (
   `points` int(11) DEFAULT '0',
   `userscol` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -233,7 +233,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (15,'Joao P. Valdez','1985-06-26',235497789,'jpvaldez26','68d60f78978061d508a4bfdc351b92f2','Hope Street',969419408,'jpvaldez26@gmail.com','admin',0,NULL),(16,'Check-In Operator','1988-01-20',545465122,'op','11d8c28a64490a987612f2332502467f','Happyness Street',961556457,'op@gmail.com','op',430,NULL),(35,'Marketing Director','1977-07-07',1243,'mark','ea82410c7a9991816b5eeeebe195e20a','3rd Street',963552221,'mark@flight.com','mark',174,NULL),(36,'user','2021-07-01',12312312,'user','ee11cbb19052e40b07aac0ca060c23ee','user',2134,'asd','user',123,NULL),(37,'Flight Manager','1985-02-22',233666444,'gest','6dc7ad42f970b8b3eb2f8641927d00cb','Godfree Street',965448877,'gest@flight.com','gest',194,NULL);
+INSERT INTO `users` VALUES (16,'JP. Check-In','1988-01-20',545465122,'op','11d8c28a64490a987612f2332502467f','Happyness Street',961556457,'op@gmail.com','op',492,NULL),(36,'user','2021-07-01',12312312,'user','ee11cbb19052e40b07aac0ca060c23ee','user',2134,'asd','user',123,NULL),(44,'Joao P. Valdez','1985-06-26',235497789,'jpvaldez26','68d60f78978061d508a4bfdc351b92f2','Hope Street',969419408,'jpvaldez26@gmail.com','admin',0,NULL),(46,'user','1982-07-09',455655214,'user','ee11cbb19052e40b07aac0ca060c23ee','address',919988787,'user@user.com','user',0,NULL),(47,'JP. Marketing','1985-02-06',235497789,'mark','ea82410c7a9991816b5eeeebe195e20a','Third Street',969419408,'mark@gmail.com','mark',0,NULL),(48,'JP. Gest','2021-06-03',235497789,'gest','6dc7ad42f970b8b3eb2f8641927d00cb','Love Street',969419408,'gest@gmail.com','gest',0,NULL),(49,'Ordinary User','1900-07-01',1236549987,'user','ee11cbb19052e40b07aac0ca060c23ee','Under the Bridge',963214569,'user@gmail.com','user',0,NULL),(50,'user2','2021-07-14',342342342,'user2','ee11cbb19052e40b07aac0ca060c23ee','dasd',12312,'as@gm.com','user',0,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -246,4 +246,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-07-12  1:17:24
+-- Dump completed on 2021-07-12 11:39:18
