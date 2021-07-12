@@ -17,12 +17,43 @@ class UserController extends BaseController implements ResourceControllerInterfa
             $user_logado = Session::get('user');
         }
 
-        return View::make('user.index', ['users' => $users, 'user'=> $user_logado]);
+        if(is_null($user_logado)){
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
+
+        }else{
+            if($user_logado->role == 'admin' || $user_logado->role == 'user'){
+                return View::make('user.index', ['users' => $users, 'user'=> $user_logado]);
+            }else{
+
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+
+        }
+
     }
 
     public function create()
-    {
-        return View::make('user.create');
+    { $user_logado = null;
+
+        if(Session::has('user')){
+            $user_logado = Session::get('user');
+        }
+
+        if(!is_null($user_logado)){
+
+            if($user_logado->role == 'admin'){
+                return View::make('user.create', ['user' => $user_logado]);
+
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
     }
 
     public function createuser()
@@ -59,10 +90,26 @@ class UserController extends BaseController implements ResourceControllerInterfa
         }
         $user = User::find([$id]);
 
-        if (is_null($user)) {
+    if(!is_null($user_logado)){
 
-        } else {
+    if (is_null($user)) {
+        $error = 'No user';
+        Session::set('error',$error);
+        Redirect::toRoute('home/error');
+    }else{
+        if($user_logado->id_user == $id){
             return View::make('user.show', ['user' => $user, 'user_logado' => $user_logado]);
+
+        }else {
+            $error = 'No premissions';
+            Session::set('error',$error);
+            Redirect::toRoute('home/error');
+        }
+    }
+    }else {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
         }
     }
 
@@ -71,9 +118,13 @@ class UserController extends BaseController implements ResourceControllerInterfa
         $user = User::find([$id]);
 
         if (is_null($user)) {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
         } else {
             return View::make('user.edit', ['user' => $user]);
-        }    }
+        }
+    }
 
     public function update($id)
     {
@@ -92,22 +143,43 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function destroy($id)
     {
-        if(Session::has('user'))
-        {
-            //verificar se user tem tickets
-            $tickets = Ticket::find_by_id_user($id);
-            if ($tickets != null)
+
+        $tickets = Ticket::find_by_id_user($id);
+
+        $user_logado = null;
+
+            if(Session::has('user'))
+                $user_logado = Session::get('user');
+
+            if(!is_null($user_logado))
             {
-                $error = 'User has associated ticket(s), deletion is not allowed';
-                Session::set('error_user',$error);
-                Redirect::toRoute('home/error');
-            } else {
-                $user = User::find([$id]);
-                $user->delete();
-                Redirect::toRoute('user/index');
+                if($user_logado->role == 'admin'){
+                    if ($tickets != null)
+                    {
+                        $error = 'User has associated ticket(s), deletion is not allowed';
+                        Session::set('error',$error);
+                        Redirect::toRoute('home/error');
+                    } else {
+                        $user = User::find([$id]);
+                        $user->delete();
+                        Redirect::toRoute('user/index');
+                    }
+
+                }else{
+                    $error = 'You have not premissions';
+                    Session::set('error',$error);
+                    Redirect::toRoute('home/error');
+                }
             }
+            else
+            {
+                $error = 'First Login';
+                Session::set('error',$error);
+                Redirect::toRoute('home/usererror');
+            }
+
         }
-    }
+
 
     public function login()
     {
@@ -118,29 +190,10 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
         if(!is_null($user_logado))
         {
-            $error = 'No need to login';
-            Session::set('error',$error);
-            Redirect::toRoute('home/usererror');
+            Redirect::toRoute('user/index');
         }else{
             return View::make('user.login');
 
-        }
-    }
-
-    public function userpoints()
-    {
-        $user_logado = null;
-
-        if(Session::has('user'))
-            $user_logado = Session::get('user');
-
-        if(is_null($user_logado))
-        {
-            $error = 'First Login';
-            Session::set('error',$error);
-            Redirect::toRoute('home/usererror');
-        }else{
-            return View::make('user.userpoints');
         }
     }
 
@@ -164,6 +217,7 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function logout()
     {
+
         Session::destroy();
         Redirect::toRoute('home/start');
     }

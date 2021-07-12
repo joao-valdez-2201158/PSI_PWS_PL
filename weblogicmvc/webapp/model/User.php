@@ -14,7 +14,9 @@ class User extends Model
         array('address'),
         array('birthday_date'),
         array('nif'),
-        array('role')
+        array('role'),
+        array('points'),
+
     );
 
     static $has_many = array(

@@ -84,6 +84,7 @@ class FlightController extends BaseController implements ResourceControllerInter
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
+
         if(is_null($user_logado))
 
         {
@@ -91,16 +92,19 @@ class FlightController extends BaseController implements ResourceControllerInter
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
         }
+        else{
+            if (is_null($flight)) {
 
-        if (is_null($flight)) {
+                $error = 'Invalid Flight';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
 
-            $error = 'Invalid Flight';
-            Session::set('error',$error);
-            Redirect::toRoute('home/error');
-
-        } else {
-            return View::make('flight.show', ['flight' => $flight, 'user' => $user_logado]);
+            } else {
+                return View::make('flight.show', ['flight' => $flight, 'user' => $user_logado]);
+            }
         }
+
+
     }
 
     public function edit($id)
@@ -117,7 +121,7 @@ class FlightController extends BaseController implements ResourceControllerInter
             if($user_logado->role == 'op' || $user_logado->role == 'gest'){
                 return View::make('flight.edit', ['flight' => $flight, 'user' => $user_logado]);
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -236,7 +240,7 @@ class FlightController extends BaseController implements ResourceControllerInter
                     return View::make('flight.ticketflight', ['user' => $user_logado, 'tickets' => $tickets, 'id' => $id]);
                 }
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -267,7 +271,7 @@ class FlightController extends BaseController implements ResourceControllerInter
             if($user_logado->role == 'mark'){
                 return View::make('flight.ticketdiscount',[ 'user' => $user_logado, 'flight' => $flight]);
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
