@@ -16,15 +16,21 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado))
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'op' || $user_logado->role == 'user' || $user_logado->role == 'gest'){
+                return View::make('ticket.index', ['tickets' => $tickets, 'user' => $user_logado]);
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
+        else
         {
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
-        }
-        else
-        {
-            return View::make('ticket.index', ['tickets' => $tickets, 'user' => $user_logado]);
         }
     }
 
@@ -35,12 +41,21 @@ class TicketController extends BaseController implements ResourceControllerInter
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado)){
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'op'){
+                return View::make('ticket.create', ['user' => $user_logado]);
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
+        else
+        {
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
-        }else{
-            return View::make('ticket.create', ['user' => $user_logado]);
         }
 
     }
@@ -71,7 +86,6 @@ class TicketController extends BaseController implements ResourceControllerInter
 
     public function show($id)
     {
-
         $ticket = Ticket::find([$id]);
         $stopovers = Stopover::all();
         $airports = Airport::all();
@@ -93,6 +107,11 @@ class TicketController extends BaseController implements ResourceControllerInter
                 $error = 'First Login';
                 Session::set('error',$error);
                 Redirect::toRoute('home/usererror');
+            }else{
+                $error = 'Ticket does not exists';
+                Session::set('error',$error);
+                Redirect::toRoute('home/usererror');
+
             }
         }
         else
@@ -101,7 +120,6 @@ class TicketController extends BaseController implements ResourceControllerInter
         }
 
     }
-
 
 
     public function edit($id)
@@ -113,26 +131,42 @@ class TicketController extends BaseController implements ResourceControllerInter
         if (Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado)){
+
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'op'){
+                return View::make('ticket.edit', ['ticket' => $ticket, 'user' => $user_logado]);
+            }else{
+                $error = 'You have no premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
+        else
+        {
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
         }
+
         if (is_null($ticket))
         {
-            $error = 'There is no ticket';
-            Session::set('error',$error);
-            Redirect::toRoute('home/error');
-        } else
-        {
-            return View::make('ticket.edit', ['ticket' => $ticket, 'user' => $user_logado]);
+            if(is_null($user_logado)){
+                $error = 'First Login';
+                Session::set('error',$error);
+                Redirect::toRoute('home/usererror');
+            }else{
+                $error = 'Ticket does not exists';
+                Session::set('error',$error);
+                Redirect::toRoute('home/usererror');
+
+            }
         }
+
     }
 
     public function update($id)
     {
-        $ticket = Ticket::find([$id]);
-        $ticket->update_attributes(Post::getAll());
 
         $user_logado = null;
 
@@ -145,7 +179,26 @@ class TicketController extends BaseController implements ResourceControllerInter
             Redirect::toRoute('home/usererror');
         }
 
-        $points = 0;
+        $ticket = Ticket::find([$id]);
+        $ticket->update_attributes(Post::getAll());
+
+        $pontos = 0;
+        if($ticket->check_in == true){
+
+            foreach ($ticket->departure_flight->stopovers as $stopover){
+                $pontos += $stopover->distance / 100;
+            }
+
+        }
+
+        if($ticket->check_in_return == true){
+            if($ticket->return_flight != null){
+                foreach ($ticket->return_flight->stopovers as $stopover){
+                    $pontos += $stopover->distance / 100;
+                }
+            }
+        }
+
         //se check in == true
         //calcular pontos do $user_logado
         //points = somatorio das distancias dos stopovers desse ticket
@@ -154,6 +207,8 @@ class TicketController extends BaseController implements ResourceControllerInter
 
         if($ticket->is_valid()){
             $ticket->save();
+            $ticket->user->points += $pontos;
+            $ticket->user->save();
             Redirect::toRoute('ticket/index');
         } else {
             //obs: redirect to form with data and errors
@@ -164,26 +219,31 @@ class TicketController extends BaseController implements ResourceControllerInter
 
     public function destroy($id)
 
-        {  $user_logado = null;
+        {
+            $user_logado = null;
 
             if(Session::has('user'))
                 $user_logado = Session::get('user');
 
-            if(is_null($user_logado))
+            if(!is_null($user_logado))
+            {
+                if($user_logado->role == 'op'){
+                    $ticket = Ticket::find([$id]);
+                    $ticket->delete();
+                    Redirect::toRoute('ticket/index');
+
+                }else{
+                    $error = 'You have not premissions';
+                    Session::set('error',$error);
+                    Redirect::toRoute('home/error');
+                }
+            }
+            else
             {
                 $error = 'First Login';
                 Session::set('error',$error);
                 Redirect::toRoute('home/usererror');
             }
-            else
-            {
-                $ticket = Ticket::find([$id]);
-                $ticket->delete();
-                Redirect::toRoute('ticket/index');
-            }
 
         }
-
-
-
 }

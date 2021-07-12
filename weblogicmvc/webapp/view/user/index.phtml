@@ -31,7 +31,13 @@ Layout::includeLayout('header') ?>
                 <th><h3>Address</h3></th>
                 <th><h3>Telephone</h3></th>
                 <th><h3>Email</h3></th>
+                <?php if ($user_logado->role != 'user'){ ?>
                 <th><h3>Role</h3></th>
+                <?php } ?>
+                <?php if ($user_logado->role == 'user'){ ?>
+                 <th><h3>Points</h3></th>
+                <?php } ?>
+
                 </thead>
 
                 <tbody>
@@ -75,7 +81,8 @@ Layout::includeLayout('header') ?>
                             <td><?= $user->address ?></td>
                             <td><?= $user->telephone ?></td>
                             <td><?= $user->email ?></td>
-                            <td><?= $user->role ?></td>
+                            <td><?= $user->points ?></td>
+
                             <td>
                                 <a href="<?= Url::toRoute('user/show', $user->id) ?>" class="btn btn-info btn-block"
                                    role="button">Show</a>

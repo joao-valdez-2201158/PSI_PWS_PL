@@ -18,7 +18,6 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)) { ?>
-    <?php if ($user_logado->role == 'gest') { ?>
         <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
@@ -30,10 +29,11 @@ Layout::includeLayout('header') ?>
                         <div class="panel-body">
                             <hr>
                             <form method="post" action="<?= Url::toRoute('stopover/store') ?>">
+                                    <?php if ($user_logado->role == 'gest' ) { ?>
                                 <div class="top-margin">
                                     <label>Flight<span class="text-danger">*</span></label>
                                     <input readonly="true" type="number" value="<?= $id ?>"
-                                           name="id_flight" class="form-control" placeholder=<?= $id ?>>
+                                     name="id_flight" class="form-control" placeholder=<?= $id ?>>
                                     <?= ErrMgr::bind('id_flight') ?>
                                 </div>
                                 <div class="top-margin">
@@ -85,6 +85,7 @@ Layout::includeLayout('header') ?>
                                            placeholder="Price">
                                     <?= ErrMgr::bind('price') ?>
                                 </div>
+                                 <?php if ($user_logado->role == 'mark' ) { ?>
                                 <div class="top-margin">
                                     <label>Discount <span class="text-danger">*</span></label>
                                     <input type="number" value="<?= $stopover->discount ?>"
@@ -92,6 +93,7 @@ Layout::includeLayout('header') ?>
                                            placeholder="Discount">
                                     <?= ErrMgr::bind('date_of_departure') ?>
                                 </div>
+                                <?php } ?>
                                 <div class="top-margin">
                                     <label>Departure Date <span class="text-danger">*</span></label>
                                     <input type="date" value="<?= $stopover->date_of_departure ?>"
@@ -124,6 +126,7 @@ Layout::includeLayout('header') ?>
                                            class="form-control" placeholder="Enter Distance">
                                     <?= ErrMgr::bind('distance') ?>
                                 </div>
+                                <?php } ?>
                                 <hr>
                                 <div class="col-lg-6 text-right">
                                     <button class="btn btn-default" type="submit">Register</button>
@@ -141,7 +144,6 @@ Layout::includeLayout('header') ?>
         </article>
         <!-- /Article -->
         </div>
-    <?php } ?>
 <?php } ?>
     </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

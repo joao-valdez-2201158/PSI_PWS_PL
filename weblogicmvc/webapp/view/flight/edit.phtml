@@ -11,7 +11,6 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)) { ?>
-    <?php if ($user_logado->role == 'gest') { ?>
         <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
@@ -23,22 +22,28 @@ Layout::includeLayout('header') ?>
                         <hr>
                         <form class="form-horizontal" method="post"
                               action="<?= Url::toRoute('flight/update', $flight->id) ?>">
+                                <?php if ($user_logado->role == 'gest') { ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Price:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01 required value="<?= $flight->price ?>" class="form-control"
+                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"
+                                    required value="<?= $flight->price ?>" class="form-control"
                                            name="price" placeholder="Enter Price">
                                     <?= ErrMgr::bind('price') ?>
                                 </div>
                             </div>
+                                <?php } ?>
+                              <?php if ($user_logado->role == 'mark') { ?>
                             <div class="form-group">
                                 <label class="control-label col-sm-2" for="name">Discount:<span class="text-danger">*</span></label>
                                 <div class="col-sm-6">
-                                    <input type="number"onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01 required value="<?= $flight->discount ?>" class="form-control"
-                                           name="discount" placeholder="Enter Discount">
+                                    <input type="number"  onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"
+                                    required value="<?= $flight->discount ?>" class="form-control"
+                                    name="discount" placeholder="Enter Discount">
                                     <?= ErrMgr::bind('discount') ?>
                                 </div>
                             </div>
+                              <?php } ?>
                             <hr>
                             <div class="col-lg-4 text-right">
                                 <button class="btn btn-default" type="submit">Save</button>
@@ -51,7 +56,6 @@ Layout::includeLayout('header') ?>
         </article>
         <!-- /Article -->
         </div>
-    <?php } ?>
 <?php } ?>
     </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

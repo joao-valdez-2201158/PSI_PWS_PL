@@ -6,10 +6,11 @@ use ArmoredCore\WebObjects\Session;
 Layout::includeLayout('header');
 
 $user_logado = Data::get('user');
-$id_flight = Data::get('id_flight');
+$flight = Data::get('flight');
 $id_ticket = Data::get('id_ticket');
-$id_flight_return = Data::get('id_flight_return');
+$flight_return = Data::get('flight_return');
 $price = Data::get('price');
+$discount_value = Data::get('discount_value');
 $qtt = Data::get('qtt');
 ?>
     <!-- container -->
@@ -21,25 +22,85 @@ $qtt = Data::get('qtt');
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">ID Ticket</th>
-                                <th scope="col">ID Voo de Ida</th>
-                                <th scope="col">ID Voo de Volta</th>
-                                <th scope="col">Quantidade</th>
-                                <th scope="col">Preço</th>
+                                <th scope="col">Ticket</th>
+                                <th scope="col">Departure Flight</th>
+                                <th scope="col">Return Flight</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Price with discount</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr>
                                 <th><?php echo $id_ticket ?></th>
-                                <th><?php echo $id_flight ?></th>
-                                <th><?php echo $id_flight_return ?></th>
+                                <th><?php echo $flight->id_flight ?></th>
+                                <th><?php echo $flight_return != null ? $flight_return->id_flight : 'Empty' ?></th>
                                 <th><?php echo $qtt ?></th>
-                                <th><?php echo $price ?></th>
+                                <th><?php echo $price ?> €</th>
+                                <th><?php echo $discount_value?> €</th>
+                                <th><?php echo $price - $discount_value?> €</th>
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Departure details</h3>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Departure</th>
+                                <th>Return</th>
+                                <th>Departure Date</th>
+                                <th>Return Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($flight->stopovers as $stopover) { ?>
+                                <?= '<tr>' ?>
+                                <?= '<td>'.$stopover->departure_airport->localization.'</td>' ?>
+                                <?= '<td>'.$stopover->arrival_airport->localization.'</td>' ?>
+                                <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d').' '.$stopover->hour_of_departure.'</td>' ?>
+                                <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d').' '.$stopover->hour_of_arrival.'</td>' ?>
+                                <?='</tr>' ?>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <?php if($flight_return != null) { ?>
+                    <div class="row">
+                    <div class="col-md-12">
+                        <h3>Arrival details</h3>
+                    </div>
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Departure</th>
+                                <th>Return</th>
+                                <th>Departure Date</th>
+                                <th>Return Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($flight_return->stopovers as $stopover) { ?>
+                                <?= '<tr>' ?>
+                                <?= '<td>'.$stopover->departure_airport->localization.'</td>' ?>
+                                <?= '<td>'.$stopover->arrival_airport->localization.'</td>' ?>
+                                <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_departure)->format('Y-m-d').' '.$stopover->hour_of_departure.'</td>' ?>
+                                <?= '<td>'.\Carbon\Carbon::parse($stopover->date_of_arrival)->format('Y-m-d').' '.$stopover->hour_of_arrival.'</td>' ?>
+                                <?='</tr>' ?>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <?php } ?>
             </div>
             <div class="col-md-4">
                 <button onclick="window.history.back()" class="btn btn-default " type="button">Return</button>

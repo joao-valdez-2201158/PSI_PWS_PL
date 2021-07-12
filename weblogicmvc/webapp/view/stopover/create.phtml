@@ -17,7 +17,6 @@ Layout::includeLayout('header') ?>
     <!-- container -->
     <div class="container">
 <?php if (!is_null($user_logado)) { ?>
-    <?php if ($user_logado->role == 'gest') { ?>
         <div class="row">
             <!-- Article main content -->
             <article class="col-xs-12 maincontent">
@@ -30,6 +29,7 @@ Layout::includeLayout('header') ?>
                         <div class="panel-body">
                             <hr>
                             <form method="post" action="<?= Url::toRoute('stopover/store') ?>">
+                                    <?php if ($user_logado->role == 'gest' || 'op') { ?>
                                 <div class="top-margin">
                                     <label>Flight ID <span class="text-danger">*</span></label>
                                     <select class="form-control" name="id_flight">
@@ -87,17 +87,11 @@ Layout::includeLayout('header') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Price <span class="text-danger">*</span></label>
-                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"  value="<?= $stopover->price ?>"
+                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"
+                                           value="<?= $stopover->price ?>"
                                            name="price" class="form-control"
                                            placeholder="price">
                                     <?= ErrMgr::bind('price') ?>
-                                </div>
-                                <div class="top-margin">
-                                    <label>Discount <span class="text-danger">*</span></label>
-                                    <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"  value="<?= $stopover->discount ?>"
-                                           name="discount" class="form-control"
-                                           placeholder="Enter Discount Value">
-                                    <?= ErrMgr::bind('discount') ?>
                                 </div>
                                 <div class="top-margin">
                                     <label>Departure Date <span class="text-danger">*</span></label>
@@ -131,6 +125,17 @@ Layout::includeLayout('header') ?>
                                            class="form-control" placeholder="Enter Distance">
                                     <?= ErrMgr::bind('distance') ?>
                                 </div>
+                                    <?php } ?>
+                                <?php if ($user_logado->role == 'mark') { ?>
+                                    <div class="top-margin">
+                                        <label>Discount <span class="text-danger">*</span></label>
+                                        <input type="number" onchange="setTwoNumberDecimal" min="0" max="100000" step="0.01"
+                                               value="<?= $stopover->discount ?>"
+                                               name="discount" class="form-control"
+                                               placeholder="Enter Discount Value">
+                                        <?= ErrMgr::bind('discount') ?>
+                                    </div>
+                                <?php } ?>
                                 <hr>
                                 <div class="col-lg-6 text-right">
                                     <button class="btn btn-default" type="submit">Register</button>
@@ -149,6 +154,5 @@ Layout::includeLayout('header') ?>
         <!-- /Article -->
         </div>
     <?php } ?>
-<?php } ?>
     </div>    <!-- /container -->
 <?php Layout::includeLayout('footer') ?>

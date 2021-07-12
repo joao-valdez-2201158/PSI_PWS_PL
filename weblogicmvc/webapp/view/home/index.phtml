@@ -44,7 +44,7 @@ ErrMgr::attach($flight);
 
                             foreach ($airports as $key => $airport)
                             {
-                                echo "<option>$airport->localization</option>";
+                                echo '<option '.($airport->localization == $flight ? ' selected ' : '').'>'.$airport->localization.'</option>';
                             }
                             ?>
                         </select>
@@ -55,7 +55,7 @@ ErrMgr::attach($flight);
                             <?php
                             foreach ($airports as $key => $airport)
                             {
-                                echo "<option>$airport->localization</option>";
+                                echo '<option '.($airport->localization == $destiny ? ' selected ' : '').'>'.$airport->localization.'</option>';
                             }
                             ?>
                         </select>
@@ -93,8 +93,10 @@ ErrMgr::attach($flight);
                         <th>Destination</th>
                         <th>Departure Date</th>
                         <th>Arrival Date</th>
+                        <th>Stopovers</th>
                         <th>Price</th>
                         <th>Discount</th>
+                        <th>Savings</th>
                         </thead>
                         <tbody>
                         <?php foreach ($result as $value) { ?>
@@ -104,12 +106,20 @@ ErrMgr::attach($flight);
                                 <td><a href="<?= Url::toRoute('home/flightdetail', $value->id_flight) ?>"
                                        class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
                                 <td><?= $value->id_flight ?></td>
-                                <td><?= $value->origin ?></td>
-                                <td><?= $value->destination ?></td>
-                                <td><?= $value->date_of_departure ?> <?= $value->hour_of_departure ?></td>
-                                <td><?= $value->date_of_arrival ?> <?= $value->hour_of_arrival ?></td>
-                                <td><?= $value->price ?> €</td>
-                                <td><?= $value->discount ?> %</td>
+                                <td><?= $value->stopovers[0]->departure_airport->name ?></td>
+                                <td><?= $value->stopovers[count($value->stopovers)-1]->arrival_airport->name ?></td>
+                                <td><?= \Carbon\Carbon::parse($value->stopovers[0]->date_of_departure)->format('Y-m-d') ?> <?= $value->stopovers[0]->hour_of_departure ?></td>
+                                <td><?= \Carbon\Carbon::parse($value->stopovers[count($value->stopovers)-1]->date_of_arrival)->format('Y-m-d') ?> <?= $value->stopovers[count($value->stopovers)-1]->hour_of_arrival ?></td>
+                                <td><?= $value->stopover_number ?></td>
+                                <?php if($value->discount > 0) { ?>
+                                    <td class="text-danger"> <?= $value->price - ($value->price * ($value->discount / 100)) ?> €</td>
+                                    <td class="text-danger"><?= $value->discount ?> %</td>
+                                    <td class="text-danger"><?= ($value->price * ($value->discount / 100)) ?> €</td>
+                                <?php } else { ?>
+                                    <td> <?= $value->price - ($value->price * ($value->discount / 100)) ?> €</td>
+                                    <td><?= $value->discount ?> %</td>
+                                    <td> </td>
+                                <?php } ?>
                             </tr>
                         <?php } ?>
                         </tbody>
@@ -130,8 +140,10 @@ ErrMgr::attach($flight);
                         <th>Destination</th>
                         <th>Departure Date</th>
                         <th>Arrival Date</th>
+                        <th>Stopovers</th>
                         <th>Price</th>
                         <th>Discount</th>
+                        <th>Savings</th>
                         </thead>
                         <tbody>
                         <?php foreach ($result_return as $value) { ?>
@@ -141,12 +153,20 @@ ErrMgr::attach($flight);
                                 <td><a href="<?php echo 'flightdetail/?idF=' . $value->id_flight ?> "
                                        class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
                                 <td><?= $value->id_flight ?></td>
-                                <td><?= $value->origin ?></td>
-                                <td><?= $value->destination ?></td>
-                                <td><?= $value->date_of_departure ?> <?= $value->hour_of_departure ?></td>
-                                <td><?= $value->date_of_arrival ?> <?= $value->hour_of_arrival ?></td>
-                                <td><?= $value->price ?> €</td>
-                                <td><?= $value->discount ?> %</td>
+                                <td><?= $value->stopovers[0]->departure_airport->name ?></td>
+                                <td><?= $value->stopovers[count($value->stopovers)-1]->arrival_airport->name ?></td>
+                                <td><?= \Carbon\Carbon::parse($value->stopovers[0]->date_of_departure)->format('Y-m-d') ?> <?= $value->stopovers[0]->hour_of_departure ?></td>
+                                <td><?= \Carbon\Carbon::parse($value->stopovers[count($value->stopovers)-1]->date_of_arrival)->format('Y-m-d') ?> <?= $value->stopovers[count($value->stopovers)-1]->hour_of_arrival ?></td>
+                                <td><?= $value->stopover_number ?></td>
+                                <?php if($value->discount > 0) { ?>
+                                    <td class="text-danger"> <?= $value->price - ($value->price * ($value->discount / 100)) ?> €</td>
+                                    <td class="text-danger"><?= $value->discount ?> %</td>
+                                    <td class="text-danger"><?= ($value->price * ($value->discount / 100)) ?> €</td>
+                                <?php } else { ?>
+                                    <td> <?= $value->price - ($value->price * ($value->discount / 100)) ?> €</td>
+                                    <td><?= $value->discount ?> %</td>
+                                    <td> </td>
+                                <?php } ?>
                             </tr>
                         <?php } ?>
                         </tbody>

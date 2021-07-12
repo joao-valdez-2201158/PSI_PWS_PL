@@ -18,22 +18,33 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado)){
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'gest' ||$user_logado->role == 'mark' ){
+                if (is_null($stopovers))
+                {
+                    $error = 'No stopovers';
+                    Session::set('error',$error);
+                    Redirect::toRoute('home/error');
+
+                } else{
+                    return View::make('stopover.index', ['stopovers' => $stopovers, 'user' => $user_logado ]);
+                }
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
+        else
+        {
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
-
         }
-        if (is_null($stopovers))
-        {
-            $error = 'First no stopovers';
-            Session::set('error',$error);
-            Redirect::toRoute('home/error');
 
-        } else
-        {
-            return View::make('stopover.index', ['stopovers' => $stopovers, 'user' => $user_logado ]);
-        }
+
+
     }
 
     public function create()
@@ -47,14 +58,21 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado)){
-            $error = 'First Login';
-            Session::set('error',$error);
-            Redirect::toRoute('home/usererror');
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'gest'){
+                return View::make('stopover.create',  ['user' => $user_logado, 'airports' => $airports, 'flights' => $flights, 'airplanes' => $airplanes]);
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
         }
         else
         {
-            return View::make('stopover.create',  ['user' => $user_logado, 'airports' => $airports, 'flights' => $flights, 'airplanes' => $airplanes]);
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
         }
 
     }
@@ -69,14 +87,24 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if (Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado)){
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'gest'){
+                return View::make('stopover.stopovercreate', ['user' => $user_logado, 'airports' => $airports, 'flights' => $flights, 'airplanes' => $airplanes, 'id' => $id]);
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
+        else
+        {
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
-        }else
-        {
-            return View::make('stopover.stopovercreate', ['user' => $user_logado, 'airports' => $airports, 'flights' => $flights, 'airplanes' => $airplanes, 'id' => $id]);
         }
+
+
     }
 
     public function store()
@@ -94,9 +122,17 @@ class StopoverController extends BaseController implements ResourceControllerInt
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
         }
-
         if($stopover->is_valid()){
             $stopover->save();
+
+            //actualizar preço do fligth
+            $price = 0;
+            $flight = Flight::find([$stopover->id_flight]);
+            foreach($flight->stopovers as $stopover){
+                $price += $stopover->price;
+            }
+            $flight->price = $price;
+            $flight->save();
 
             Redirect::toRoute('stopover/index');
         } else {
@@ -112,20 +148,30 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado))
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'gest' |$user_logado->role == 'mark'  ){
+                if (is_null($stopover))
+                {
+                    $error = 'No stopovers';
+                    Session::set('error',$error);
+                    Redirect::toRoute('home/error');
+                } else{
+                return View::make('stopover.show', ['stopover' => $stopover, 'user' => $user_logado]);
+                }
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
+        else
         {
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
         }
 
-        if (is_null($stopover)) {
-            $error = 'There is no stopover';
-            Session::set('error',$error);
-            Redirect::toRoute('home/error');
-        } else {
-            return View::make('stopover.show', ['stopover' => $stopover, 'user' => $user_logado]);
-        }
     }
 
     public function edit($id)
@@ -137,21 +183,28 @@ class StopoverController extends BaseController implements ResourceControllerInt
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado))
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'gest' || $user_logado->role == 'mark'){
+                if (is_null($stopover))
+                {
+                    $error = 'No stopovers';
+                    Session::set('error',$error);
+                    Redirect::toRoute('home/error');
+                }else{
+                    return View::make('stopover.edit', ['stopover' => $stopover, 'user' => $user_logado ]);
+                }
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
+        else
         {
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
-        }
-
-        if (is_null($stopover)) {
-            $error = 'There is no stopover';
-            Session::set('error',$error);
-            Redirect::toRoute('home/error');
-        }
-        else
-        {
-            return View::make('stopover.edit', ['stopover' => $stopover, 'user' => $user_logado ]);
         }
 
     }
@@ -175,6 +228,14 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
         if($stopover->is_valid()){
             $stopover->save();
+            //actualizar preço do fligth
+            $price = 0;
+            $flight = Flight::find([$stopover->id_flight]);
+            foreach($flight->stopovers as $stopover){
+                $price += $stopover->price;
+            }
+            $flight->price = $price;
+            $flight->save();
             Redirect::toRoute('stopover/index');
         } else {
             //redirect to form with data and errors
@@ -184,30 +245,42 @@ class StopoverController extends BaseController implements ResourceControllerInt
 
     public function destroy($id)
     {
-        $airports = Airport::find_by_id_airport($id);
-        $airplanestopovers = AirplaneStopover::find_by_id_stopover($id);
-        $flights = Flight::find_by_id_flight($id);
+        $airport = Airport::find_by_id_airport($id);
+        $airplanestopover = AirplaneStopover::find_by_id_stopover($id);
+        $flight = Flight::find_by_id_flight($id);
 
         $user_logado = null;
 
         if(Session::has('user'))
             $user_logado = Session::get('user');
 
-        if(is_null($user_logado))
+
+        if(!is_null($user_logado))
+        {
+            if($user_logado->role == 'gest'){
+
+                if ($airport != null || $airplanestopover != null || $flight != null)
+                {
+                    $error = 'User has airport(s)/stopover(s)/flight(s) associated, deletion is not allowed, first delete the other items';
+                    Session::set('error_user',$error);
+                    Redirect::toRoute('home/error');
+                }else{
+                    $stopover = Stopover::find([$id]);
+                    $stopover->delete();
+                    Redirect::toRoute('stopover/index');
+                }
+
+            }else{
+                $error = 'You have not premissions';
+                Session::set('error',$error);
+                Redirect::toRoute('home/error');
+            }
+        }
+        else
         {
             $error = 'First Login';
             Session::set('error',$error);
             Redirect::toRoute('home/usererror');
-        }
-        if ($airports != null || $airplanestopovers != null || $flights != null)
-        {
-            $error = 'User has airport(s)/stopover(s)/flight(s) associated, deletion is not allowed, first delete the other items';
-            Session::set('error_user',$error);
-            Redirect::toRoute('home/error');
-        } else {
-            $stopover = Stopover::find([$id]);
-            $stopover->delete();
-            Redirect::toRoute('stopover/index');
         }
 
     }

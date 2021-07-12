@@ -17,7 +17,7 @@ $flight = Data::get('flight');
         <div class="container">
             <div class="row">
                 <div class="col-md-12 label-info">
-                    <p><b>Flight Price</b> <?= $flight->price ?> €</p>
+                    <p><b>Flight Price</b> <?= $flight->price - ($flight->price * ($flight->discount / 100)) ?> €</p>
                 </div>
             </div>
             <div class="row">

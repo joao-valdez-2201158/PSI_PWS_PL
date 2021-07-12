@@ -22,7 +22,7 @@ class Stopover extends Model
         array('flight', 'class_name' => 'Flight', 'foreign_key' => 'id_flight'),
         array('departure_airport', 'class_name' => 'Airport', 'foreign_key' => 'id_departure_airport'),
         array('arrival_airport', 'class_name' => 'Airport', 'foreign_key' => 'id_destination_airport'),
-        array('airplane', 'class_name' => 'Airplane', 'foreign_key' => 'id_airplane'),
+        array('airplane', 'class_name' => 'Airplane', 'foreign_key' => 'id_airplane')
     );
 
 

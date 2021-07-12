@@ -37,7 +37,7 @@ Layout::includeLayout('loginheader') ?>
                                     <div class="row">
                                         <div class="col text-center">
                                             <button class="btn btn-action" type="submit">Login</button>
-                                            <?php if (!is_null($user)) { ?>
+                                            <?php if (!is_null($user) || $user->role != 'op' || $user->role != gest) { ?>
                                                 <a href="<?= Url::toRoute('user/createuser') ?>" class="btn btn-action ">Register</a>
                                             <?php } ?>
                                             <button onclick="window.history.back()" class="btn btn-action " type="button">Return</button>

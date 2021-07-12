@@ -28,52 +28,61 @@ class HomeController extends BaseController
         $date = Post::has('date') ?  Post::get('date') : '';
         $date_return = Post::has('date_return') ?  Post::get('date_return') : '';
        
-$query = 'select flights.id_flight, airplanes.reference, flights.price,flights.discount, stopovers.distance, 
-                departure.name as origin, arrival.name as destination,
-                departure.localization as origin_localization, arrival.localization as destination_localization,
-                stopovers.date_of_departure, stopovers.date_of_arrival,
-                    stopovers.hour_of_departure, stopovers.hour_of_arrival
-                from flights 
-                left join stopovers on flights.id_flight = stopovers.id_flight
-                left join airplanes on stopovers.id_airplane = airplanes.id_airplane
-                left join airports as departure on stopovers.id_departure_airport = departure.id_airport
-                left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport                
-				where departure.localization like "%'.$flight.'%"
-                and stopovers.date_of_departure >= "'.$date.'"
-                and stopovers.date_of_departure <= "'.$date_return.'"
-
-                and  (
+        $query = "select flights.*,
+                       (
+                            select count(*) from stopovers where stopovers.id_flight = flights.id_flight
+                        ) as stopover_number
+                    from flights
+                    where 
+                    id_flight in 
+                    (
+                        select stopovers.id_flight
+                        from stopovers 
+                         left join airports as departure on stopovers.id_departure_airport = departure.id_airport   
+                        where departure.localization = '$flight'
+                        and stopovers.date_of_departure >= '$date'
+                    ) 
                     
-                    select ifnull( sum(passengers_quantity),0) from airplanesstopovers
-                    where id_stopover = stopovers.id_stopover
+                    and id_flight in 
+                    (
                     
-                    ) < airplanes.lotation';
+                        select stopovers.id_flight
+                        from stopovers 
+                        left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport   
+                        where arrival.localization = '$destiny'
+                        #and stopovers.arrival <= '$date_return'
+                    )";
 
         $result = Flight::find_by_sql($query);
+
 
         $result_return = array();
         //Return Flights
         if ($date_return != ''){
-            $query_return = 'select flights.id_flight, airplanes.reference, flights.price,flights.discount, stopovers.distance, 
-                            departure.name as origin, arrival.name as destination,
-                            departure.localization as origin_localization, arrival.localization as destination_localization,
-                            stopovers.date_of_departure, stopovers.date_of_arrival,
-                            stopovers.hour_of_departure, stopovers.hour_of_arrival
-                            from flights 
-                            left join stopovers on flights.id_flight = stopovers.id_flight
-                            left join airplanes on stopovers.id_airplane = airplanes.id_airplane                                
-                            left join airports as departure on stopovers.id_departure_airport = departure.id_airport
-                            left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport                
-                            where arrival.localization like "%'.$destiny.'%"
-                            and stopovers.date_of_departure >= "'.$date.'"
-                            and stopovers.date_of_departure <= "'.$date_return.'"
-
-                            and  (
+            $query_return = "select flights.*,
+                       (
+                            select count(*) from stopovers where stopovers.id_flight = flights.id_flight
+                        ) as stopover_number
+                    from flights
+                    where 
+                    id_flight in 
+                    (
+                        select stopovers.id_flight
+                        from stopovers 
+                         left join airports as departure on stopovers.id_departure_airport = departure.id_airport   
+                        where departure.localization = '$destiny'
+                        and stopovers.date_of_departure >= '$date'
+                    ) 
                     
-                            select ifnull( sum(passengers_quantity),0) from airplanesstopovers
-                            where id_stopover = stopovers.id_stopover
-                            
-                            ) < airplanes.lotation';
+                    and id_flight in 
+                    (
+                    
+                        select stopovers.id_flight
+                        from stopovers 
+                        left join airports as arrival on stopovers.id_destination_airport = arrival.id_airport   
+                        where arrival.localization = '$flight'
+                        #and stopovers.arrival <= '$date_return'
+                    )";
             $result_return = Flight::find_by_sql($query_return);
         }
         if(is_null($user_logado))
@@ -176,11 +185,29 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price,flights.d
             $flight = Flight::find_by_id_flight($id_flight);
             $flight_return = Flight::find_by_id_flight($id_flight_return);
             $price = $flight->price;
+            $discount_value = 0;
+
+
+            //aplicar descontos de stopover
+            foreach($flight->stopovers as $stopover){
+                $discount_value += ($stopover->price * ($stopover->discount / 100));
+
+            }
+
+            if ($id_flight_return != null){
+                foreach($flight_return->stopovers as $stopover){
+                    $discount_value += ($stopover->price * ($stopover->discount / 100));
+                }
+            }
+
+            //aplicar desconto do fligth
+            $discount_value += ($price * ($flight->discount / 100));
 
 
             if ($id_flight_return != null)
             {
                 $price += $flight_return->price;
+                $discount_value += ($price * ($flight_return->discount / 100));
             }
 
             for ($i = 0; $i < $qtt; $i++){
@@ -190,32 +217,13 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price,flights.d
                 $ticket->id_departure_flight = $id_flight;
                 $ticket->id_return_flight = $id_flight_return;
                 //calcular descontos que estao no stopover e no fligth
-                $discount_value = 0.05;
-                $ticket->discount_value = $price * $discount_value;
+
+                $ticket->discount_value = $discount_value;
                 $ticket->price = $price - $discount_value;
                 $ticket->date = date("Y-m-d");
                 $ticket->hour = date("h:i:s");
                 $ticket->save(false);
             }
-
-          //  $tickets = Ticket::all();
-
-            //foreach($tickets->departure_flight->stopovers as $stopover){
-              //  $value = 0;
-                //$value += 100 *  count($stopover);
-                //$ticket->discount_value += (0.05 * $value);
-                //$ticket->price -= $ticket->discount_value;
-                //$ticket->save(false);
-
-            //}
-
-           // foreach($tickets->return_flight->stopovers as $stopover){
-              //  $value = 0;
-              //  $value += 100 *  count($stopover);
-              //  $ticket->discount_value += (0.05 * $value);
-              //  $ticket->price -= $ticket->discount_value;
-              //  $ticket->save(false);
-         //   }
 
             $stopover = Stopover::find_by_id_flight($id_flight);
 
@@ -226,8 +234,8 @@ $query = 'select flights.id_flight, airplanes.reference, flights.price,flights.d
             $airplanestop->save();
 
 
-                return View::make('home/buy', ['user' => $user_logado, 'id_flight' => $id_flight, 'id_flight_return' => $id_flight_return,
-                    'qtt' => $qtt, 'price' => $price, 'id_ticket' => $ticket->id_ticket]);
+                return View::make('home/buy', ['user' => $user_logado, 'flight' => $flight, 'flight_return' => $flight_return,
+                    'qtt' => $qtt, 'price' => $price,'discount_value' => $discount_value, 'id_ticket' => $ticket->id_ticket]);
 
             }
     }

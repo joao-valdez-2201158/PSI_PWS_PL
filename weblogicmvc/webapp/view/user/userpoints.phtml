@@ -1,0 +1,61 @@
+<?php use ArmoredCore\WebObjects\Data;
+use ArmoredCore\WebObjects\Layout;
+use ArmoredCore\WebObjects\URL;
+use ArmoredCore\WebObjects\Session;
+
+Layout::includeLayout('header') ?>
+
+<?php $user_logado = Data::get('user') ?>
+<?php $users = Data::get('users') ?>
+
+<?php if (!is_null($user_logado)){ ?>
+    <!-- container -->
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="../home/index">Home</a></li>
+            <li class="active">User Points</li>
+        </ol>
+        <h2 class="text-left top-space">User Points</h2>
+        <h2 class="top-space"></h2>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-striped">
+                    <thead>
+                    <?php if ($user_logado->role == 'user'){ ?>
+                        <th><h3>ID</h3></th>
+                    <?php } ?>
+                    <th><h3>Name</h3></th>
+                    <th><h3>Points</h3></th>
+                    </thead>
+
+                    <tbody>
+                    <?php if ($user_logado->role == 'user'){ ?>
+                        <?php foreach ($users as $user) { ?>
+                            <?php if ($user_logado->id_user == $user->id_user){ ?>
+                                <tr>
+                                    <td><?= $user->name ?></td>
+                                    <td>' ' </td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                    </tbody>
+                </table>
+                <div class="col-sm-6">
+                    <p>
+                        <button onclick="window.history.back()" class="btn btn-info " type="button">Return</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+<?php Layout::includeLayout('footer') ?>
+
+
+
+
+
+
+
+

@@ -25,7 +25,6 @@ Layout::includeLayout('header') ?>
                             <th><h3>ID</h3></th>
                             <th><h3>Price</h3></th>
                             <th><h3>Discount</h3></th>
-
                             </thead>
 
                             <tbody>
@@ -36,7 +35,6 @@ Layout::includeLayout('header') ?>
                                 <td><?= $flight->id_flight ?></td>
                                 <td><?= $flight->price ?></td>
                                 <td><?= $flight->discount ?></td>
-
                                 <td>
                                     <a href="<?= Url::toRoute('flight/show', $flight->id) ?>" class="btn btn-info"
                                        role="button">Show</a>
@@ -48,7 +46,7 @@ Layout::includeLayout('header') ?>
                                     <?php if ($user_logado->role == 'mark') { ?>
                                         <a href="<?= Url::toRoute('flight/givediscount', $flight->id) ?>"
                                            class="btn btn-info"
-                                           role="button">Add Discount</a>
+                                           role="button">Discount</a>
                                     <?php } ?>
                                     <?php if ($user_logado->role == 'gest') { ?>
                                         <a href="<?= Url::toRoute('flight/edit', $flight->id) ?>"

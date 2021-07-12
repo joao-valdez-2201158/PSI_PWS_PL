@@ -111,7 +111,37 @@ class UserController extends BaseController implements ResourceControllerInterfa
 
     public function login()
     {
-        return View::make('user.login');
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if(!is_null($user_logado))
+        {
+            $error = 'No need to login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }else{
+            return View::make('user.login');
+
+        }
+    }
+
+    public function userpoints()
+    {
+        $user_logado = null;
+
+        if(Session::has('user'))
+            $user_logado = Session::get('user');
+
+        if(is_null($user_logado))
+        {
+            $error = 'First Login';
+            Session::set('error',$error);
+            Redirect::toRoute('home/usererror');
+        }else{
+            return View::make('user.userpoints');
+        }
     }
 
     public function makelogin()
