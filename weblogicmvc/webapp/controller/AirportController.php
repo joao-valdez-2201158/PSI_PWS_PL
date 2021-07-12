@@ -50,7 +50,7 @@ class AirportController extends BaseController implements ResourceControllerInte
             if($user_logado->role == 'admin'){
             return View::make('airport.create', ['user' => $user_logado]);
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -87,7 +87,7 @@ class AirportController extends BaseController implements ResourceControllerInte
                 }
 
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -227,7 +227,7 @@ class AirportController extends BaseController implements ResourceControllerInte
                 $airport->delete();
                 Redirect::toRoute('airport/index');
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }

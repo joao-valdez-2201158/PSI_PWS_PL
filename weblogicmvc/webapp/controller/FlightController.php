@@ -162,7 +162,7 @@ class FlightController extends BaseController implements ResourceControllerInter
                     Redirect::flashToRoute('flight/edit', ['flight' => $flight, 'user' => $user_logado]);
                 }
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -192,7 +192,7 @@ class FlightController extends BaseController implements ResourceControllerInter
                 if ($stopovers != null || $airplanes != null)
                 {
                     $error = 'User has airplane(s)/stopover(s) associated, deletion is not allowed, first delete stopovers';
-                    Session::set('error_user',$error);
+                    Session::set('error',$error);
                     Redirect::toRoute('home/error');
                 } else {
                     $flight = Flight::find([$id]);
@@ -200,7 +200,7 @@ class FlightController extends BaseController implements ResourceControllerInter
                     Redirect::toRoute('flight/index');
                 }
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }

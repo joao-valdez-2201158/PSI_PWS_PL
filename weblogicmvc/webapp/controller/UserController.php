@@ -20,14 +20,14 @@ class UserController extends BaseController implements ResourceControllerInterfa
         if(is_null($user_logado)){
             $error = 'First Login';
             Session::set('error',$error);
-            Redirect::toRoute('home/error');
+            Redirect::toRoute('home/usererror');
 
         }else{
             if($user_logado->role == 'admin' || $user_logado->role == 'user'){
                 return View::make('user.index', ['users' => $users, 'user'=> $user_logado]);
             }else{
 
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }

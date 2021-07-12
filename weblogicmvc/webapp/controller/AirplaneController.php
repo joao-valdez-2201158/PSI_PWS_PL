@@ -48,7 +48,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
             if($user_logado->role == 'gest'){
                 return View::make('airplane.create', ['user' => $user_logado]);
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -84,7 +84,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
                     Redirect::flashToRoute('airplane/create', ['airplane' => $airplane, 'user' => $user_logado]);
                 }
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -159,7 +159,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
                     return View::make('airplane.edit', ['airplane' => $airplane, 'user' => $user_logado]);
                 }
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -194,7 +194,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
                     Redirect::flashToRoute('airplane/edit', ['airplane' => $airplane, 'user' => $user_logado]);
                 }
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -223,7 +223,7 @@ class AirplaneController extends BaseController implements ResourceControllerInt
                 $airplane->delete();
                 Redirect::toRoute('airplane/index');
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }

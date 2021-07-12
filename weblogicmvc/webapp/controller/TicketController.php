@@ -110,7 +110,7 @@ class TicketController extends BaseController implements ResourceControllerInter
             }else{
                 $error = 'Ticket does not exists';
                 Session::set('error',$error);
-                Redirect::toRoute('home/usererror');
+                Redirect::toRoute('home/error');
 
             }
         }
@@ -158,7 +158,7 @@ class TicketController extends BaseController implements ResourceControllerInter
             }else{
                 $error = 'Ticket does not exists';
                 Session::set('error',$error);
-                Redirect::toRoute('home/usererror');
+                Redirect::toRoute('home/error');
 
             }
         }
@@ -227,7 +227,7 @@ class TicketController extends BaseController implements ResourceControllerInter
                     Redirect::toRoute('ticket/index');
 
                 }else{
-                    $error = 'You have not premissions';
+                    $error = 'You have no premissions';
                     Session::set('error',$error);
                     Redirect::toRoute('home/error');
                 }

@@ -31,7 +31,7 @@ class StopoverController extends BaseController implements ResourceControllerInt
                     return View::make('stopover.index', ['stopovers' => $stopovers, 'user' => $user_logado ]);
                 }
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -92,7 +92,7 @@ class StopoverController extends BaseController implements ResourceControllerInt
             if($user_logado->role == 'gest'){
                 return View::make('stopover.stopovercreate', ['user' => $user_logado, 'airports' => $airports, 'flights' => $flights, 'airplanes' => $airplanes, 'id' => $id]);
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -160,7 +160,7 @@ class StopoverController extends BaseController implements ResourceControllerInt
                 return View::make('stopover.show', ['stopover' => $stopover, 'user' => $user_logado]);
                 }
             }else{
-                $error = 'You have not premissions';
+                $error = 'You have no premissions';
                 Session::set('error',$error);
                 Redirect::toRoute('home/error');
             }
@@ -262,7 +262,7 @@ class StopoverController extends BaseController implements ResourceControllerInt
                 if ($airport != null || $airplanestopover != null || $flight != null)
                 {
                     $error = 'User has airport(s)/stopover(s)/flight(s) associated, deletion is not allowed, first delete the other items';
-                    Session::set('error_user',$error);
+                    Session::set('error',$error);
                     Redirect::toRoute('home/error');
                 }else{
                     $stopover = Stopover::find([$id]);
