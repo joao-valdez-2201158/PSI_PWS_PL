@@ -150,7 +150,7 @@ ErrMgr::attach($flight);
                             <tr>
                                 <td><input type="radio" id="id_flight_return" name="id_flight_return"
                                            value="<?php echo $value->id_flight ?>"></td>
-                                <td><a href="<?php echo 'flightdetail/?idF=' . $value->id_flight ?> "
+                                <td><a href="<?= Url::toRoute('home/flightdetail', $value->id_flight)?>"
                                        class="btn btn-sm btn-success"><i class="fa fa-plane"></i></a></td>
                                 <td><?= $value->id_flight ?></td>
                                 <td><?= $value->stopovers[0]->departure_airport->name ?></td>
