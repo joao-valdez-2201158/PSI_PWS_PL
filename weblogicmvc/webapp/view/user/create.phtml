@@ -72,10 +72,10 @@ Layout::includeLayout('header') ?>
                                     <label>Role <span class="text-danger"></span></label><br>
                                     <select class="dropdown" name="role">
                                         <option value="<?= $user->role ?>" selected><?= $user->role ?></option>
-                                        <option value='admin'>Administrador</option>
-                                        <option value='op'>Operador de Checkin</option>
-                                        <option value='gest'>Gestor de Voo</option>
-                                        <option value='mark'>Gestor de Marketing</option>
+                                        <option value='admin'>Administrator</option>
+                                        <option value='op'>Checkin Operator</option>
+                                        <option value='gest'>Flight Manager</option>
+                                        <option value='mark'>Marketing Director</option>
                                     </select>
                                     <?= ErrMgr::bind('role') ?>
                                 </div>
